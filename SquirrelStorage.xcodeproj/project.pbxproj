@@ -9,12 +9,12 @@
 /* Begin PBXBuildFile section */
 		03A9A6D8251244E20040DA7C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A9A6D7251244E20040DA7C /* AppDelegate.swift */; };
 		03A9A6DA251244E20040DA7C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A9A6D9251244E20040DA7C /* SceneDelegate.swift */; };
-		03A9A6DC251244E20040DA7C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A9A6DB251244E20040DA7C /* ViewController.swift */; };
 		03A9A6E1251244E30040DA7C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 03A9A6E0251244E30040DA7C /* Assets.xcassets */; };
 		03A9A6E4251244E30040DA7C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 03A9A6E2251244E30040DA7C /* LaunchScreen.storyboard */; };
 		03A9A6EF251244E30040DA7C /* SquirrelStorageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A9A6EE251244E30040DA7C /* SquirrelStorageTests.swift */; };
 		03A9A6FF2512467B0040DA7C /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A9A6FE2512467B0040DA7C /* Product.swift */; };
 		03A9A704251253B40040DA7C /* EstoqueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A9A703251253B40040DA7C /* EstoqueViewController.swift */; };
+		03A9A706251254E80040DA7C /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A9A705251254E80040DA7C /* Colors.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -31,7 +31,6 @@
 		03A9A6D4251244E20040DA7C /* SquirrelStorage.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SquirrelStorage.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		03A9A6D7251244E20040DA7C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		03A9A6D9251244E20040DA7C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		03A9A6DB251244E20040DA7C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		03A9A6E0251244E30040DA7C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		03A9A6E3251244E30040DA7C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		03A9A6E5251244E30040DA7C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -40,6 +39,7 @@
 		03A9A6F0251244E30040DA7C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		03A9A6FE2512467B0040DA7C /* Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
 		03A9A703251253B40040DA7C /* EstoqueViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EstoqueViewController.swift; sourceTree = "<group>"; };
+		03A9A705251254E80040DA7C /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,7 +88,6 @@
 				03A9A6F9251245FA0040DA7C /* Model */,
 				03A9A6D7251244E20040DA7C /* AppDelegate.swift */,
 				03A9A6D9251244E20040DA7C /* SceneDelegate.swift */,
-				03A9A6DB251244E20040DA7C /* ViewController.swift */,
 				03A9A6E0251244E30040DA7C /* Assets.xcassets */,
 				03A9A6E2251244E30040DA7C /* LaunchScreen.storyboard */,
 				03A9A6E5251244E30040DA7C /* Info.plist */,
@@ -138,6 +137,7 @@
 		03A9A6FD251246160040DA7C /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				03A9A705251254E80040DA7C /* Colors.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -264,7 +264,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				03A9A704251253B40040DA7C /* EstoqueViewController.swift in Sources */,
-				03A9A6DC251244E20040DA7C /* ViewController.swift in Sources */,
+				03A9A706251254E80040DA7C /* Colors.swift in Sources */,
 				03A9A6FF2512467B0040DA7C /* Product.swift in Sources */,
 				03A9A6D8251244E20040DA7C /* AppDelegate.swift in Sources */,
 				03A9A6DA251244E20040DA7C /* SceneDelegate.swift in Sources */,
