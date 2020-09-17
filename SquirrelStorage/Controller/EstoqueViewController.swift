@@ -12,10 +12,10 @@ class EstoqueViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        navigationItem.title = "Estoque"
+        navigationController?.pushViewController(ProductDetailViewController(), animated: true)
         // Do any additional setup after loading the view.
     }
-    
 
     /*
     // MARK: - Navigation

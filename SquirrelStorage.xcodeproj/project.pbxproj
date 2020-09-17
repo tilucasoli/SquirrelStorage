@@ -15,6 +15,8 @@
 		03A9A6FF2512467B0040DA7C /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A9A6FE2512467B0040DA7C /* Product.swift */; };
 		03A9A704251253B40040DA7C /* EstoqueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A9A703251253B40040DA7C /* EstoqueViewController.swift */; };
 		03A9A706251254E80040DA7C /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A9A705251254E80040DA7C /* Colors.swift */; };
+		5740F2D525138B13001137EC /* ProductDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5740F2D425138B13001137EC /* ProductDetailViewController.swift */; };
+		5740F2D725138B2B001137EC /* ProductDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5740F2D625138B2B001137EC /* ProductDetailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +42,8 @@
 		03A9A6FE2512467B0040DA7C /* Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
 		03A9A703251253B40040DA7C /* EstoqueViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EstoqueViewController.swift; sourceTree = "<group>"; };
 		03A9A705251254E80040DA7C /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		5740F2D425138B13001137EC /* ProductDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailViewController.swift; sourceTree = "<group>"; };
+		5740F2D625138B2B001137EC /* ProductDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProductDetailView.swift; path = SquirrelStorage/Controller/ProductDetailView.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +119,7 @@
 		03A9A6FA251246020040DA7C /* View */ = {
 			isa = PBXGroup;
 			children = (
+				5740F2D625138B2B001137EC /* ProductDetailView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -123,6 +128,7 @@
 			isa = PBXGroup;
 			children = (
 				03A9A703251253B40040DA7C /* EstoqueViewController.swift */,
+				5740F2D425138B13001137EC /* ProductDetailViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -266,6 +272,8 @@
 				03A9A704251253B40040DA7C /* EstoqueViewController.swift in Sources */,
 				03A9A706251254E80040DA7C /* Colors.swift in Sources */,
 				03A9A6FF2512467B0040DA7C /* Product.swift in Sources */,
+				5740F2D525138B13001137EC /* ProductDetailViewController.swift in Sources */,
+				5740F2D725138B2B001137EC /* ProductDetailView.swift in Sources */,
 				03A9A6D8251244E20040DA7C /* AppDelegate.swift in Sources */,
 				03A9A6DA251244E20040DA7C /* SceneDelegate.swift in Sources */,
 			);
