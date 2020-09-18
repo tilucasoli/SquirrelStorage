@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		034368AD251396A600969496 /* CardEstoqueCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034368AC251396A600969496 /* CardEstoqueCollectionViewCell.swift */; };
+		034368AF2513A6BD00969496 /* EstoqueTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034368AE2513A6BD00969496 /* EstoqueTableViewCell.swift */; };
 		03A9A6D8251244E20040DA7C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A9A6D7251244E20040DA7C /* AppDelegate.swift */; };
 		03A9A6DA251244E20040DA7C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A9A6D9251244E20040DA7C /* SceneDelegate.swift */; };
 		03A9A6E1251244E30040DA7C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 03A9A6E0251244E30040DA7C /* Assets.xcassets */; };
@@ -28,6 +30,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		034368AC251396A600969496 /* CardEstoqueCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardEstoqueCollectionViewCell.swift; sourceTree = "<group>"; };
+		034368AE2513A6BD00969496 /* EstoqueTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EstoqueTableViewCell.swift; sourceTree = "<group>"; };
 		03A9A6D4251244E20040DA7C /* SquirrelStorage.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SquirrelStorage.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		03A9A6D7251244E20040DA7C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		03A9A6D9251244E20040DA7C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -115,6 +119,8 @@
 		03A9A6FA251246020040DA7C /* View */ = {
 			isa = PBXGroup;
 			children = (
+				034368AC251396A600969496 /* CardEstoqueCollectionViewCell.swift */,
+				034368AE2513A6BD00969496 /* EstoqueTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -264,10 +270,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				03A9A704251253B40040DA7C /* EstoqueViewController.swift in Sources */,
+				034368AD251396A600969496 /* CardEstoqueCollectionViewCell.swift in Sources */,
 				03A9A706251254E80040DA7C /* Colors.swift in Sources */,
 				03A9A6FF2512467B0040DA7C /* Product.swift in Sources */,
 				03A9A6D8251244E20040DA7C /* AppDelegate.swift in Sources */,
 				03A9A6DA251244E20040DA7C /* SceneDelegate.swift in Sources */,
+				034368AF2513A6BD00969496 /* EstoqueTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
