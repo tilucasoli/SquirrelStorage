@@ -10,6 +10,8 @@ import UIKit
 
 class ProductDetailView: UIView {
     
+    //MARK: Views
+    
     let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = .systemBlue
@@ -103,6 +105,36 @@ class ProductDetailView: UIView {
         return descriptionTextView
     }()
     
+    let quantityImageView: UIImageView = {
+        let quantityImageView = UIImageView(image: UIImage(named: "QuantityIcon"))
+        return quantityImageView
+    }()
+    
+    let currentQuantity: UILabel = {
+        let currentQuantity = UILabel()
+        currentQuantity.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
+        currentQuantity.textColor = .background
+        return currentQuantity
+    }()
+    
+    let increaseQuantityButton: UIButton = {
+        let increaseQuantityButton = UIButton()
+        increaseQuantityButton.setTitle("+", for: .normal)
+        increaseQuantityButton.setTitleColor(.purpleSS, for: .normal)
+        increaseQuantityButton.backgroundColor = .background
+        increaseQuantityButton.layer.cornerRadius = 4
+        return increaseQuantityButton
+    }()
+    
+    let decreaseQuantityButton: UIButton = {
+        let decreaseQuantityButton = UIButton()
+        decreaseQuantityButton.setTitle("-", for: .normal)
+        decreaseQuantityButton.setTitleColor(.purpleSS, for: .normal)
+        decreaseQuantityButton.backgroundColor = .background
+        decreaseQuantityButton.layer.cornerRadius = 4
+        return decreaseQuantityButton
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupImageView()
@@ -117,15 +149,23 @@ class ProductDetailView: UIView {
         setupCostPriceIndicator()
         setupDescriptionLabel()
         setupDescriptionTextView()
+        setupQuantityImageView()
+        setupCurrentQuantity()
+        setupIncreaseQuantityButton()
+        setupDecreaseQuantityButton()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: Actions
+    
     @objc func starButtonPressed() {
         starButton.isSelected.toggle()
     }
+    
+    //MARK: Setup
     
     func setupImageView() {
         addSubview(imageView)
@@ -240,6 +280,46 @@ class ProductDetailView: UIView {
             descriptionTextView.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 8),
             descriptionTextView.trailingAnchor.constraint(equalTo: detailCard.trailingAnchor, constant: -16),
             descriptionTextView.bottomAnchor.constraint(equalTo: detailCard.bottomAnchor, constant: -35)
+        ])
+    }
+    
+    func setupQuantityImageView() {
+        addSubview(quantityImageView)
+        quantityImageView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            quantityImageView.leadingAnchor.constraint(equalTo: quantityBar.leadingAnchor, constant: 16),
+            quantityImageView.topAnchor.constraint(equalTo: quantityBar.topAnchor, constant: 20)
+        ])
+    }
+    
+    func setupCurrentQuantity() {
+        addSubview(currentQuantity)
+        currentQuantity.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            currentQuantity.leadingAnchor.constraint(equalTo: quantityImageView.trailingAnchor, constant: 16),
+            currentQuantity.topAnchor.constraint(equalTo: quantityBar.topAnchor, constant: 20)
+        ])
+    }
+    
+    func setupIncreaseQuantityButton() {
+        addSubview(increaseQuantityButton)
+        increaseQuantityButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            increaseQuantityButton.topAnchor.constraint(equalTo: quantityBar.topAnchor, constant: 15),
+            increaseQuantityButton.trailingAnchor.constraint(equalTo: quantityBar.trailingAnchor, constant: -24),
+            increaseQuantityButton.widthAnchor.constraint(equalTo: quantityBar.heightAnchor, multiplier: 0.5),
+            increaseQuantityButton.heightAnchor.constraint(equalTo: quantityBar.heightAnchor, multiplier: 0.5)
+        ])
+    }
+    
+    func setupDecreaseQuantityButton() {
+        addSubview(decreaseQuantityButton)
+        decreaseQuantityButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            decreaseQuantityButton.topAnchor.constraint(equalTo: increaseQuantityButton.topAnchor),
+            decreaseQuantityButton.trailingAnchor.constraint(equalTo: increaseQuantityButton.leadingAnchor, constant: -24),
+            decreaseQuantityButton.widthAnchor.constraint(equalTo: increaseQuantityButton.widthAnchor),
+            decreaseQuantityButton.heightAnchor.constraint(equalTo: increaseQuantityButton.heightAnchor)
         ])
     }
 }

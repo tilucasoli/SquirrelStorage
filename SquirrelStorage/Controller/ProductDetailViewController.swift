@@ -22,17 +22,27 @@ class ProductDetailViewController: UIViewController {
         super.viewDidLoad()
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Editar", style: .plain, target: self, action: nil)
         productDetailView.backgroundColor = .systemRed
+        mockProduto()
         setupProductDetailView()
     }
     
+    func mockProduto() {
+        self.product = Product(id: 0, name: "Capa iPhone 7", image: nil, qnty: 5, costPrice: 249.99, sellPrice: 500.00, description: "essa é uma descricao muito maneira de teste opa", tag: "Capa")
+    }
+    
     func setupProductDetailView() {
-        productDetailView.cardTitle.text = "Título"
-        productDetailView.cardCategory.text = "Categoria"
-        productDetailView.salePrice.text = "R$1,00"
-        productDetailView.costPrice.text = "R$5,00"
-        //productDetailView.salePrice.text = "R$1"
-        //productDetailView.costPrice.text = "R$5"
-        productDetailView.descriptionTextView.text = "essa é uma descricao muito maneira de teste"
+        if let product = self.product {
+            productDetailView.cardTitle.text = product.name
+            productDetailView.cardCategory.text = product.tag
+            let numberFormatter = NumberFormatter()
+            numberFormatter.numberStyle = .currency
+            numberFormatter.currencyCode = "BRL"
+            numberFormatter.locale = Locale(identifier: "pt_BR")
+            productDetailView.salePrice.text = numberFormatter.string(from: product.sellPrice as NSDecimalNumber)
+            productDetailView.costPrice.text = numberFormatter.string(from: product.costPrice as NSDecimalNumber)
+            productDetailView.descriptionTextView.text = product.description
+            productDetailView.currentQuantity.text = "\(product.qnty) unidades"
+        }
     }
 
 }
