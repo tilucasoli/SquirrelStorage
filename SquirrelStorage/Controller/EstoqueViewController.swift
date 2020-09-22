@@ -103,8 +103,9 @@ extension EstoqueViewController: UITableViewDelegate, UITableViewDataSource {
 
 extension EstoqueViewController: delegateFilter {
     func filterAction() {
-        navigationController?.pushViewController(FiltroViewController(), animated: true )
+       // navigationController?.pushViewController(FiltroViewController(), animated: true )
+        navigationController?.present(FiltroViewController(), animated: true, completion: nil)
+        
     }
-    
     
 }

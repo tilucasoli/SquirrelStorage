@@ -13,7 +13,7 @@ class FiltroViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = UIColor.black.withAlphaComponent(0.2)
+        view.backgroundColor = UIColor.white.withAlphaComponent(0.2)
         // Do any additional setup after loading the view.
     }
     
