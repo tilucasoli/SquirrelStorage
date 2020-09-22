@@ -12,7 +12,7 @@ struct Product {
     let id: Int
     let name: String
     let image: URL?
-    let qnty: Int
+    var quantity: Int
     let costPrice: Decimal
     let sellPrice: Decimal
     let description: String

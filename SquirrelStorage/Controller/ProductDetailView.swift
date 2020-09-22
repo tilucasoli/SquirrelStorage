@@ -10,7 +10,9 @@ import UIKit
 
 class ProductDetailView: UIView {
     
-    //MARK: Views
+    weak var delegate: ProductDetailViewDelegate?
+    
+    // MARK: Views
     
     let imageView: UIImageView = {
         let imageView = UIImageView()
@@ -59,6 +61,7 @@ class ProductDetailView: UIView {
     let salePrice: UILabel = {
         let salePrice = UILabel()
         salePrice.font = UIFont.systemFont(ofSize: 26, weight: .bold)
+        salePrice.textAlignment = .center
         salePrice.textColor = .darkPurpleSS
         return salePrice
     }()
@@ -66,6 +69,7 @@ class ProductDetailView: UIView {
     let costPrice: UILabel = {
         let costPrice = UILabel()
         costPrice.font = UIFont.systemFont(ofSize: 26, weight: .semibold)
+        costPrice.textAlignment = .center
         costPrice.textColor = .largeTitle
         return costPrice
     }()
@@ -106,7 +110,8 @@ class ProductDetailView: UIView {
     }()
     
     let quantityImageView: UIImageView = {
-        let quantityImageView = UIImageView(image: UIImage(named: "QuantityIcon"))
+        let image = UIImage(named: "QuantityIcon")
+        let quantityImageView = UIImageView(image: image)
         return quantityImageView
     }()
     
@@ -119,19 +124,33 @@ class ProductDetailView: UIView {
     
     let increaseQuantityButton: UIButton = {
         let increaseQuantityButton = UIButton()
-        increaseQuantityButton.setTitle("+", for: .normal)
-        increaseQuantityButton.setTitleColor(.purpleSS, for: .normal)
+        let font = UIFont.boldSystemFont(ofSize: 20)
+        let attributes: [NSAttributedString.Key: Any] = [
+            .font: font,
+            .foregroundColor: UIColor.purpleSS
+        ]
+        let title = NSAttributedString(string: "+", attributes: attributes)
+        increaseQuantityButton.setAttributedTitle(title, for: .normal)
         increaseQuantityButton.backgroundColor = .background
         increaseQuantityButton.layer.cornerRadius = 4
+        increaseQuantityButton.addTarget(self, action: #selector(increaseQuantityButtonPressed), for: .touchUpInside)
+        increaseQuantityButton.addTarget(self, action: #selector(quantityButtonDown(sender:)), for: .touchDown)
         return increaseQuantityButton
     }()
     
     let decreaseQuantityButton: UIButton = {
         let decreaseQuantityButton = UIButton()
-        decreaseQuantityButton.setTitle("-", for: .normal)
-        decreaseQuantityButton.setTitleColor(.purpleSS, for: .normal)
+        let font = UIFont.boldSystemFont(ofSize: 20)
+        let attributes: [NSAttributedString.Key: Any] = [
+            .font: font,
+            .foregroundColor: UIColor.purpleSS
+        ]
+        let title = NSAttributedString(string: "-", attributes: attributes)
+        decreaseQuantityButton.setAttributedTitle(title, for: .normal)
         decreaseQuantityButton.backgroundColor = .background
         decreaseQuantityButton.layer.cornerRadius = 4
+        decreaseQuantityButton.addTarget(self, action: #selector(decreaseQuantityButtonPressed), for: .touchUpInside)
+        decreaseQuantityButton.addTarget(self, action: #selector(quantityButtonDown(sender:)), for: .touchDown)
         return decreaseQuantityButton
     }()
     
@@ -159,13 +178,28 @@ class ProductDetailView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //MARK: Actions
+    // MARK: Actions
     
     @objc func starButtonPressed() {
         starButton.isSelected.toggle()
+        delegate?.favorite()
     }
     
-    //MARK: Setup
+    @objc func increaseQuantityButtonPressed() {
+        increaseQuantityButton.backgroundColor = .background
+        delegate?.increaseQuantity()
+    }
+    
+    @objc func decreaseQuantityButtonPressed() {
+        decreaseQuantityButton.backgroundColor = .background
+        delegate?.decreaseQuantity()
+    }
+    
+    @objc func quantityButtonDown(sender: UIButton) {
+        sender.backgroundColor = .lightGray
+    }
+    
+    // MARK: Setup
     
     func setupImageView() {
         addSubview(imageView)
@@ -231,7 +265,7 @@ class ProductDetailView: UIView {
         addSubview(salePrice)
         salePrice.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            salePrice.leadingAnchor.constraint(equalTo: detailCard.leadingAnchor, constant: 46),
+            salePrice.leadingAnchor.constraint(equalTo: detailCard.leadingAnchor, constant: 20),
             salePrice.topAnchor.constraint(equalTo: cardCategory.bottomAnchor, constant: 32)
         ])
     }
@@ -240,7 +274,9 @@ class ProductDetailView: UIView {
         addSubview(costPrice)
         costPrice.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            costPrice.leadingAnchor.constraint(equalTo: detailCard.centerXAnchor, constant: 32),
+            costPrice.trailingAnchor.constraint(equalTo: detailCard.trailingAnchor, constant: -20),
+            costPrice.leadingAnchor.constraint(equalTo: salePrice.trailingAnchor, constant: 20),
+            costPrice.widthAnchor.constraint(equalTo: salePrice.widthAnchor),
             costPrice.topAnchor.constraint(equalTo: cardCategory.bottomAnchor, constant: 32)
         ])
     }
@@ -288,7 +324,9 @@ class ProductDetailView: UIView {
         quantityImageView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             quantityImageView.leadingAnchor.constraint(equalTo: quantityBar.leadingAnchor, constant: 16),
-            quantityImageView.topAnchor.constraint(equalTo: quantityBar.topAnchor, constant: 20)
+            quantityImageView.centerYAnchor.constraint(equalTo: quantityBar.centerYAnchor),
+            quantityImageView.widthAnchor.constraint(equalTo: quantityBar.heightAnchor, multiplier: 0.4),
+            quantityImageView.heightAnchor.constraint(equalTo: quantityBar.heightAnchor, multiplier: 0.4)
         ])
     }
     
@@ -297,7 +335,7 @@ class ProductDetailView: UIView {
         currentQuantity.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             currentQuantity.leadingAnchor.constraint(equalTo: quantityImageView.trailingAnchor, constant: 16),
-            currentQuantity.topAnchor.constraint(equalTo: quantityBar.topAnchor, constant: 20)
+            currentQuantity.centerYAnchor.constraint(equalTo: quantityBar.centerYAnchor)
         ])
     }
     
@@ -305,7 +343,7 @@ class ProductDetailView: UIView {
         addSubview(increaseQuantityButton)
         increaseQuantityButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            increaseQuantityButton.topAnchor.constraint(equalTo: quantityBar.topAnchor, constant: 15),
+            increaseQuantityButton.centerYAnchor.constraint(equalTo: quantityBar.centerYAnchor),
             increaseQuantityButton.trailingAnchor.constraint(equalTo: quantityBar.trailingAnchor, constant: -24),
             increaseQuantityButton.widthAnchor.constraint(equalTo: quantityBar.heightAnchor, multiplier: 0.5),
             increaseQuantityButton.heightAnchor.constraint(equalTo: quantityBar.heightAnchor, multiplier: 0.5)
@@ -316,7 +354,7 @@ class ProductDetailView: UIView {
         addSubview(decreaseQuantityButton)
         decreaseQuantityButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            decreaseQuantityButton.topAnchor.constraint(equalTo: increaseQuantityButton.topAnchor),
+            decreaseQuantityButton.centerYAnchor.constraint(equalTo: quantityBar.centerYAnchor),
             decreaseQuantityButton.trailingAnchor.constraint(equalTo: increaseQuantityButton.leadingAnchor, constant: -24),
             decreaseQuantityButton.widthAnchor.constraint(equalTo: increaseQuantityButton.widthAnchor),
             decreaseQuantityButton.heightAnchor.constraint(equalTo: increaseQuantityButton.heightAnchor)
