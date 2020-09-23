@@ -24,7 +24,7 @@ class EstoqueViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        navigationItem.title = "Estoque"
         setupNavController()
         setupTableView()
         

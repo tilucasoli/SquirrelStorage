@@ -11,11 +11,11 @@ import UIKit
 struct Product {
     let id: Int
     let name: String
-    let image: URL
-    let qnty: Int
+    let image: URL?
+    var quantity: Int
     let favorited: Bool
-    let costPrice: Double
-    let sellPrice: Double
+    let costPrice: Decimal
+    let sellPrice: Decimal
     let description: String
     let tag: String
     
