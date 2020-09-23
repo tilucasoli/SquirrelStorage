@@ -2,6 +2,9 @@
 # Created by https://www.toptal.com/developers/gitignore/api/xcode,swift
 # Edit at https://www.toptal.com/developers/gitignore?templates=xcode,swift
 
+# Finder configuration file
+**/.DS_Store
+
 ### Swift ###
 # Xcode
 #
