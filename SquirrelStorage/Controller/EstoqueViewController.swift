@@ -10,7 +10,7 @@ import UIKit
 
 class EstoqueViewController: UIViewController {
     
-    var num = 0.0
+    var num = 0
     
     let tableView: UITableView = {
         let tableView = UITableView(frame: .zero)
@@ -18,6 +18,7 @@ class EstoqueViewController: UIViewController {
         tableView.register(EstoqueTableViewCell.self, forCellReuseIdentifier: "Estoque")
         tableView.register(ProdutosTableViewCell.self, forCellReuseIdentifier: "Produtos")
         tableView.allowsSelection = false
+        tableView.bounces = false
         return tableView
     }()
     
@@ -63,9 +64,12 @@ extension EstoqueViewController: UITableViewDelegate, UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: "Estoque", for: indexPath) as! EstoqueTableViewCell
             return cell
         }
+        
         if indexPath.section == 1 {
             let cell2 = tableView.dequeueReusableCell(withIdentifier: "Produtos", for: indexPath) as! ProdutosTableViewCell
-            num = Double(cell2.collectionView.numberOfItems(inSection: 0))
+            cell2.contentView.isUserInteractionEnabled = false
+            
+            num = cell2.collectionView.numberOfItems(inSection: 0)
             return cell2
         }
         return UITableViewCell()
@@ -80,11 +84,15 @@ extension EstoqueViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if Int(num) % 2 == 0 {
-            let result = (num/2)*222
+        let numberOfColums = 2
+        let cellHeight = 222
+        
+        if num % numberOfColums == 0 {
+            let result = (num/2) * cellHeight
             return CGFloat(indexPath.section == 0 ? 100 : result)
+            
         } else {
-            let result: Float = Float(((num/2)*222)+111)
+            let result: Float = Float((Double(num/2)*222)+111)
             return CGFloat(indexPath.section == 0 ? 100 : result)
         }
         

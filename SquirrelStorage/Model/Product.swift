@@ -13,6 +13,7 @@ struct Product {
     let name: String
     let image: URL
     let qnty: Int
+    let favorited: Bool
     let costPrice: Double
     let sellPrice: Double
     let description: String

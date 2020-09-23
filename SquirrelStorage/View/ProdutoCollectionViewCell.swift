@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 class ProdutoCollectionViewCell: UICollectionViewCell {
     let image: UIImageView = {
@@ -41,6 +42,8 @@ class ProdutoCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
+    let starIcon = UIHostingView(rootView: StarAnimationView(), viewController: nil)
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .white
@@ -49,11 +52,12 @@ class ProdutoCollectionViewCell: UICollectionViewCell {
         layer.shadowColor = UIColor.black.cgColor
         layer.shadowOffset = .zero
         layer.shadowOpacity = 0.02
-        
+    
         setupImage()
         setupProductQnty()
         setupProductName()
         setupProductPrice()
+        setupStarIcon()
     }
     
     required init?(coder: NSCoder) {
@@ -100,6 +104,18 @@ class ProdutoCollectionViewCell: UICollectionViewCell {
             productPrice.leftAnchor.constraint(equalTo: leftAnchor, constant: 8),
             productPrice.topAnchor.constraint(equalTo: productName.bottomAnchor)
         ])
+    }
+    func setupStarIcon() {
+        addSubview(starIcon)
+        starIcon.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            starIcon.widthAnchor.constraint(equalToConstant: 24),
+            starIcon.heightAnchor.constraint(equalToConstant: 24),
+            starIcon.centerYAnchor.constraint(equalTo: productQnty.centerYAnchor),
+            starIcon.rightAnchor.constraint(equalTo: rightAnchor, constant: -6)
+        ])
+        
     }
     
 }

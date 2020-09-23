@@ -11,10 +11,7 @@ import UIKit
 class ProdutosTableViewCell: UITableViewCell {
     
     let collectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
-        layout.itemSize = CGSize(width: 162, height: 206)
-        
+        let layout = centralizeCellInUICollection(weightCell: 162, numberOfCells: 2)
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = .background
@@ -57,7 +54,16 @@ extension ProdutosTableViewCell: UICollectionViewDelegate, UICollectionViewDataS
         return cell
     }
     
-    
-    
 }
 
+func centralizeCellInUICollection(weightCell: CGFloat, numberOfCells: CGFloat) -> UICollectionViewFlowLayout {
+    let layout = UICollectionViewFlowLayout()
+    let screenSize = UIScreen.main.bounds.width
+    let space = (screenSize - weightCell * numberOfCells) / (numberOfCells+1)
+    
+    layout.sectionInset = UIEdgeInsets(top: 0, left: space, bottom: 0, right: space)
+    layout.itemSize = CGSize(width: 162, height: 206)
+    layout.minimumLineSpacing = space
+    layout.minimumInteritemSpacing = space
+    return layout
+}

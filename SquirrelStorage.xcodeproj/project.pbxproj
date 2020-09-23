@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		030FE7D82518EDF4004151A5 /* FiltroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030FE7D72518EDF4004151A5 /* FiltroViewController.swift */; };
+		0323A676251A2F92001822B3 /* StarAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0323A675251A2F92001822B3 /* StarAnimationView.swift */; };
+		03403EED251A4340009E6446 /* UIHostingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03403EEC251A4340009E6446 /* UIHostingView.swift */; };
 		034368AD251396A600969496 /* CardEstoqueCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034368AC251396A600969496 /* CardEstoqueCollectionViewCell.swift */; };
 		034368AF2513A6BD00969496 /* EstoqueTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034368AE2513A6BD00969496 /* EstoqueTableViewCell.swift */; };
 		03A9A6D8251244E20040DA7C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A9A6D7251244E20040DA7C /* AppDelegate.swift */; };
@@ -35,6 +37,8 @@
 
 /* Begin PBXFileReference section */
 		030FE7D72518EDF4004151A5 /* FiltroViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiltroViewController.swift; sourceTree = "<group>"; };
+		0323A675251A2F92001822B3 /* StarAnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarAnimationView.swift; sourceTree = "<group>"; };
+		03403EEC251A4340009E6446 /* UIHostingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIHostingView.swift; sourceTree = "<group>"; };
 		034368AC251396A600969496 /* CardEstoqueCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardEstoqueCollectionViewCell.swift; sourceTree = "<group>"; };
 		034368AE2513A6BD00969496 /* EstoqueTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EstoqueTableViewCell.swift; sourceTree = "<group>"; };
 		03A9A6D4251244E20040DA7C /* SquirrelStorage.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SquirrelStorage.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -72,6 +76,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		03403EEB251A4327009E6446 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				03403EEC251A4340009E6446 /* UIHostingView.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		03A9A6CB251244E20040DA7C = {
 			isa = PBXGroup;
 			children = (
@@ -93,6 +105,7 @@
 		03A9A6D6251244E20040DA7C /* SquirrelStorage */ = {
 			isa = PBXGroup;
 			children = (
+				03403EEB251A4327009E6446 /* Helpers */,
 				03A9A6FD251246160040DA7C /* Extensions */,
 				03A9A6FC2512460D0040DA7C /* Protocols */,
 				03A9A6FB251246070040DA7C /* Controller */,
@@ -128,6 +141,7 @@
 			isa = PBXGroup;
 			children = (
 				034368AC251396A600969496 /* CardEstoqueCollectionViewCell.swift */,
+				0323A675251A2F92001822B3 /* StarAnimationView.swift */,
 				034368AE2513A6BD00969496 /* EstoqueTableViewCell.swift */,
 				03DDD21B2514F86000E03DC4 /* ProdutosTableViewCell.swift */,
 				03C5DDEA2518CD7C00477F8F /* ProdutoCollectionViewCell.swift */,
@@ -288,7 +302,9 @@
 				03A9A6FF2512467B0040DA7C /* Product.swift in Sources */,
 				03A9A6D8251244E20040DA7C /* AppDelegate.swift in Sources */,
 				03C5DDEB2518CD7C00477F8F /* ProdutoCollectionViewCell.swift in Sources */,
+				0323A676251A2F92001822B3 /* StarAnimationView.swift in Sources */,
 				03FCF0D32514EB800060F5BD /* CustomSectionView.swift in Sources */,
+				03403EED251A4340009E6446 /* UIHostingView.swift in Sources */,
 				03A9A6DA251244E20040DA7C /* SceneDelegate.swift in Sources */,
 				034368AF2513A6BD00969496 /* EstoqueTableViewCell.swift in Sources */,
 				030FE7D82518EDF4004151A5 /* FiltroViewController.swift in Sources */,
