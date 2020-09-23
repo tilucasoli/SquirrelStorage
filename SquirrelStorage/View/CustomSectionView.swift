@@ -11,7 +11,7 @@ protocol delegateFilter: class {
     func filterAction()
 }
 
-class CustomSectionView: UIView {
+class CustomSectionView: UICollectionReusableView {
     
     weak var delegate: delegateFilter?
     
@@ -19,7 +19,7 @@ class CustomSectionView: UIView {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 26, weight: .semibold)
         label.textColor = .largeTitle
-        label.text = "Produto"
+        label.text = "Produtos"
         return label
     }()
     
@@ -49,9 +49,8 @@ class CustomSectionView: UIView {
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 24),
-            titleLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: 16),
-            titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16)
+            titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 8),
+            titleLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: 16)
         ])
     }
     

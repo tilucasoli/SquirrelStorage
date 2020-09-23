@@ -8,26 +8,42 @@
 
 import UIKit
 
+func centralizeCellInUICollection(weightCell: CGFloat, numberOfCells: CGFloat) -> UICollectionViewFlowLayout {
+    let layout = UICollectionViewFlowLayout()
+    let screenSize = UIScreen.main.bounds.width
+    let space = (screenSize - weightCell * numberOfCells) / (numberOfCells+1)
+    
+    layout.sectionInset = UIEdgeInsets(top: 0, left: space, bottom: 16, right: space)
+    layout.itemSize = CGSize(width: 162, height: 206)
+    layout.minimumLineSpacing = space
+    layout.minimumInteritemSpacing = space
+    return layout
+}
+
 class EstoqueViewController: UIViewController {
     
     var num = 0
     
-    let tableView: UITableView = {
-        let tableView = UITableView(frame: .zero)
-        tableView.backgroundColor = .background
-        tableView.register(EstoqueTableViewCell.self, forCellReuseIdentifier: "Estoque")
-        tableView.register(ProdutosTableViewCell.self, forCellReuseIdentifier: "Produtos")
-        tableView.allowsSelection = false
-        tableView.bounces = false
+    let collectionView: UICollectionView = {
+        let layout = centralizeCellInUICollection(weightCell: 162, numberOfCells: 2)
+        layout.scrollDirection = .vertical
+
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         
-        return tableView
+        collectionView.backgroundColor = .background
+        collectionView.register(ProdutoCollectionViewCell.self, forCellWithReuseIdentifier: "Produto")
+        collectionView.register(CardEstoqueCollectionViewCell.self, forCellWithReuseIdentifier: "EstoqueCard")
+        
+        collectionView.register(CustomSectionView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "headerView")
+        
+        return collectionView
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "Estoque"
         setupNavController()
-        setupTableView()
+        setupCollectionView()
         
     }
     
@@ -41,79 +57,68 @@ class EstoqueViewController: UIViewController {
         ]
     }
     
-    func setupTableView() {
-        view.addSubview(tableView)
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.backgroundColor = .background
-        tableView.separatorStyle = .none
-        tableView.delegate = self
-        tableView.dataSource = self
+    func setupCollectionView() {
+        view.addSubview(collectionView)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        
+        collectionView.delegate = self
+        collectionView.dataSource = self
         
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            tableView.rightAnchor.constraint(equalTo: view.rightAnchor),
-            tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            collectionView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            collectionView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
 
 }
-extension EstoqueViewController: UITableViewDelegate, UITableViewDataSource {
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.section == 0 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "Estoque", for: indexPath) as! EstoqueTableViewCell
-            return cell
-        }
-        
-        if indexPath.section == 1 {
-            let cell2 = tableView.dequeueReusableCell(withIdentifier: "Produtos", for: indexPath) as! ProdutosTableViewCell
-            cell2.contentView.isUserInteractionEnabled = false
-            
-            num = cell2.collectionView.numberOfItems(inSection: 0)
-            return cell2
-        }
-        return UITableViewCell()
+extension EstoqueViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return section == 0 ? 1 : 10
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
-    }
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 2
     }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let numberOfColums = 2
-        let cellHeight = 222
-        
-        if num % numberOfColums == 0 {
-            let result = (num/2) * cellHeight
-            return CGFloat(indexPath.section == 0 ? 100 : result)
-            
-        } else {
-            let result: Float = Float((Double(num/2)*222)+111)
-            return CGFloat(indexPath.section == 0 ? 100 : result)
-        }
-        
-    }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return section == 0 ? 0 : 71
-    }
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "headerView", for: indexPath)
 
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let view = CustomSectionView()
-        view.delegate = self
-        return view
+            headerView.frame.size.height = 55
+
+            return headerView
+        
     }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return section == 0 ? CGSize.zero : CGSize(width: UIScreen.main.bounds.width, height: 55)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        if indexPath.section == 0 {
+            return CGSize(width: 293, height: 93)
+        } else {
+            return CGSize(width: 162, height: 206)
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        if indexPath.section == 0 {
+            
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "EstoqueCard", for: indexPath) as! CardEstoqueCollectionViewCell
+            return cell
+        } else {
+
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Produto", for: indexPath) as! ProdutoCollectionViewCell
+            return cell
+        }
+    }
+    
 }
 
 extension EstoqueViewController: delegateFilter {
     func filterAction() {
         navigationController?.pushViewController(FiltroViewController(), animated: true )
     }
-    
     
 }

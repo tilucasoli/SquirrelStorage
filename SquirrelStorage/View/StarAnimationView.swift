@@ -11,17 +11,18 @@ import SwiftUI
 struct StarAnimationView: View {
     
     @State private var favorited = false
+    @State private var size: CGFloat = 20
     
     var body: some View {
         ZStack {
             Image(systemName: "star.fill")
-                .foregroundColor(favorited ? .yellow : .white )
-                .font(.system(size: 20))
+                .foregroundColor(favorited ? .yellow : .clear)
+                .font(.system(size: size))
                 .scaleEffect(favorited ? 1 : 0.8)
             
             Image(systemName: "star")
                 .foregroundColor(favorited ? .clear : .yellow )
-                .font(.system(size: 20))
+                .font(.system(size: size))
                 .scaleEffect(favorited ? 0.8 : 1)
             
         }.animation(.easeInOut)

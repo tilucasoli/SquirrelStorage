@@ -105,6 +105,7 @@ class ProdutoCollectionViewCell: UICollectionViewCell {
             productPrice.topAnchor.constraint(equalTo: productName.bottomAnchor)
         ])
     }
+    
     func setupStarIcon() {
         addSubview(starIcon)
         starIcon.translatesAutoresizingMaskIntoConstraints = false
