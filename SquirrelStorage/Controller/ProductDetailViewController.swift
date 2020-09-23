@@ -28,7 +28,14 @@ class ProductDetailViewController: UIViewController {
     }
     
     func mockProduto() {
-        self.product = Product(id: 0, name: "Capa iPhone 7", image: nil, quantity: 5, costPrice: 249.99, sellPrice: 500.00, description: "essa é uma descricao muito maneira de teste opa", tag: "Capa")
+        self.product = Product(id: 0,
+                               name: "Capa iPhone 7",
+                               image: nil, quantity: 5,
+                               favorited: false,
+                               costPrice: 249.99,
+                               sellPrice: 500.00,
+                               description: "essa é uma descricao muito maneira de teste opa",
+                               tag: "Capa")
     }
     
     func setupProductDetailView() {

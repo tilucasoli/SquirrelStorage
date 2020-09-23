@@ -16,6 +16,7 @@ class ProdutosTableViewCell: UITableViewCell {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = .background
         collectionView.register(ProdutoCollectionViewCell.self, forCellWithReuseIdentifier: "Produto")
+        collectionView.isScrollEnabled = false
         return collectionView
     }()
 

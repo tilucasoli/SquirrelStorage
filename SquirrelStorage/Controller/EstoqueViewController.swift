@@ -19,6 +19,7 @@ class EstoqueViewController: UIViewController {
         tableView.register(ProdutosTableViewCell.self, forCellReuseIdentifier: "Produtos")
         tableView.allowsSelection = false
         tableView.bounces = false
+        
         return tableView
     }()
     
