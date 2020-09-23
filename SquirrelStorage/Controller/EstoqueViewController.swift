@@ -104,7 +104,11 @@ extension EstoqueViewController: UITableViewDelegate, UITableViewDataSource {
 extension EstoqueViewController: delegateFilter {
     func filterAction() {
        // navigationController?.pushViewController(FiltroViewController(), animated: true )
-        navigationController?.present(FiltroViewController(), animated: true, completion: nil)
+        
+        let modalFilter = FiltroViewController()
+        modalFilter.modalPresentationStyle = .fullScreen
+        modalFilter.backingImage = self.navigationController?.view.asImage()
+        navigationController?.present(modalFilter, animated: false, completion: nil)
         
     }
     

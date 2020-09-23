@@ -21,6 +21,7 @@
 		03C5DDEB2518CD7C00477F8F /* ProdutoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C5DDEA2518CD7C00477F8F /* ProdutoCollectionViewCell.swift */; };
 		03DDD21C2514F86000E03DC4 /* ProdutosTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DDD21B2514F86000E03DC4 /* ProdutosTableViewCell.swift */; };
 		03FCF0D32514EB800060F5BD /* CustomSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03FCF0D22514EB800060F5BD /* CustomSectionView.swift */; };
+		4B311E08251B89AB0041C1EA /* UIViewSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B311E07251B89AB0041C1EA /* UIViewSnapshot.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +53,7 @@
 		03C5DDEA2518CD7C00477F8F /* ProdutoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProdutoCollectionViewCell.swift; sourceTree = "<group>"; };
 		03DDD21B2514F86000E03DC4 /* ProdutosTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProdutosTableViewCell.swift; sourceTree = "<group>"; };
 		03FCF0D22514EB800060F5BD /* CustomSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSectionView.swift; sourceTree = "<group>"; };
+		4B311E07251B89AB0041C1EA /* UIViewSnapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewSnapshot.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -156,6 +158,7 @@
 			isa = PBXGroup;
 			children = (
 				03A9A705251254E80040DA7C /* Colors.swift */,
+				4B311E07251B89AB0041C1EA /* UIViewSnapshot.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -281,6 +284,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4B311E08251B89AB0041C1EA /* UIViewSnapshot.swift in Sources */,
 				03A9A704251253B40040DA7C /* EstoqueViewController.swift in Sources */,
 				034368AD251396A600969496 /* CardEstoqueCollectionViewCell.swift in Sources */,
 				03DDD21C2514F86000E03DC4 /* ProdutosTableViewCell.swift in Sources */,
