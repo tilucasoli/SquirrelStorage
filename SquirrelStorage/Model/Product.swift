@@ -8,8 +8,7 @@
 
 import UIKit
 
-struct Product {
-    let id: Int
+struct Product: Codable {
     let name: String
     let image: URL?
     var quantity: Int
@@ -17,7 +16,7 @@ struct Product {
     let costPrice: Decimal
     let sellPrice: Decimal
     let description: String
-    let tag: String
+    let category: String
     
 //    func getUIImage() -> UIImage {
 //    }

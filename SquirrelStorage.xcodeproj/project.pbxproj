@@ -26,6 +26,7 @@
 		577FAA72251B77B6005FA501 /* ProdutoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577FAA6D251B77B6005FA501 /* ProdutoCollectionViewCell.swift */; };
 		577FAA76251B7836005FA501 /* FiltroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577FAA75251B7836005FA501 /* FiltroViewController.swift */; };
 		577FAA7A251B78A0005FA501 /* ProductDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577FAA79251B78A0005FA501 /* ProductDetailView.swift */; };
+		577FAA92251B9A89005FA501 /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577FAA91251B9A89005FA501 /* Database.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +63,7 @@
 		577FAA6D251B77B6005FA501 /* ProdutoCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProdutoCollectionViewCell.swift; sourceTree = "<group>"; };
 		577FAA75251B7836005FA501 /* FiltroViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FiltroViewController.swift; sourceTree = "<group>"; };
 		577FAA79251B78A0005FA501 /* ProductDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductDetailView.swift; sourceTree = "<group>"; };
+		577FAA91251B9A89005FA501 /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,12 +84,12 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		03403EEB251A4327009E6446 /* Helpers */ = {
+		03403EEB251A4327009E6446 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
 				03403EEC251A4340009E6446 /* UIHostingView.swift */,
 			);
-			path = Helpers;
+			path = Helper;
 			sourceTree = "<group>";
 		};
 		03A9A6CB251244E20040DA7C = {
@@ -111,9 +113,10 @@
 		03A9A6D6251244E20040DA7C /* SquirrelStorage */ = {
 			isa = PBXGroup;
 			children = (
-				03403EEB251A4327009E6446 /* Helpers */,
-				03A9A6FD251246160040DA7C /* Extensions */,
-				57CF09432518F04700512B5C /* Protocols */,
+				03403EEB251A4327009E6446 /* Helper */,
+				03A9A6FD251246160040DA7C /* Extension */,
+				57CF09432518F04700512B5C /* Protocol */,
+				577FAA90251B9A75005FA501 /* Service */,
 				03A9A6FB251246070040DA7C /* Controller */,
 				03A9A6F9251245FA0040DA7C /* Model */,
 				57CF09442518F05A00512B5C /* View */,
@@ -153,20 +156,28 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
-		03A9A6FD251246160040DA7C /* Extensions */ = {
+		03A9A6FD251246160040DA7C /* Extension */ = {
 			isa = PBXGroup;
 			children = (
 				03A9A705251254E80040DA7C /* Colors.swift */,
 			);
-			path = Extensions;
+			path = Extension;
 			sourceTree = "<group>";
 		};
-		57CF09432518F04700512B5C /* Protocols */ = {
+		577FAA90251B9A75005FA501 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				577FAA91251B9A89005FA501 /* Database.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		57CF09432518F04700512B5C /* Protocol */ = {
 			isa = PBXGroup;
 			children = (
 				577FAA4F251A3CA4005FA501 /* ProductDetailViewDelegate.swift */,
 			);
-			path = Protocols;
+			path = Protocol;
 			sourceTree = "<group>";
 		};
 		57CF09442518F05A00512B5C /* View */ = {
@@ -317,6 +328,7 @@
 				577FAA50251A3CA4005FA501 /* ProductDetailViewDelegate.swift in Sources */,
 				577FAA76251B7836005FA501 /* FiltroViewController.swift in Sources */,
 				5740F2D525138B13001137EC /* ProductDetailViewController.swift in Sources */,
+				577FAA92251B9A89005FA501 /* Database.swift in Sources */,
 				03A9A6D8251244E20040DA7C /* AppDelegate.swift in Sources */,
 				03403EED251A4340009E6446 /* UIHostingView.swift in Sources */,
 				03A9A6DA251244E20040DA7C /* SceneDelegate.swift in Sources */,
