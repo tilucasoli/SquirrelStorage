@@ -25,6 +25,8 @@
 		577FAA76251B7836005FA501 /* FiltroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577FAA75251B7836005FA501 /* FiltroViewController.swift */; };
 		577FAA7A251B78A0005FA501 /* ProductDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577FAA79251B78A0005FA501 /* ProductDetailView.swift */; };
 		577FAA92251B9A89005FA501 /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577FAA91251B9A89005FA501 /* Database.swift */; };
+		FFCE2D0C251D2B3300D9826B /* AddProductViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFCE2D0B251D2B3300D9826B /* AddProductViewController.swift */; };
+		FFCE2D10251D2D4B00D9826B /* AddProductTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFCE2D0F251D2D4B00D9826B /* AddProductTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +62,8 @@
 		577FAA75251B7836005FA501 /* FiltroViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FiltroViewController.swift; sourceTree = "<group>"; };
 		577FAA79251B78A0005FA501 /* ProductDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductDetailView.swift; sourceTree = "<group>"; };
 		577FAA91251B9A89005FA501 /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
+		FFCE2D0B251D2B3300D9826B /* AddProductViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProductViewController.swift; sourceTree = "<group>"; };
+		FFCE2D0F251D2D4B00D9826B /* AddProductTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProductTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -148,6 +152,7 @@
 				577FAA75251B7836005FA501 /* FiltroViewController.swift */,
 				03A9A703251253B40040DA7C /* EstoqueViewController.swift */,
 				5740F2D425138B13001137EC /* ProductDetailViewController.swift */,
+				FFCE2D0B251D2B3300D9826B /* AddProductViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -184,6 +189,7 @@
 				577FAA6A251B77B6005FA501 /* CardEstoqueCollectionViewCell.swift */,
 				577FAA69251B77B6005FA501 /* CustomSectionView.swift */,
 				577FAA6D251B77B6005FA501 /* ProdutoCollectionViewCell.swift */,
+				FFCE2D0F251D2D4B00D9826B /* AddProductTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -310,7 +316,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				03A9A704251253B40040DA7C /* EstoqueViewController.swift in Sources */,
+				FFCE2D10251D2D4B00D9826B /* AddProductTableViewCell.swift in Sources */,
 				577FAA7A251B78A0005FA501 /* ProductDetailView.swift in Sources */,
+				FFCE2D0C251D2B3300D9826B /* AddProductViewController.swift in Sources */,
 				03A9A706251254E80040DA7C /* Colors.swift in Sources */,
 				577FAA6E251B77B6005FA501 /* CustomSectionView.swift in Sources */,
 				03A9A6FF2512467B0040DA7C /* Product.swift in Sources */,
