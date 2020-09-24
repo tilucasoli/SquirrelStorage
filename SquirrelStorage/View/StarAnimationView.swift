@@ -10,24 +10,29 @@ import SwiftUI
 
 struct StarAnimationView: View {
     
-    @State private var favorited = false
+    @State private var size: CGFloat = 20
+    
+    @ObservedObject var cell: ProdutoCollectionViewCell
+    
+    var onDidChange: ((Bool) -> Void)?
     
     var body: some View {
         ZStack {
             Image(systemName: "star.fill")
-                .foregroundColor(favorited ? .yellow : .white )
-                .font(.system(size: 20))
-                .scaleEffect(favorited ? 1 : 0.8)
+                .foregroundColor(cell.favorited ? .yellow : .clear)
+                .font(.system(size: size))
+                .scaleEffect(cell.favorited ? 1 : 0.8)
             
             Image(systemName: "star")
-                .foregroundColor(favorited ? .clear : .yellow )
-                .font(.system(size: 20))
-                .scaleEffect(favorited ? 0.8 : 1)
+                .foregroundColor(cell.favorited ? .clear : .yellow )
+                .font(.system(size: size))
+                .scaleEffect(cell.favorited ? 0.8 : 1)
             
         }.animation(.easeInOut)
         .onTapGesture {
+            self.cell.favorited.toggle()
+            self.onDidChange?(self.cell.favorited)
             pressFeedback()
-            self.favorited.toggle()
         }
         
     }
@@ -39,8 +44,8 @@ struct StarAnimationView: View {
     
 }
 
-struct StarAnimationView_Previews: PreviewProvider {
-    static var previews: some View {
-        StarAnimationView().scaledToFit()
-    }
-}
+//struct StarAnimationView_Previews: PreviewProvider {
+//    static var previews: some View {
+////        StarAnimationView()
+//    }
+//}
