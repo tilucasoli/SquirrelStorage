@@ -41,7 +41,7 @@ class ProductDetailViewController: UIViewController {
                 productDetailView.imageView.image = UIImage(named: "ProductPlaceholder")
             }
             productDetailView.cardTitle.text = product.name
-            productDetailView.cardCategory.text = product.tag
+            productDetailView.cardCategory.text = product.category
             let numberFormatter = NumberFormatter()
             numberFormatter.numberStyle = .currency
             numberFormatter.currencyCode = "BRL"

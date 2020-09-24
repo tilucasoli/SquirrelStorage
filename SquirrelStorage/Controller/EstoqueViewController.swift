@@ -12,8 +12,8 @@ class EstoqueViewController: UIViewController {
     
     var num = 0
     var productList = [
-        Product(id: 0, name: "Capa iPhone 7/8", image: nil, quantity: 10, favorited: true, costPrice: 10, sellPrice: 10, description: "LetGo", tag: "LetGo"),
-        Product(id: 0, name: "Capa iPhone 11", image: nil, quantity: 5, favorited: false, costPrice: 100, sellPrice: 10, description: "LetGo", tag: "LetGo")
+        Product(name: "Capa iPhone 7/8", image: nil, quantity: 10, favorited: true, costPrice: 10, sellPrice: 10, description: "LetGo", category: "LetGo"),
+        Product(name: "Capa iPhone 11", image: nil, quantity: 5, favorited: false, costPrice: 100, sellPrice: 10, description: "LetGo", category: "LetGo")
     ]
     
     let viewRandom = UIView(frame: .zero)
