@@ -9,7 +9,10 @@
 import UIKit
 import SwiftUI
 
-class ProdutoCollectionViewCell: UICollectionViewCell {
+class ProdutoCollectionViewCell: UICollectionViewCell, ObservableObject {
+    
+    @Published var favorited: Bool = false
+    
     let image: UIImageView = {
         let image = UIImageView()
         image.backgroundColor = .red
@@ -20,7 +23,6 @@ class ProdutoCollectionViewCell: UICollectionViewCell {
     
     let productQnty: UILabel = {
         let label = UILabel()
-        label.text = "2 Unidades"
         label.textColor = .darkPurpleSS
         label.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
         return label
@@ -28,7 +30,6 @@ class ProdutoCollectionViewCell: UICollectionViewCell {
     
     let productName: UILabel = {
        let label = UILabel()
-        label.text = "Capa iPhone 7/8"
         label.textColor = UIColor.smallText.withAlphaComponent(0.9)
         label.font = UIFont.systemFont(ofSize: 15, weight: .medium)
         return label
@@ -36,13 +37,18 @@ class ProdutoCollectionViewCell: UICollectionViewCell {
     
     let productPrice: UILabel = {
        let label = UILabel()
-        label.text = "R$ 30,00"
         label.textColor = UIColor.smallText.withAlphaComponent(0.8)
         label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         return label
     }()
     
-    let starIcon = UIHostingView(rootView: StarAnimationView(), viewController: nil)
+    var onDidChange: ((Bool) -> Void)?
+
+    lazy var starIcon = UIHostingView(rootView: StarAnimationView(cell: self, onDidChange: { self.onDidChange?($0) } ), viewController: nil)
+
+//    func changeFavorited(_ value: Bool?) {
+//        print(value)
+//    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -52,7 +58,7 @@ class ProdutoCollectionViewCell: UICollectionViewCell {
         layer.shadowColor = UIColor.black.cgColor
         layer.shadowOffset = .zero
         layer.shadowOpacity = 0.02
-    
+        
         setupImage()
         setupProductQnty()
         setupProductName()
@@ -62,6 +68,14 @@ class ProdutoCollectionViewCell: UICollectionViewCell {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func configureCell(product: Product, onDidChange: @escaping (Bool) -> Void) {
+        self.onDidChange = onDidChange
+        productQnty.text = "\(product.quantity) Unidades"
+        productName.text = product.name
+        productPrice.text = "R$ \(product.costPrice)"
+        favorited = product.favorited
     }
     
     func setupImage() {
