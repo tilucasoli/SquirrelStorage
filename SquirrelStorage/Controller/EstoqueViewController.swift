@@ -16,6 +16,8 @@ class EstoqueViewController: UIViewController {
         Product(id: 0, name: "Capa iPhone 11", image: nil, quantity: 5, favorited: false, costPrice: 100, sellPrice: 10, description: "LetGo", tag: "LetGo")
     ]
     
+    let viewRandom = UIView(frame: .zero)
+    
     let collectionView: UICollectionView = {
         let layout = centralizeCellInUICollection(weightCell: 162, numberOfCells: 2)
         layout.scrollDirection = .vertical
@@ -34,6 +36,7 @@ class EstoqueViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "Estoque"
+        view.insertSubview(viewRandom, at: 0)
         setupNavController()
         setupCollectionView()
         
@@ -43,6 +46,10 @@ class EstoqueViewController: UIViewController {
 
     @objc func pushAddController() {
         
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        navigationItem.largeTitleDisplayMode = .always
+        navigationController?.navigationBar.prefersLargeTitles = true
     }
     
     func setupNavController() {
@@ -119,6 +126,11 @@ extension EstoqueViewController: UICollectionViewDelegate, UICollectionViewDataS
         }
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let newVC = ProductDetailViewController()
+        newVC.product = productList[indexPath.row]
+        navigationController?.pushViewController(newVC, animated: true)
+    }
 }
 
 extension EstoqueViewController: delegateFilter {
