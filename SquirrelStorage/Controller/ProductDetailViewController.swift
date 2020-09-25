@@ -12,6 +12,17 @@ class ProductDetailViewController: UIViewController {
     
     var productDetailView: ProductDetailView! = nil
     var product: Product?
+    var productIndex: Int?
+    
+    init(of product: Product, at index: Int) {
+        super.init(nibName: nil, bundle: nil)
+        self.product = product
+        self.productIndex = index
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func loadView() {
         productDetailView = ProductDetailView()
@@ -31,6 +42,13 @@ class ProductDetailViewController: UIViewController {
 
         navigationController?.view.backgroundColor = UIColor.background
         setupProductDetailView()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if let productIndex = self.productIndex {
+            Database(filename: Database.Filename.product.rawValue).updateItem(self.product, at: productIndex)
+        }
     }
     
     func setupProductDetailView() {
