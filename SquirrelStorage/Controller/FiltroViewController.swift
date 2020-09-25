@@ -10,6 +10,24 @@ import UIKit
 
 class FiltroViewController: UIViewController {
     
+    enum CardViewState {
+        case expanded
+        case normal
+    }
+    
+    // to store backing (snapshot) image
+    var backingImage: UIImage?
+    
+    // top constraint cardView
+    var cardViewTopConstraint: NSLayoutConstraint!
+    
+    // default card view state is normal
+    var cardViewState: CardViewState = .normal
+    
+    // to store the card view top constraint value before the dragging start
+    // default is 30 pt from safe area top
+    var cardPanStartingTopConstant: CGFloat = 30.0
+    
     let imageSnapshot: UIImageView = {
         let image = UIImageView()
         return image
@@ -27,55 +45,86 @@ class FiltroViewController: UIViewController {
         view.backgroundColor = .white
         view.clipsToBounds = true
         view.layer.cornerRadius = 30
-        
         return view
     }()
     
-    // to store backing (snapshot) image
-    var backingImage: UIImage?
+    let handleView: UIView = {
+        let view = UIView(frame: .zero)
+        view.clipsToBounds = true
+        view.layer.cornerRadius = 3.0
+        view.backgroundColor = UIColor.white.withAlphaComponent(0.6)
+        return view
+    }()
     
-    var cardViewTopConstraint: NSLayoutConstraint!
+    let navView: UIView = {
+        let view = UIView(frame: .zero)
+        view.backgroundColor = .clear
+        view.clipsToBounds = true
+        return view
+    }()
     
-    enum CardViewState {
-        case expanded
-        case normal
-    }
+    let titleLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Filtros"
+        label.textColor = .largeTitle
+        label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
+        return label
+    }()
     
-    // default card view state is normal
-    var cardViewState: CardViewState = .normal
+    let clearButton: UIButton = {
+        let button = UIButton()
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .medium)
+        button.setTitle("Limpar", for: .normal)
+        button.setTitleColor(.purpleSS, for: .normal)
+        button.tintColor = UIColor.purpleSS
+        button.addTarget(self, action: #selector(clearFilter), for: .touchUpInside)
+        return button
+    }()
     
-    // to store the card view top constraint value before the dragging start
-    // default is 30 pt from safe area top
-    var cardPanStartingTopConstant: CGFloat = 30.0
+    let closeButton: UIButton = {
+        let button = UIButton()
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .medium)
+        button.setTitle("fechar", for: .normal)
+        button.setTitleColor(.purpleSS, for: .normal)
+        button.tintColor = UIColor.purpleSS
+        button.addTarget(self, action: #selector(closeFilter), for: .touchUpInside)
+        return button
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        imageSnapshot.image = backingImage
+        
         setupImageSnapshot()
         setupDarkView()
         setupCardView()
+        setupHandleView()
+        setupNavView()
+        setupTitleLabel()
+        setupCloseButton()
+        setupClearButton()
+        
+        // saving back image from Estoque
+        imageSnapshot.image = backingImage
         
         // hide the card view at the bottom when the View first load
         let safeAreaHeight = view.safeAreaLayoutGuide.layoutFrame.size.height
         let bottomPadding = view.safeAreaInsets.bottom
         cardViewTopConstraint.constant = (safeAreaHeight + bottomPadding)
         
-        // set dimmerview to transparent
+        // set darkview to transparent
         darkView.alpha = 0.0
         
-        // dimmerViewTapped() will be called when user tap on the dimmer view
+        // darkViewTapped() will be called when user tap on the dark view
         let darkTap = UITapGestureRecognizer(target: self, action: #selector(darkViewTapped(_:)))
         darkView.addGestureRecognizer(darkTap)
         darkView.isUserInteractionEnabled = true
         
         // add pan gesture recognizer to the view controller's view (the whole screen)
         let viewPan = UIPanGestureRecognizer(target: self, action: #selector(viewPanned(_:)))
-        
         // by default iOS will delay the touch before recording the drag/pan information
         // we want the drag gesture to be recorded down immediately, hence setting no delay
         viewPan.delaysTouchesBegan = false
         viewPan.delaysTouchesEnded = false
-        
         self.view.addGestureRecognizer(viewPan)
         
     }
@@ -85,19 +134,43 @@ class FiltroViewController: UIViewController {
         showCard()
     }
     
+    // this function will be called when user tap on the dark view
+    @objc func darkViewTapped(_ tapRecognizer: UITapGestureRecognizer) {
+        hideCardAndGoBack()
+    }
+    
     // this function will be called when user pan/drag the view
     @objc func viewPanned(_ panRecognizer: UIPanGestureRecognizer) {
+        
         // how much has user dragged
         let translation = panRecognizer.translation(in: self.view)
         
+        // how fast the user drag
+        let velocity = panRecognizer.velocity(in: self.view)
+        
         switch panRecognizer.state {
         case .began:
+            
             cardPanStartingTopConstant = cardViewTopConstraint.constant
+            
         case .changed :
+            
             if self.cardPanStartingTopConstant + translation.y > 30.0 {
                 self.cardViewTopConstraint.constant = self.cardPanStartingTopConstant + translation.y
             }
+            
+            // change the dark view alpha based on how much user has dragged
+            darkView.alpha = darkAlphaWithCardTopConstraint(value: self.cardViewTopConstraint.constant)
+            
         case .ended :
+            
+            // if user drag down with a very fast speed (ie. swipe)
+            if velocity.y > 1500.0 {
+                // hide the card and dismiss current view controller
+                hideCardAndGoBack()
+                return
+            }
+            
             let safeAreaHeight = view.safeAreaLayoutGuide.layoutFrame.size.height
             let bottomPadding = view.safeAreaInsets.bottom
             
@@ -117,10 +190,47 @@ class FiltroViewController: UIViewController {
         }
     }
     
-    @objc func darkViewTapped(_ tapRecognizer: UITapGestureRecognizer) {
-        hideCardAndGoBack()
+    // this function returns the opacity value of the darkView
+    private func darkAlphaWithCardTopConstraint(value: CGFloat) -> CGFloat {
+        let fullDimAlpha: CGFloat = 0.7
+        
+        // ensure safe area height and safe area bottom padding is not nil
+        let safeAreaHeight = view.safeAreaLayoutGuide.layoutFrame.size.height
+        let bottomPadding = view.safeAreaInsets.bottom
+        
+        // when card view top constraint value is equal to this,
+        // the dark view alpha is dimmest (0.7)
+        let fullDimPosition = (safeAreaHeight + bottomPadding) / 2.0
+        
+        // when card view top constraint value is equal to this,
+        // the dark view alpha is lightest (0.0)
+        let noDimPosition = safeAreaHeight + bottomPadding
+        
+        // if card view top constraint is lesser than fullDimPosition
+        // it is dimmest
+        if value < fullDimPosition {
+            return fullDimAlpha
+        }
+        
+        // if card view top constraint is more than noDimPosition
+        // it is dimmest
+        if value > noDimPosition {
+            return 0.0
+        }
+        
+        // else return an alpha value in between 0.0 and 0.7 based on the top constraint value
+        return fullDimAlpha * 1 - ((value - fullDimPosition) / fullDimPosition)
     }
     
+    @objc func clearFilter() {
+        
+    }
+    
+    @objc func closeFilter() {
+        
+    }
+    
+    // MARK: Setups
     func setupImageSnapshot() {
         view.addSubview(imageSnapshot)
         imageSnapshot.translatesAutoresizingMaskIntoConstraints = false
@@ -157,10 +267,65 @@ class FiltroViewController: UIViewController {
             cardView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16),
             cardView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -16)
         ])
+    }
+    
+    func setupHandleView() {
+        view.addSubview(handleView)
+        handleView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            handleView.bottomAnchor.constraint(equalTo: cardView.topAnchor, constant: -10),
+            handleView.centerXAnchor.constraint(equalTo: cardView.centerXAnchor),
+            handleView.heightAnchor.constraint(equalToConstant: 5),
+            handleView.widthAnchor.constraint(equalToConstant: 50)
+        ])
+    }
+    
+    func setupNavView() {
+        view.addSubview(navView)
+        navView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            navView.topAnchor.constraint(equalTo: cardView.topAnchor, constant: 20),
+            navView.centerXAnchor.constraint(equalTo: cardView.centerXAnchor),
+            navView.heightAnchor.constraint(equalToConstant: 35),
+            navView.widthAnchor.constraint(equalTo: cardView.widthAnchor)
+        ])
+    }
+    
+    func setupTitleLabel() {
+        view.addSubview(titleLabel)
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            titleLabel.topAnchor.constraint(equalTo: navView.topAnchor, constant: 8),
+            titleLabel.centerXAnchor.constraint(equalTo: navView.centerXAnchor),
+            titleLabel.centerYAnchor.constraint(equalTo: navView.centerYAnchor)
+        ])
+    }
+    
+    func setupClearButton() {
+        view.addSubview(clearButton)
+        clearButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            clearButton.topAnchor.constraint(equalTo: navView.topAnchor, constant: 8),
+            clearButton.rightAnchor.constraint(equalTo: navView.rightAnchor, constant: -20),
+            clearButton.centerYAnchor.constraint(equalTo: navView.centerYAnchor)
+        ])
+    }
+    
+    func setupCloseButton() {
+        view.addSubview(closeButton)
+        closeButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            closeButton.topAnchor.constraint(equalTo: navView.topAnchor, constant: 8),
+            closeButton.leftAnchor.constraint(equalTo: navView.leftAnchor, constant: 20),
+            closeButton.centerYAnchor.constraint(equalTo: navView.centerYAnchor)
+        ])
         
     }
     
     // MARK: Animations
+    
+    // this function shows the cardView according to the state
     private func showCard(atState: CardViewState = .normal) {
         // ensure there's no pending layout changes before animation runs
         self.view.layoutIfNeeded()
@@ -177,6 +342,7 @@ class FiltroViewController: UIViewController {
         } else {
             cardViewTopConstraint.constant = (safeAreaHeight + bottomPadding) / 2.0
         }
+        
         // when card state is normal, its top distance to safe area is
         // (safe area height + bottom inset) / 2.0
         cardPanStartingTopConstant = cardViewTopConstraint.constant
@@ -187,8 +353,8 @@ class FiltroViewController: UIViewController {
             self.view.layoutIfNeeded()
         })
         
-        // show dimmer view
-        // this will animate the dimmerView alpha together with the card move up animation
+        // show dark view
+        // this will animate the darkView alpha together with the card move up animation
         showCard.addAnimations({
             self.darkView.alpha = 0.7
         })
@@ -207,6 +373,7 @@ class FiltroViewController: UIViewController {
         // to tell the app to refresh the frame/position of card view
         let safeAreaHeight = view.safeAreaLayoutGuide.layoutFrame.size.height
         let bottomPadding = view.safeAreaInsets.bottom
+        
         // move the card view to bottom of screen
         cardViewTopConstraint.constant = safeAreaHeight + bottomPadding
         
@@ -216,8 +383,8 @@ class FiltroViewController: UIViewController {
             self.view.layoutIfNeeded()
         })
         
-        // hide dimmer view
-        // this will animate the dimmerView alpha together with the card move down animation
+        // hide dark view
+        // this will animate the darkView alpha together with the card move down animation
         hideCard.addAnimations {
             self.darkView.alpha = 0.0
         }
@@ -231,12 +398,14 @@ class FiltroViewController: UIViewController {
                 }
             }
         })
-        let impactFeedbackgenerator = UIImpactFeedbackGenerator(style: .soft)
-        impactFeedbackgenerator.prepare()
-        impactFeedbackgenerator.impactOccurred()
+        
         // run the animation
         hideCard.startAnimation()
         
+        // add an impact feedback
+        let impactFeedbackgenerator = UIImpactFeedbackGenerator(style: .soft)
+        impactFeedbackgenerator.prepare()
+        impactFeedbackgenerator.impactOccurred()
+        
     }
-    
 }
