@@ -10,23 +10,46 @@ import UIKit
 
 class EstoqueViewController: UIViewController {
     
-    var num = 0.0
+    var num = 0
+    var productList = [
+        Product(name: "Capa iPhone 7/8", image: nil, quantity: 10, favorited: true, costPrice: 10, sellPrice: 10, description: "LetGo", category: "LetGo"),
+        Product(name: "Capa iPhone 11", image: nil, quantity: 5, favorited: false, costPrice: 100, sellPrice: 10, description: "LetGo", category: "LetGo")
+    ]
     
-    let tableView: UITableView = {
-        let tableView = UITableView(frame: .zero)
-        tableView.backgroundColor = .background
-        tableView.register(EstoqueTableViewCell.self, forCellReuseIdentifier: "Estoque")
-        tableView.register(ProdutosTableViewCell.self, forCellReuseIdentifier: "Produtos")
-        tableView.allowsSelection = false
-        return tableView
+    let viewRandom = UIView(frame: .zero)
+    
+    let collectionView: UICollectionView = {
+        let layout = centralizeCellInUICollection(weightCell: 162, numberOfCells: 2)
+        layout.scrollDirection = .vertical
+
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        
+        collectionView.backgroundColor = .background
+        collectionView.register(ProdutoCollectionViewCell.self, forCellWithReuseIdentifier: "Produto")
+        collectionView.register(CardEstoqueCollectionViewCell.self, forCellWithReuseIdentifier: "EstoqueCard")
+        
+        collectionView.register(CustomSectionView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "headerView")
+        
+        return collectionView
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        navigationItem.title = "Estoque"
+        view.insertSubview(viewRandom, at: 0)
         setupNavController()
-        setupTableView()
+        setupCollectionView()
         
+    }
+    
+    let plusButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(pushAddController))
+
+    @objc func pushAddController() {
+        
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        navigationItem.largeTitleDisplayMode = .always
+        navigationController?.navigationBar.prefersLargeTitles = true
     }
     
     func setupNavController() {
@@ -37,67 +60,76 @@ class EstoqueViewController: UIViewController {
         navigationController?.navigationBar.largeTitleTextAttributes = [
             NSAttributedString.Key.foregroundColor: UIColor.largeTitle
         ]
+        navigationController?.navigationBar.tintColor = .purpleSS
+        plusButton.style = .done
+        navigationItem.rightBarButtonItem = plusButton
     }
     
-    func setupTableView() {
-        view.addSubview(tableView)
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.backgroundColor = .background
-        tableView.separatorStyle = .none
-        tableView.delegate = self
-        tableView.dataSource = self
+    func setupCollectionView() {
+        view.addSubview(collectionView)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        
+        collectionView.delegate = self
+        collectionView.dataSource = self
         
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            tableView.rightAnchor.constraint(equalTo: view.rightAnchor),
-            tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            collectionView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            collectionView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
 
 }
-extension EstoqueViewController: UITableViewDelegate, UITableViewDataSource {
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.section == 0 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "Estoque", for: indexPath) as! EstoqueTableViewCell
-            return cell
-        }
-        if indexPath.section == 1 {
-            let cell2 = tableView.dequeueReusableCell(withIdentifier: "Produtos", for: indexPath) as! ProdutosTableViewCell
-            num = Double(cell2.collectionView.numberOfItems(inSection: 0))
-            return cell2
-        }
-        return UITableViewCell()
+extension EstoqueViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return section == 0 ? 1 : productList.count
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
-    }
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 2
     }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if Int(num) % 2 == 0 {
-            let result = (num/2)*222
-            return CGFloat(indexPath.section == 0 ? 100 : result)
-        } else {
-            let result: Float = Float(((num/2)*222)+111)
-            return CGFloat(indexPath.section == 0 ? 100 : result)
-        }
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        
+        let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "headerView", for: indexPath)
+
+            headerView.frame.size.height = 55
+
+            return headerView
         
     }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return section == 0 ? 0 : 71
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return section == 0 ? CGSize.zero : CGSize(width: UIScreen.main.bounds.width, height: 55)
     }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        if indexPath.section == 0 {
+            return CGSize(width: 293, height: 93)
+        } else {
+            return CGSize(width: 162, height: 206)
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        if indexPath.section == 0 {
+            
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "EstoqueCard", for: indexPath) as! CardEstoqueCollectionViewCell
+            return cell
+        } else {
 
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let view = CustomSectionView()
-        view.delegate = self
-        return view
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Produto", for: indexPath) as! ProdutoCollectionViewCell
+            cell.configureCell(product: productList[indexPath.row]) {
+                self.productList[indexPath.row].favorited = $0
+            }
+            return cell
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let newVC = ProductDetailViewController()
+        newVC.product = productList[indexPath.row]
+        navigationController?.pushViewController(newVC, animated: true)
     }
 }
 
@@ -111,5 +143,17 @@ extension EstoqueViewController: delegateFilter {
         navigationController?.present(modalFilter, animated: false, completion: nil)
         
     }
+
+}
+
+func centralizeCellInUICollection(weightCell: CGFloat, numberOfCells: CGFloat) -> UICollectionViewFlowLayout {
+    let layout = UICollectionViewFlowLayout()
+    let screenSize = UIScreen.main.bounds.width
+    let space = (screenSize - weightCell * numberOfCells) / (numberOfCells+1)
     
+    layout.sectionInset = UIEdgeInsets(top: 0, left: space, bottom: 16, right: space)
+    layout.itemSize = CGSize(width: 162, height: 206)
+    layout.minimumLineSpacing = space
+    layout.minimumInteritemSpacing = space
+    return layout
 }
