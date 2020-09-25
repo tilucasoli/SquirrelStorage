@@ -84,7 +84,7 @@ class FiltroViewController: UIViewController {
     let closeButton: UIButton = {
         let button = UIButton()
         button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .medium)
-        button.setTitle("fechar", for: .normal)
+        button.setTitle("Fechar", for: .normal)
         button.setTitleColor(.purpleSS, for: .normal)
         button.tintColor = UIColor.purpleSS
         button.addTarget(self, action: #selector(closeFilter), for: .touchUpInside)
