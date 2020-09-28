@@ -13,6 +13,7 @@ class ProductDetailViewController: UIViewController {
     var productDetailView: ProductDetailView! = nil
     var product: Product?
     var productIndex: Int?
+    var needsUpdate = false
     
     init(of product: Product, at index: Int) {
         super.init(nibName: nil, bundle: nil)
@@ -46,8 +47,9 @@ class ProductDetailViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        if let productIndex = self.productIndex {
+        if let productIndex = self.productIndex, needsUpdate {
             Database(filename: Database.Filename.product.rawValue).updateItem(self.product, at: productIndex)
+            needsUpdate = false
         }
     }
     
@@ -60,6 +62,7 @@ class ProductDetailViewController: UIViewController {
             }
             productDetailView.cardTitle.text = product.name
             productDetailView.cardCategory.text = product.category
+            productDetailView.starButton.isSelected = product.favorited
             let numberFormatter = NumberFormatter()
             numberFormatter.numberStyle = .currency
             numberFormatter.currencyCode = "BRL"
@@ -75,6 +78,7 @@ class ProductDetailViewController: UIViewController {
 
 extension ProductDetailViewController: ProductDetailViewDelegate {
     func increaseQuantity() {
+        needsUpdate = true
         product?.quantity += 1
         if product!.quantity >= 2 {
             productDetailView.currentQuantity.text = "\(product!.quantity) unidades"
@@ -84,6 +88,7 @@ extension ProductDetailViewController: ProductDetailViewDelegate {
     }
     
     func decreaseQuantity() {
+        needsUpdate = true
         if product!.quantity > 0 {
             product?.quantity -= 1
         }
@@ -94,5 +99,8 @@ extension ProductDetailViewController: ProductDetailViewDelegate {
         }
     }
     
-    func favorite() {}
+    func favorite(_ state: Bool) {
+        needsUpdate = true
+        product?.favorited = state
+    }
 }

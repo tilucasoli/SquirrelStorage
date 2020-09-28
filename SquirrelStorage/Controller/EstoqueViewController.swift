@@ -38,19 +38,22 @@ class EstoqueViewController: UIViewController {
         setupCollectionView()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
+        navigationItem.largeTitleDisplayMode = .always
+        navigationController?.navigationBar.prefersLargeTitles = true
         self.productList = Database(filename: Database.Filename.product.rawValue).loadItems()
         collectionView.reloadData()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        Database(filename: Database.Filename.product.rawValue).saveItems(productList)
     }
     
     let plusButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(pushAddController))
     
     @objc func pushAddController() {
         
-    }
-    override func viewWillAppear(_ animated: Bool) {
-        navigationItem.largeTitleDisplayMode = .always
-        navigationController?.navigationBar.prefersLargeTitles = true
     }
     
     func setupNavController() {
@@ -117,6 +120,7 @@ extension EstoqueViewController: UICollectionViewDelegate, UICollectionViewDataS
             return cell
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Produto", for: indexPath) as! ProdutoCollectionViewCell
+            cell.delegate = self
             cell.configureCell(product: productList[indexPath.row]) {
                 self.productList[indexPath.row].favorited = $0
             }
@@ -141,6 +145,12 @@ extension EstoqueViewController: delegateFilter {
         
     }
     
+}
+
+extension EstoqueViewController: ProdutoCollectionViewCellDelegate {
+    func favorite(_ state: Bool, at index: Int) {
+        productList[index].favorited = state
+    }
 }
 
 func centralizeCellInUICollection(weightCell: CGFloat, numberOfCells: CGFloat) -> UICollectionViewFlowLayout {
