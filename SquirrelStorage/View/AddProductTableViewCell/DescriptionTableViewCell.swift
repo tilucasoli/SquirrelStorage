@@ -11,8 +11,12 @@ import UIKit
 class DescriptionTableViewCell: UITableViewCell {
 
     let productDescriptionTextField: UITextField = {
-        let textField = UITextField()
-        textField.placeholder = "Description"
+        let textField = UITextField(frame: CGRect(x: 20, y: 100, width: 383, height: 40))
+        textField.placeholder = "Descrição"
+        textField.returnKeyType = UIReturnKeyType.done
+        textField.autocorrectionType = UITextAutocorrectionType.no
+        textField.clearButtonMode = UITextField.ViewMode.whileEditing;
+
         
         return textField
     }()
@@ -22,8 +26,24 @@ class DescriptionTableViewCell: UITableViewCell {
         
         addSubview(productDescriptionTextField)
         setProductDescriptionConstraints()
+        setupLine()
         
 //        backgroundColor = .purpleSS
+    }
+    
+    override func becomeFirstResponder() -> Bool {
+        return self.productDescriptionTextField.becomeFirstResponder()
+    }
+    
+    func setupLine() {
+        
+        productDescriptionTextField.borderStyle = .none
+        
+        let borderLayer = CALayer()
+        borderLayer.backgroundColor = #colorLiteral(red: 0.7725490196, green: 0.7725490196, blue: 0.7921568627, alpha: 1)
+        borderLayer.frame = CGRect(x: 0.0, y: productDescriptionTextField.frame.size.height - 9, width: productDescriptionTextField.frame.width, height: 1.0)
+
+        productDescriptionTextField.layer.addSublayer(borderLayer)
     }
     
     required init?(coder: NSCoder) {

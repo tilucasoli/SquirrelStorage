@@ -11,10 +11,11 @@ import UIKit
 class CategoryTableViewCell: UITableViewCell {
     
     var content : [String] = []
+    var pickerView = UIPickerView()
 
     let productCategoryTextField: UITextField = {
-        let textField = UITextField()
-        textField.placeholder = "Category"
+        let textField = UITextField(frame: CGRect(x: 20, y: 100, width: 383, height: 40))
+        textField.placeholder = "Categoria"
         
         return textField
     }()
@@ -24,8 +25,20 @@ class CategoryTableViewCell: UITableViewCell {
         
         addSubview(productCategoryTextField)
         setProductCategoryConstraints()
+        setupLine()
         
 //        backgroundColor = .purpleSS
+    }
+    
+    func setupLine() {
+        
+        productCategoryTextField.borderStyle = .none
+        
+        let borderLayer = CALayer()
+        borderLayer.backgroundColor = #colorLiteral(red: 0.7725490196, green: 0.7725490196, blue: 0.7921568627, alpha: 1)
+        borderLayer.frame = CGRect(x: 0.0, y: productCategoryTextField.frame.size.height - 9, width: productCategoryTextField.frame.width, height: 1.0)
+
+        productCategoryTextField.layer.addSublayer(borderLayer)
     }
     
     required init?(coder: NSCoder) {

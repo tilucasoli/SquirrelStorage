@@ -32,6 +32,7 @@
 		FF9898D6251D501600A65B14 /* NameTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9898D5251D501600A65B14 /* NameTableViewCell.swift */; };
 		FFCE2D0C251D2B3300D9826B /* AddProductViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFCE2D0B251D2B3300D9826B /* AddProductViewController.swift */; };
 		FFCE2D10251D2D4B00D9826B /* ImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFCE2D0F251D2D4B00D9826B /* ImageTableViewCell.swift */; };
+		FFF2F8A92522878E0084F48D /* QuantityAddProductDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFF2F8A82522878E0084F48D /* QuantityAddProductDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,6 +75,7 @@
 		FF9898D5251D501600A65B14 /* NameTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameTableViewCell.swift; sourceTree = "<group>"; };
 		FFCE2D0B251D2B3300D9826B /* AddProductViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProductViewController.swift; sourceTree = "<group>"; };
 		FFCE2D0F251D2D4B00D9826B /* ImageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageTableViewCell.swift; sourceTree = "<group>"; };
+		FFF2F8A82522878E0084F48D /* QuantityAddProductDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuantityAddProductDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -187,6 +189,7 @@
 			isa = PBXGroup;
 			children = (
 				577FAA4F251A3CA4005FA501 /* ProductDetailViewDelegate.swift */,
+				FFF2F8A82522878E0084F48D /* QuantityAddProductDelegate.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -350,6 +353,7 @@
 				577FAA72251B77B6005FA501 /* ProdutoCollectionViewCell.swift in Sources */,
 				03E9F6DE251B7F670052F104 /* StarAnimationView.swift in Sources */,
 				577FAA6F251B77B6005FA501 /* CardEstoqueCollectionViewCell.swift in Sources */,
+				FFF2F8A92522878E0084F48D /* QuantityAddProductDelegate.swift in Sources */,
 				577FAA50251A3CA4005FA501 /* ProductDetailViewDelegate.swift in Sources */,
 				577FAA76251B7836005FA501 /* FiltroViewController.swift in Sources */,
 				FF54DE3925221FF300FE439B /* PriceTableViewCell.swift in Sources */,
