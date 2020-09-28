@@ -12,6 +12,7 @@ class EstoqueViewController: UIViewController {
     
     var num = 0
     var productList: [Product] = []
+    var plusButton: UIBarButtonItem!
     
     let viewRandom = UIView(frame: .zero)
     
@@ -32,17 +33,24 @@ class EstoqueViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        plusButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(pushAddController))
         navigationItem.title = "Estoque"
         view.insertSubview(viewRandom, at: 0)
         setupNavController()
         setupCollectionView()
     }
     
+    @objc func pushAddController() {
+        navigationController?.pushViewController(AddProductViewController(), animated: true)
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         navigationItem.largeTitleDisplayMode = .always
         navigationController?.navigationBar.prefersLargeTitles = true
         self.productList = Database(filename: Database.Filename.product.rawValue).loadItems()
         collectionView.reloadData()
+        handleEmptyState()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -50,10 +58,16 @@ class EstoqueViewController: UIViewController {
         Database(filename: Database.Filename.product.rawValue).saveItems(productList)
     }
     
-    let plusButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(pushAddController))
-    
-    @objc func pushAddController() {
-        
+    func handleEmptyState() {
+        if productList.count == 0 {
+            let label = UILabel()
+            label.text = "Não há nada aqui\nPor que não adicionar um produto?"
+            label.numberOfLines = 0
+            label.textAlignment = .center
+            collectionView.backgroundView = label
+        } else {
+            collectionView.backgroundView = nil
+        }
     }
     
     func setupNavController() {
@@ -129,9 +143,12 @@ extension EstoqueViewController: UICollectionViewDelegate, UICollectionViewDataS
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let newVC = ProductDetailViewController(of: productList[indexPath.row], at: indexPath.row)
-        navigationController?.pushViewController(newVC, animated: true)
+        if indexPath.section != 0 {
+            let newVC = ProductDetailViewController(of: productList[indexPath.row], at: indexPath.row)
+            navigationController?.pushViewController(newVC, animated: true)
+        }
     }
+    
 }
 
 extension EstoqueViewController: delegateFilter {
