@@ -23,7 +23,7 @@ class NameTableViewCell: UITableViewCell {
         addSubview(productNameTextField)
         setProductNameConstraints()
         
-        //backgroundColor = .purpleSS
+//        backgroundColor = .purpleSS
     }
     
     required init?(coder: NSCoder) {
@@ -31,10 +31,10 @@ class NameTableViewCell: UITableViewCell {
     }
     
     func setProductNameConstraints() {
-        productNameTextField.translatesAutoresizingMaskIntoConstraints                                             = false
-        productNameTextField.topAnchor.constraint(equalTo: topAnchor, constant: 0).isActive                        = true
-        productNameTextField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16).isActive               = true
-        productNameTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16).isActive            = true
+        productNameTextField.translatesAutoresizingMaskIntoConstraints                                     = false
+        productNameTextField.topAnchor.constraint(equalTo: topAnchor, constant: 0).isActive                = true
+        productNameTextField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16).isActive       = true
+        productNameTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16).isActive    = true
     }
     
     

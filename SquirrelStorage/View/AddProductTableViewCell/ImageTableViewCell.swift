@@ -18,7 +18,7 @@ class ImageTableViewCell: UITableViewCell {
         imageBtn.setImage(UIImage(systemName: "camera.fill", withConfiguration: scaleConfig), for: .normal)
         //imageBtn.setImage(UIImage(systemName: "camera.fill"), for: .normal)
         imageBtn.imageView?.contentMode = .scaleAspectFill
-        imageBtn.layer.cornerRadius = 8
+        imageBtn.layer.cornerRadius = 19
         
         return imageBtn
     }()
@@ -35,11 +35,11 @@ class ImageTableViewCell: UITableViewCell {
     }
     
     func setProductImageConstraints() {
-        productImageButton.translatesAutoresizingMaskIntoConstraints                                                      = false
-        productImageButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 80).isActive            = true
-        productImageButton.centerXAnchor.constraint(equalTo: centerXAnchor).isActive                                      = true
-        productImageButton.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.2).isActive                       = true
-        productImageButton.widthAnchor.constraint(equalTo: safeAreaLayoutGuide.widthAnchor, multiplier: 0.229).isActive                                                                                                                                    = true
+        productImageButton.translatesAutoresizingMaskIntoConstraints                                     = false
+        productImageButton.centerYAnchor.constraint(equalTo: centerYAnchor).isActive                     = true
+        productImageButton.centerXAnchor.constraint(equalTo: centerXAnchor).isActive                     = true
+        productImageButton.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.57).isActive     = true
+        productImageButton.widthAnchor.constraint(equalTo: heightAnchor, multiplier: 0.57).isActive      = true
 //        productImageButton.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
     }
     

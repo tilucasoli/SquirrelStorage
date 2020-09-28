@@ -28,7 +28,6 @@ class AddProductViewController: UIViewController {
         setTableViewDelegates()
         
         tableView.separatorStyle = .none
-//      tableView.rowHeight = 250
         
         tableView.register(ImageTableViewCell.self, forCellReuseIdentifier: "AddProductImage")
         tableView.register(NameTableViewCell.self, forCellReuseIdentifier: "AddProductName")
@@ -74,5 +73,9 @@ extension AddProductViewController: UITableViewDelegate, UITableViewDataSource {
         
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return indexPath.section == 0 ? 150 : 40
     }
 }
