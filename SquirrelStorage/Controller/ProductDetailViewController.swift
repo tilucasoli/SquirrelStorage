@@ -63,12 +63,8 @@ class ProductDetailViewController: UIViewController {
             productDetailView.cardTitle.text = product.name
             productDetailView.cardCategory.text = product.category
             productDetailView.starButton.isSelected = product.favorited
-            let numberFormatter = NumberFormatter()
-            numberFormatter.numberStyle = .currency
-            numberFormatter.currencyCode = "BRL"
-            numberFormatter.locale = Locale(identifier: "pt_BR")
-            productDetailView.salePrice.text = numberFormatter.string(from: product.sellPrice as NSDecimalNumber)
-            productDetailView.costPrice.text = numberFormatter.string(from: product.costPrice as NSDecimalNumber)
+            productDetailView.salePrice.text = product.sellPrice.toMoneyRepresentation()
+            productDetailView.costPrice.text = product.costPrice.toMoneyRepresentation()
             productDetailView.descriptionTextView.text = product.description
             productDetailView.currentQuantity.text = "\(product.quantity) unidades"
         }

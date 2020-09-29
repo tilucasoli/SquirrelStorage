@@ -142,6 +142,8 @@ extension EstoqueViewController: UICollectionViewDelegate, UICollectionViewDataS
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if indexPath.section == 0 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "EstoqueCard", for: indexPath) as! CardEstoqueCollectionViewCell
+            let investedTotal: Decimal = productList.map{$0.costPrice}.reduce(0){$0 + $1}
+            cell.totalValue.text = investedTotal.toMoneyRepresentation()
             return cell
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Produto", for: indexPath) as! ProdutoCollectionViewCell
