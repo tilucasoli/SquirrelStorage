@@ -12,9 +12,16 @@ class EstoqueViewController: UIViewController {
     
     var num = 0
     var productList: [Product] = []
+//     var productList: [Product] = [
+//         Product(name: "Capa iPhone 7/8", image: nil, quantity: 10, favorited: true, costPrice: 10, sellPrice: 10, description: "LetGo", category: "LetGo"),
+//         Product(name: "Capa iPhone 11", image: nil, quantity: 5, favorited: false, costPrice: 100, sellPrice: 10, description: "LetGo", category: "LetGo")
+//     ]
+    
     var plusButton: UIBarButtonItem!
     
     let viewRandom = UIView(frame: .zero)
+    
+    let emptyState = EmptyState()
     
     let collectionView: UICollectionView = {
         let layout = centralizeCellInUICollection(weightCell: 162, numberOfCells: 2)
@@ -60,13 +67,7 @@ class EstoqueViewController: UIViewController {
     
     func handleEmptyState() {
         if productList.count == 0 {
-            let label = UILabel()
-            label.text = "Não há nada aqui\nPor que não adicionar um produto?"
-            label.numberOfLines = 0
-            label.textAlignment = .center
-            collectionView.backgroundView = label
-        } else {
-            collectionView.backgroundView = nil
+            setupEmptyState()
         }
     }
     
@@ -98,6 +99,16 @@ class EstoqueViewController: UIViewController {
         ])
     }
     
+    func setupEmptyState() {
+        view.addSubview(emptyState)
+        emptyState.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            emptyState.bottomAnchor.constraint(equalTo: view.centerYAnchor, constant: -50),
+            emptyState.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        ])
+    }
+
 }
 extension EstoqueViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
