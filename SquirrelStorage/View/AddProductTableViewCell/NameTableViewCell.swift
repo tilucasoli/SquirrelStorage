@@ -9,10 +9,18 @@
 import UIKit
 
 class NameTableViewCell: UITableViewCell {
-
+    
     let productNameTextField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "Name"
+        
+        textField.placeholder = "Nome"
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.keyboardType = UIKeyboardType.default
+        textField.returnKeyType = UIReturnKeyType.done
+        textField.autocorrectionType = UITextAutocorrectionType.no
+        textField.font = UIFont.systemFont(ofSize: 16)
+        textField.clearButtonMode = UITextField.ViewMode.whileEditing;
+        textField.underlined()
         
         return textField
     }()
@@ -20,10 +28,13 @@ class NameTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
+        //productNameTextField.delegate = self
         addSubview(productNameTextField)
         setProductNameConstraints()
-        
-//        backgroundColor = .purpleSS
+    }
+    
+    override func becomeFirstResponder() -> Bool {
+        return self.productNameTextField.becomeFirstResponder()
     }
     
     required init?(coder: NSCoder) {
@@ -36,6 +47,22 @@ class NameTableViewCell: UITableViewCell {
         productNameTextField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16).isActive       = true
         productNameTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16).isActive    = true
     }
-    
-    
+}
+
+extension UITextField {
+
+    func underlined() {
+
+        self.layer.backgroundColor = UIColor.background.cgColor
+
+        self.layer.masksToBounds = false
+
+        self.layer.shadowColor = UIColor.gray.cgColor
+
+        self.layer.shadowOffset = CGSize(width: 0, height: 2)
+
+        self.layer.shadowOpacity = 1
+
+        self.layer.shadowRadius = 0
+    }
 }
