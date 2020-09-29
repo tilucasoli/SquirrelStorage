@@ -11,12 +11,12 @@ import UIKit
 class PriceTableViewCell: UITableViewCell {
 
     let productPriceTextField: UITextField = {
-        let textField = UITextField(frame: CGRect(x: 20, y: 100, width: 383, height: 40))
-        textField.placeholder = "Preço de compra"
+        let textField = UITextField()
+        textField.placeholder = "Preço de custo"
         textField.returnKeyType = UIReturnKeyType.done
         textField.autocorrectionType = UITextAutocorrectionType.no
         textField.clearButtonMode = UITextField.ViewMode.whileEditing;
-
+        textField.underlined()
         
         return textField
     }()
@@ -26,24 +26,10 @@ class PriceTableViewCell: UITableViewCell {
         
         addSubview(productPriceTextField)
         setProductPriceConstraints()
-        setupLine()
-        
-//        backgroundColor = .purpleSS
     }
     
     override func becomeFirstResponder() -> Bool {
         return self.productPriceTextField.becomeFirstResponder()
-    }
-    
-    func setupLine() {
-        
-        productPriceTextField.borderStyle = .none
-        
-        let borderLayer = CALayer()
-        borderLayer.backgroundColor = #colorLiteral(red: 0.7725490196, green: 0.7725490196, blue: 0.7921568627, alpha: 1)
-        borderLayer.frame = CGRect(x: 0.0, y: productPriceTextField.frame.size.height - 9, width: productPriceTextField.frame.width, height: 1.0)
-
-        productPriceTextField.layer.addSublayer(borderLayer)
     }
     
     required init?(coder: NSCoder) {

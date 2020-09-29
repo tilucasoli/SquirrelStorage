@@ -105,6 +105,7 @@ extension AddProductViewController: UITableViewDelegate, UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: "AddProductQuantity", for: indexPath) as! QuantityTableViewCell
             //cell.productQuantityTextField.delegate = self
             cell.backgroundColor = .background
+            cell.contentView.isUserInteractionEnabled = false
             cell.bringSubviewToFront(cell.increaseQuantityButton)
             return cell
         case 5:

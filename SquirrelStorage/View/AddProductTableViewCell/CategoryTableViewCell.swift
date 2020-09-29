@@ -25,20 +25,9 @@ class CategoryTableViewCell: UITableViewCell {
         
         addSubview(productCategoryTextField)
         setProductCategoryConstraints()
-        setupLine()
+//        setupLine()
         
 //        backgroundColor = .purpleSS
-    }
-    
-    func setupLine() {
-        
-        productCategoryTextField.borderStyle = .none
-        
-        let borderLayer = CALayer()
-        borderLayer.backgroundColor = #colorLiteral(red: 0.7725490196, green: 0.7725490196, blue: 0.7921568627, alpha: 1)
-        borderLayer.frame = CGRect(x: 0.0, y: productCategoryTextField.frame.size.height - 9, width: productCategoryTextField.frame.width, height: 1.0)
-
-        productCategoryTextField.layer.addSublayer(borderLayer)
     }
     
     required init?(coder: NSCoder) {
@@ -51,7 +40,10 @@ class CategoryTableViewCell: UITableViewCell {
         productCategoryTextField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16).isActive       = true
         productCategoryTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16).isActive    = true
     }
+    
 }
+
+
 
 extension CategoryTableViewCell: UIPickerViewDelegate, UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
