@@ -10,13 +10,17 @@ import Foundation
 
 class Database {
     
+    enum Filename: String {
+        case product = "products"
+    }
+    
     let fileURL: URL
     
     init(filename: String) {
         let url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
         let fileURL = url.appendingPathComponent(filename).appendingPathExtension("json")
         self.fileURL = fileURL
-        print(fileURL)
+        //print(fileURL)
         if !FileManager.default.fileExists(atPath: fileURL.path) {
             // This saves an empty array. Since the function is generic, I need to specify the empty array's type, but it will work for every type.
             saveItems([Product]())
@@ -58,6 +62,15 @@ class Database {
         let removedItem = items.remove(at: index)
         saveItems(items)
         return removedItem
+    }
+    
+    func updateItem<CodableType: Codable>(_ itemToBeUpdated: CodableType, at index: Int) {
+        var items: [CodableType] = loadItems()
+        guard index < items.count && index >= 0 else {
+            return
+        }
+        items[index] = itemToBeUpdated
+        saveItems(items)
     }
     
 }
