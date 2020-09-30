@@ -182,7 +182,7 @@ class ProductDetailView: UIView {
     
     @objc func starButtonPressed() {
         starButton.isSelected.toggle()
-        delegate?.favorite()
+        delegate?.favorite(starButton.isSelected)
     }
     
     @objc func increaseQuantityButtonPressed() {

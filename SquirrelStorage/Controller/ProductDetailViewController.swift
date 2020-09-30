@@ -12,6 +12,18 @@ class ProductDetailViewController: UIViewController {
     
     var productDetailView: ProductDetailView! = nil
     var product: Product?
+    var productIndex: Int?
+    var needsUpdate = false
+    
+    init(of product: Product, at index: Int) {
+        super.init(nibName: nil, bundle: nil)
+        self.product = product
+        self.productIndex = index
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func loadView() {
         productDetailView = ProductDetailView()
@@ -33,21 +45,28 @@ class ProductDetailViewController: UIViewController {
         setupProductDetailView()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if let product = self.product, let index = self.productIndex {
+            EstoqueViewController.productList[index] = product
+        }
+    }
+    
     func setupProductDetailView() {
         if let product = self.product {
-            if let image = product.image {
-                productDetailView.imageView.image = try? UIImage(data: Data(contentsOf: image)) ?? UIImage(named: "ProductPlaceholder")
-            } else {
-                productDetailView.imageView.image = UIImage(named: "ProductPlaceholder")
+            productDetailView.imageView.image = UIImage(named: "ProductPlaceholder")
+            if let imageURL = product.image {
+                ImageFetcher().fetchImage(from: imageURL) { image in
+                    DispatchQueue.main.async {
+                        self.productDetailView.imageView.image = image
+                    }
+                }
             }
             productDetailView.cardTitle.text = product.name
             productDetailView.cardCategory.text = product.category
-            let numberFormatter = NumberFormatter()
-            numberFormatter.numberStyle = .currency
-            numberFormatter.currencyCode = "BRL"
-            numberFormatter.locale = Locale(identifier: "pt_BR")
-            productDetailView.salePrice.text = numberFormatter.string(from: product.sellPrice as NSDecimalNumber)
-            productDetailView.costPrice.text = numberFormatter.string(from: product.costPrice as NSDecimalNumber)
+            productDetailView.starButton.isSelected = product.favorited
+            productDetailView.salePrice.text = product.sellPrice.toMoneyRepresentation()
+            productDetailView.costPrice.text = product.costPrice.toMoneyRepresentation()
             productDetailView.descriptionTextView.text = product.description
             productDetailView.currentQuantity.text = "\(product.quantity) unidades"
         }
@@ -57,6 +76,7 @@ class ProductDetailViewController: UIViewController {
 
 extension ProductDetailViewController: ProductDetailViewDelegate {
     func increaseQuantity() {
+        needsUpdate = true
         product?.quantity += 1
         if product!.quantity >= 2 {
             productDetailView.currentQuantity.text = "\(product!.quantity) unidades"
@@ -66,6 +86,7 @@ extension ProductDetailViewController: ProductDetailViewDelegate {
     }
     
     func decreaseQuantity() {
+        needsUpdate = true
         if product!.quantity > 0 {
             product?.quantity -= 1
         }
@@ -76,5 +97,8 @@ extension ProductDetailViewController: ProductDetailViewDelegate {
         }
     }
     
-    func favorite() {}
+    func favorite(_ state: Bool) {
+        needsUpdate = true
+        product?.favorited = state
+    }
 }
