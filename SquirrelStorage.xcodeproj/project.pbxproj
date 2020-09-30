@@ -18,6 +18,7 @@
 		03E9F6DE251B7F670052F104 /* StarAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E9F6DD251B7F670052F104 /* StarAnimationView.swift */; };
 		4B570EC3252212400064F82B /* AgruparFiltroCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B570EC2252212400064F82B /* AgruparFiltroCollectionViewCell.swift */; };
 		4B570EC7252224FF0064F82B /* HeaderFilterCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B570EC6252224FF0064F82B /* HeaderFilterCollectionReusableView.swift */; };
+		4B570ECB2524AF680064F82B /* UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B570ECA2524AF680064F82B /* UIImageView.swift */; };
 		4B6FEC63251E196700F10A82 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6FEC61251E196700F10A82 /* Colors.swift */; };
 		4B6FEC64251E196700F10A82 /* UIViewSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6FEC62251E196700F10A82 /* UIViewSnapshot.swift */; };
 		5740F2D525138B13001137EC /* ProductDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5740F2D425138B13001137EC /* ProductDetailViewController.swift */; };
@@ -56,6 +57,7 @@
 		03E9F6DD251B7F670052F104 /* StarAnimationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarAnimationView.swift; sourceTree = "<group>"; };
 		4B570EC2252212400064F82B /* AgruparFiltroCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgruparFiltroCollectionViewCell.swift; sourceTree = "<group>"; };
 		4B570EC6252224FF0064F82B /* HeaderFilterCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderFilterCollectionReusableView.swift; sourceTree = "<group>"; };
+		4B570ECA2524AF680064F82B /* UIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageView.swift; sourceTree = "<group>"; };
 		4B6FEC61251E196700F10A82 /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		4B6FEC62251E196700F10A82 /* UIViewSnapshot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewSnapshot.swift; sourceTree = "<group>"; };
 		5740F2D425138B13001137EC /* ProductDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailViewController.swift; sourceTree = "<group>"; };
@@ -163,6 +165,7 @@
 			children = (
 				4B6FEC61251E196700F10A82 /* Colors.swift */,
 				4B6FEC62251E196700F10A82 /* UIViewSnapshot.swift */,
+				4B570ECA2524AF680064F82B /* UIImageView.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -330,6 +333,7 @@
 				577FAA6F251B77B6005FA501 /* CardEstoqueCollectionViewCell.swift in Sources */,
 				4B6FEC64251E196700F10A82 /* UIViewSnapshot.swift in Sources */,
 				577FAA50251A3CA4005FA501 /* ProductDetailViewDelegate.swift in Sources */,
+				4B570ECB2524AF680064F82B /* UIImageView.swift in Sources */,
 				577FAA76251B7836005FA501 /* FiltroViewController.swift in Sources */,
 				5740F2D525138B13001137EC /* ProductDetailViewController.swift in Sources */,
 				577FAA92251B9A89005FA501 /* Database.swift in Sources */,

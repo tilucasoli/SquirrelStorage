@@ -9,12 +9,27 @@
 import UIKit
 
 class AgruparFiltroCollectionViewCell: UICollectionViewCell {
+    
+    var active: Bool = false {
+        didSet {
+            if active {
+                backgroundColor = .purpleSS
+                titleLabel.textColor = .background
+                iconImage.tintColorTo(color: .background)
+                
+            } else {
+                backgroundColor = UIColor.purpleSS.withAlphaComponent(0.2)
+                titleLabel.textColor = .largeTitle
+                iconImage.tintColorTo(color: .largeTitle)
+            }
+        }
+    }
 
     let titleLabel: UILabel = {
         let label = UILabel()
         label.textColor = .largeTitle
         label.font = UIFont.systemFont(ofSize: 17, weight: .medium)
-        label.text = "Preço"
+        label.text = "-"
         return label
     }()
     
@@ -22,7 +37,8 @@ class AgruparFiltroCollectionViewCell: UICollectionViewCell {
         let image = UIImageView()
         image.backgroundColor = .clear
         image.contentMode = .scaleAspectFit
-        image.image = nil
+        image.image = UIImage(named: "Dolar-white")
+        
         return image
     }()
     
@@ -35,24 +51,29 @@ class AgruparFiltroCollectionViewCell: UICollectionViewCell {
         
     }
     
+    func configureCell(title: String, icon: String?) {
+        titleLabel.text = title
+        guard let image = icon else {
+            iconImage.image = nil
+            remove()
+            return
+        }
+        iconImage.image = UIImage(named: image)
+    }
+    
     func setupTitleLabel() {
         addSubview(titleLabel)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        let centerConstraint = titleLabel.centerXAnchor.constraint(equalTo: centerXAnchor)
-        let leftConstraint = titleLabel.leftAnchor.constraint(equalTo: iconImage.rightAnchor, constant: 8)
-        if iconImage.image == nil {
-            centerConstraint.isActive = true
-            leftConstraint.isActive = false
-        } else {
-            centerConstraint.isActive = false
-            leftConstraint.isActive = true
-        }
+        titleLabel.textAlignment = .left
         NSLayoutConstraint.activate([
-            titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor)
+            titleLabel.leftAnchor.constraint(equalTo: iconImage.rightAnchor),
+            titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
+            titleLabel.rightAnchor.constraint(equalTo: rightAnchor, constant: -4)
         ])
     }
     
     func setupIconImage() {
+
         addSubview(iconImage)
         iconImage.translatesAutoresizingMaskIntoConstraints = false
         
@@ -62,6 +83,14 @@ class AgruparFiltroCollectionViewCell: UICollectionViewCell {
             iconImage.heightAnchor.constraint(equalToConstant: 22),
             iconImage.widthAnchor.constraint(equalToConstant: 22)
         ])
+        
+    }
+    func remove() {
+        iconImage.removeFromSuperview()
+        titleLabel.textAlignment = .center
+        titleLabel.leftAnchor.constraint(equalTo: iconImage.rightAnchor).isActive = false
+        titleLabel.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        layoutIfNeeded()
     }
     
     required init?(coder: NSCoder) {
