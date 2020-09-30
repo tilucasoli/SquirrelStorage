@@ -39,10 +39,20 @@ class AddProductViewController: UIViewController {
             product.image = imageURL
         }
         if let name = (tableView.cellForRow(at: IndexPath(row: 0, section: 1)) as! NameTableViewCell).productNameTextField.text {
-            product.name = name
+            // If it is empty, I put one space in order to not modify the interface
+            if name == "" {
+                product.name = "Desconhecido"
+            } else {
+                product.name = name
+            }
         }
         if let category = (tableView.cellForRow(at: IndexPath(row: 0, section: 2)) as! CategoryTableViewCell).productCategoryTextField.text {
-            product.category = category
+            // If it is empty, I put one space in order to not modify the interface
+            if category == "" {
+                product.category = " "
+            } else {
+                product.category = category
+            }
         }
         if let price = (tableView.cellForRow(at: IndexPath(row: 0, section: 3)) as! PriceTableViewCell).productPriceTextField.text {
             product.costPrice = Decimal(string: price) ?? 0
