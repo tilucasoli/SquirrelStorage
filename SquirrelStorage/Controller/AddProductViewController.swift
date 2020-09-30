@@ -21,7 +21,7 @@ class AddProductViewController: UIViewController {
         view.backgroundColor = .background
         title = "Adicionar Produto"
         navigationItem.largeTitleDisplayMode = .never
-        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for:.default)
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.layoutIfNeeded()
         
@@ -30,6 +30,9 @@ class AddProductViewController: UIViewController {
     }
     
     @objc func didSaveButtonTapped() {
+        if let product = self.product {
+            EstoqueViewController.productList.append(product)
+        }
         navigationController?.popViewController(animated: true)
     }
     
