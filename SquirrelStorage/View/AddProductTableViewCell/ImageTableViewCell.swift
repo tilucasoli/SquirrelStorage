@@ -16,6 +16,7 @@ protocol imagePickerDelegate: UIViewController {
 class ImageTableViewCell: UITableViewCell {
 
     weak var delegate: imagePickerDelegate?
+    var imageURL: URL?
     
     let productImageButton: UIButton = {
         let imageBtn = UIButton(type: .custom)
@@ -26,7 +27,6 @@ class ImageTableViewCell: UITableViewCell {
         //imageBtn.setImage(UIImage(systemName: "camera.fill"), for: .normal)
         imageBtn.imageView?.contentMode = .scaleAspectFill
         imageBtn.layer.cornerRadius = 19
-        
         
         return imageBtn
     }()
@@ -69,6 +69,9 @@ extension ImageTableViewCell: UIImagePickerControllerDelegate, UINavigationContr
             productImageButton.setImage(edited, for: .normal)
         } else if let originalImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             productImageButton.setImage(originalImage, for: .normal)
+        }
+        if let url = info[UIImagePickerController.InfoKey.imageURL] as? URL {
+            imageURL = url
         }
         productImageButton.imageView?.layer.cornerRadius = 19
         delegate?.dismiss(animated: true, completion: nil)

@@ -11,7 +11,7 @@ import UIKit
 class AddProductViewController: UIViewController {
 
     var tableView = UITableView()
-    var product: Product?
+    var productQuantity = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,16 +24,36 @@ class AddProductViewController: UIViewController {
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.layoutIfNeeded()
-        
-        product = Product(name: "", image: nil, quantity: 0, favorited: false, costPrice: 0, sellPrice: 0, description: "", category: "")
         configureTableView()
     }
     
     @objc func didSaveButtonTapped() {
-        if let product = self.product {
-            EstoqueViewController.productList.append(product)
-        }
+        let product = getProduct()
+        EstoqueViewController.productList.append(product)
         navigationController?.popViewController(animated: true)
+    }
+    
+    func getProduct() -> Product {
+        var product = Product(name: "", image: nil, quantity: 0, favorited: false, costPrice: 0, sellPrice: 0, description: "", category: "")
+        if let imageURL = (tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! ImageTableViewCell).imageURL {
+            product.image = imageURL
+        }
+        if let name = (tableView.cellForRow(at: IndexPath(row: 0, section: 1)) as! NameTableViewCell).productNameTextField.text {
+            product.name = name
+        }
+        if let category = (tableView.cellForRow(at: IndexPath(row: 0, section: 2)) as! CategoryTableViewCell).productCategoryTextField.text {
+            product.category = category
+        }
+        if let price = (tableView.cellForRow(at: IndexPath(row: 0, section: 3)) as! PriceTableViewCell).productPriceTextField.text {
+            product.costPrice = Decimal(string: price) ?? 0
+        }
+        if let quantity = (tableView.cellForRow(at: IndexPath(row: 0, section: 4)) as! QuantityTableViewCell).productQuantityTextField.text {
+            product.quantity = Int(quantity) ?? 0
+        }
+        if let description = (tableView.cellForRow(at: IndexPath(row: 0, section: 5)) as! DescriptionTableViewCell).productDescriptionTextField.text {
+            product.description = description
+        }
+        return product
     }
     
     func configureTableView() {
@@ -158,22 +178,15 @@ extension AddProductViewController: UITextFieldDelegate {
 extension AddProductViewController: QuantityAddProductDelegate {
     
     func increaseQuantity(label: UILabel) {
-        product?.quantity += 1
-        print("\(product!.quantity)")
-        label.text = "\(product!.quantity)"
-        
+        productQuantity += 1
+        label.text = "\(productQuantity)"
     }
     
     func decreaseQuantity(label: UILabel) {
-        print("\(product!.quantity)")
-        if product!.quantity > 0 {
-            product?.quantity -= 1
+        if productQuantity > 0 {
+            productQuantity -= 1
         }
-        if product!.quantity >= 2 {
-            label.text = "\(product!.quantity) unidades"
-        } else {
-            label.text = "\(product!.quantity) unidade"
-        }
+        label.text = "\(productQuantity)"
     }
 }
 
