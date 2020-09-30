@@ -29,7 +29,7 @@ class NameTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         //productNameTextField.delegate = self
-        addSubview(productNameTextField)
+        contentView.addSubview(productNameTextField)
         setProductNameConstraints()
     }
     

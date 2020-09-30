@@ -4,17 +4,24 @@
 //
 //  Created by Lucas Fernandes on 28/09/20.
 //  Copyright © 2020 Lucas Oliveira. All rights reserved.
-//
+//mnu
 
 import UIKit
 
 class CategoryTableViewCell: UITableViewCell {
     
     var content : [String] = []
-    var pickerView = UIPickerView()
+    var isObserving = false
+    
+    class var expandedHeight: CGFloat {get { return 200}}
+    class var defaultHeight: CGFloat {get {return 36}}
+    
+    let categoryPicker = UIPickerView()
+    var pickerTitle = UILabel()
+    var pickerContect = UILabel()
 
     let productCategoryTextField: UITextField = {
-        let textField = UITextField(frame: CGRect(x: 20, y: 100, width: 383, height: 40))
+        let textField = UITextField()
         textField.placeholder = "Categoria"
         
         return textField
@@ -24,35 +31,61 @@ class CategoryTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         addSubview(productCategoryTextField)
+        contentView.addSubview(categoryPicker)
         setProductCategoryConstraints()
-//        setupLine()
-        
-//        backgroundColor = .purpleSS
+        setCategoryPicker()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func setCategoryPicker() {
+        
+    }
+    
+    func checkHeight(){
+        categoryPicker.isHidden = (frame.height < CategoryTableViewCell.expandedHeight)
+    }
+    
+    func watchFrameChanges() {
+        if !isObserving {
+            addObserver(self, forKeyPath: "frame", options: [NSKeyValueObservingOptions.new, NSKeyValueObservingOptions.initial], context: nil)
+            isObserving = true;
+        }
+    }
+    func ignoreFrameChanges() {
+        if isObserving {
+            removeObserver(self, forKeyPath: "frame")
+            isObserving = false;
+        }
+    }
+
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        if keyPath == "frame" {
+            checkHeight()
+        }
+    }
+    
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+
+        // Configure the view for the selected state
+    }
+    
+    
     func setProductCategoryConstraints() {
-        productCategoryTextField.translatesAutoresizingMaskIntoConstraints                                     = false
-        productCategoryTextField.topAnchor.constraint(equalTo: topAnchor, constant: 0).isActive                = true
-        productCategoryTextField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16).isActive       = true
-        productCategoryTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16).isActive    = true
+        productCategoryTextField.translatesAutoresizingMaskIntoConstraints                                  = false
+        productCategoryTextField.topAnchor.constraint(equalTo: topAnchor, constant: 0).isActive             = true
+        productCategoryTextField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16).isActive    = true
+        productCategoryTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16).isActive = true
+        
+        categoryPicker.translatesAutoresizingMaskIntoConstraints = false
+        categoryPicker.topAnchor.constraint(equalTo: contentView.topAnchor, constant: -8).isActive = true
+        categoryPicker.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 0).isActive    = true
+        categoryPicker.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 0).isActive = true
+        categoryPicker.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
     }
     
 }
 
-
-
-extension CategoryTableViewCell: UIPickerViewDelegate, UIPickerViewDataSource {
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        1
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return content.count
-    }
-    
-    
-}
