@@ -16,7 +16,7 @@ class ProductDetailView: UIView {
     
     let imageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.backgroundColor = .systemBlue
+        imageView.backgroundColor = .background
         return imageView
     }()
     
@@ -154,8 +154,11 @@ class ProductDetailView: UIView {
         return decreaseQuantityButton
     }()
     
+    // MARK: Lifecycle
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
+        self.clipsToBounds = true
         setupImageView()
         setupQuantityBar()
         setupDetailCard()
@@ -176,6 +179,15 @@ class ProductDetailView: UIView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func layoutSubviews() {
+        detailCard.layer.shadowPath = UIBezierPath(
+            roundedRect: CGRect(x: 0, y: 0, width: detailCard.bounds.width, height: detailCard.layer.cornerRadius),
+            cornerRadius: detailCard.layer.cornerRadius).cgPath
+        detailCard.layer.shadowRadius = 15
+        detailCard.layer.shadowOffset = .zero
+        detailCard.layer.shadowOpacity = 0.2
     }
     
     // MARK: Actions
