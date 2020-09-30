@@ -17,9 +17,8 @@ class ProdutoCollectionViewCell: UICollectionViewCell, ObservableObject {
     
     let image: UIImageView = {
         let image = UIImageView()
-        image.backgroundColor = .red
+        image.backgroundColor = .white
         image.contentMode = .scaleAspectFit
-        image.image = UIImage(named: "iphone")
         return image
     }()
     
@@ -74,6 +73,14 @@ class ProdutoCollectionViewCell: UICollectionViewCell, ObservableObject {
     
     func configureCell(product: Product, onDidChange: @escaping (Bool) -> Void) {
         self.onDidChange = onDidChange
+        self.image.image = UIImage(named: "ProductPlaceholder")
+        if let imageURL = product.image {
+            ImageFetcher().fetchImage(from: imageURL) { image in
+                DispatchQueue.main.async {
+                    self.image.image = image
+                }
+            }
+        }
         productQnty.text = "\(product.quantity) Unidades"
         productName.text = product.name
         productPrice.text = "R$ \(product.costPrice)"

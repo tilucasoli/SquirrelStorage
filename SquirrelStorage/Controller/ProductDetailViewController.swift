@@ -54,10 +54,13 @@ class ProductDetailViewController: UIViewController {
     
     func setupProductDetailView() {
         if let product = self.product {
-            if let image = product.image {
-                productDetailView.imageView.image = try? UIImage(data: Data(contentsOf: image)) ?? UIImage(named: "ProductPlaceholder")
-            } else {
-                productDetailView.imageView.image = UIImage(named: "ProductPlaceholder")
+            productDetailView.imageView.image = UIImage(named: "ProductPlaceholder")
+            if let imageURL = product.image {
+                ImageFetcher().fetchImage(from: imageURL) { image in
+                    DispatchQueue.main.async {
+                        self.productDetailView.imageView.image = image
+                    }
+                }
             }
             productDetailView.cardTitle.text = product.name
             productDetailView.cardCategory.text = product.category

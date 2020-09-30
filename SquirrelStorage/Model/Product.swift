@@ -9,17 +9,14 @@
 import UIKit
 
 struct Product: Codable {
-    let name: String
-    let image: URL?
+    var name: String
+    var image: URL?
     var quantity: Int
     var favorited: Bool
-    let costPrice: Decimal
-    let sellPrice: Decimal
-    let description: String
-    let category: String
-    
-//    func getUIImage() -> UIImage {
-//    }
+    var costPrice: Decimal
+    var sellPrice: Decimal
+    var description: String
+    var category: String
 }
 
 class Product2: ObservableObject {
