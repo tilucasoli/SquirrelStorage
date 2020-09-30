@@ -11,5 +11,5 @@ import Foundation
 protocol ProductDetailViewDelegate: AnyObject {
     func increaseQuantity()
     func decreaseQuantity()
-    func favorite()
+    func favorite(_ state: Bool)
 }

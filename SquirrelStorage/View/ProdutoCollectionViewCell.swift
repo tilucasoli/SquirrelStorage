@@ -12,6 +12,8 @@ import SwiftUI
 class ProdutoCollectionViewCell: UICollectionViewCell, ObservableObject {
     
     @Published var favorited: Bool = false
+    var productIndex: Int?
+    weak var delegate: ProdutoCollectionViewCellDelegate?
     
     let image: UIImageView = {
         let image = UIImageView()
