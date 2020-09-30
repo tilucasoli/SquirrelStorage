@@ -83,6 +83,7 @@ extension AddProductViewController: UITableViewDelegate, UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: "AddProductImage", for: indexPath) as! ImageTableViewCell
             cell.backgroundColor = .background
             cell.contentView.isUserInteractionEnabled = false
+            cell.delegate = self
             return cell
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: "AddProductName", for: indexPath) as! NameTableViewCell
@@ -171,4 +172,11 @@ extension AddProductViewController: QuantityAddProductDelegate {
             label.text = "\(product!.quantity) unidade"
         }
     }
+}
+
+extension AddProductViewController: imagePickerDelegate {
+    func presentImagePicker(imgPickerController: UIImagePickerController) {
+        present(imgPickerController, animated: true, completion: nil)
+    }
+
 }
