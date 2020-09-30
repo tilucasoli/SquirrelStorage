@@ -10,6 +10,12 @@ import UIKit
 
 class FiltroViewController: UIViewController {
     
+    var filtroList = [(title: "Menor Preço", icon: "Dolar"), (title: "Maior Preço", icon: "Dolar"), (title: "Quantidade", icon: "Dolar")]
+    
+    var categoriasList = ["Capinhas", "Carregadores", "Abacates"]
+    
+    var ultimoFiltro: AgruparFiltroCollectionViewCell?
+    
     enum CardViewState {
         case expanded
         case normal
@@ -72,7 +78,7 @@ class FiltroViewController: UIViewController {
     }()
     
     let clearButton: UIButton = {
-        let button = UIButton()
+        let button = UIButton(type: .system)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .medium)
         button.setTitle("Limpar", for: .normal)
         button.setTitleColor(.purpleSS, for: .normal)
@@ -82,12 +88,54 @@ class FiltroViewController: UIViewController {
     }()
     
     let closeButton: UIButton = {
-        let button = UIButton()
+        let button = UIButton(type: .system)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .medium)
         button.setTitle("Fechar", for: .normal)
         button.setTitleColor(.purpleSS, for: .normal)
         button.tintColor = UIColor.purpleSS
         button.addTarget(self, action: #selector(closeFilter), for: .touchUpInside)
+        return button
+    }()
+    
+    let collectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        let screenSize = UIScreen.main.bounds.width
+        
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 16, bottom: 16, right: 16)
+        layout.itemSize = CGSize(width: 152, height: 36)
+        layout.minimumLineSpacing = 8
+        layout.minimumInteritemSpacing = 4
+
+        layout.scrollDirection = .vertical
+
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        
+        collectionView.backgroundColor = .clear
+        collectionView.register(AgruparFiltroCollectionViewCell.self, forCellWithReuseIdentifier: "AgruparFiltro")
+        collectionView.register(HeaderFilterCollectionReusableView.self,
+                                forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "headerView")
+        
+        return collectionView
+    }()
+    
+    let viewButton: UIView = {
+        let view = UIView(frame: .zero)
+        view.clipsToBounds = true
+        view.backgroundColor = .white
+        view.layer.cornerRadius = 30
+        view.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+        
+        return view
+    }()
+    
+    let filterButton: UIButton = {
+        let button = UIButton()
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
+        button.setTitle("Filtrar", for: .normal)
+        button.setTitleColor(.background, for: .normal)
+        button.backgroundColor = .purpleSS
+        button.layer.cornerRadius = 15
+        button.addTarget(self, action: #selector(filterAction), for: .touchUpInside)
         return button
     }()
     
@@ -102,7 +150,10 @@ class FiltroViewController: UIViewController {
         setupTitleLabel()
         setupCloseButton()
         setupClearButton()
-        
+        setupviewButtom()
+        setupCollectionView()
+        setupFilterButton()
+
         // saving back image from Estoque
         imageSnapshot.image = backingImage
         
@@ -132,6 +183,12 @@ class FiltroViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         showCard()
+        
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.view.layoutIfNeeded()
     }
     
     // this function will be called when user tap on the dark view
@@ -223,11 +280,20 @@ class FiltroViewController: UIViewController {
     }
     
     @objc func clearFilter() {
-        
+        let itens = collectionView.visibleCells as! [AgruparFiltroCollectionViewCell]
+        for item in itens {
+            item.active = false
+        }
     }
     
     @objc func closeFilter() {
+        hideCardAndGoBack()
+    }
+    
+    @objc func filterAction() {
         
+        
+        hideCardAndGoBack()
     }
     
     // MARK: Setups
@@ -323,6 +389,42 @@ class FiltroViewController: UIViewController {
         
     }
     
+    func setupCollectionView() {
+        view.addSubview(collectionView)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        NSLayoutConstraint.activate([
+            collectionView.topAnchor.constraint(equalTo: navView.bottomAnchor),
+            collectionView.rightAnchor.constraint(equalTo: cardView.rightAnchor),
+            collectionView.leftAnchor.constraint(equalTo: cardView.leftAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: viewButton.topAnchor)
+        ])
+    }
+    
+    func setupviewButtom() {
+        view.addSubview(viewButton)
+        viewButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            viewButton.bottomAnchor.constraint(equalTo: cardView.bottomAnchor),
+            viewButton.leftAnchor.constraint(equalTo: cardView.leftAnchor),
+            viewButton.heightAnchor.constraint(equalToConstant: 85),
+            viewButton.rightAnchor.constraint(equalTo: cardView.rightAnchor)
+        ])
+    }
+    
+    func setupFilterButton() {
+        view.addSubview(filterButton)
+        filterButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            filterButton.topAnchor.constraint(equalTo: viewButton.topAnchor, constant: 16),
+            filterButton.centerXAnchor.constraint(equalTo: viewButton.centerXAnchor),
+            filterButton.bottomAnchor.constraint(equalTo: viewButton.bottomAnchor, constant: -20),
+            filterButton.leftAnchor.constraint(equalTo: viewButton.leftAnchor, constant: 16),
+            filterButton.rightAnchor.constraint(equalTo: viewButton.rightAnchor, constant: -16)
+        ])
+    }
+    
     // MARK: Animations
     
     // this function shows the cardView according to the state
@@ -340,7 +442,7 @@ class FiltroViewController: UIViewController {
             // if state is expanded, top constraint is 30pt away from safe area top
             cardViewTopConstraint.constant = 30.0
         } else {
-            cardViewTopConstraint.constant = (safeAreaHeight + bottomPadding) / 2.0
+            cardViewTopConstraint.constant = (safeAreaHeight + bottomPadding) / 2.7
         }
         
         // when card state is normal, its top distance to safe area is
@@ -408,4 +510,64 @@ class FiltroViewController: UIViewController {
         impactFeedbackgenerator.impactOccurred()
         
     }
+}
+
+// MARK: Collection View
+extension FiltroViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return section == 0 ? filtroList.count : categoriasList.count
+    }
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 2
+    }
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        
+        let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader,
+                                                                         withReuseIdentifier: "headerView", for: indexPath) as! HeaderFilterCollectionReusableView
+        
+        if indexPath.section == 0 {
+            headerView.titleLabel.text = "Agrupar por"
+        }
+        if indexPath.section == 1 {
+            headerView.titleLabel.text = "Categorias"
+        }
+        return headerView
+        
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSize(width: UIScreen.main.bounds.width, height: 55)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AgruparFiltro", for: indexPath) as! AgruparFiltroCollectionViewCell
+        if indexPath.section == 0 {
+            cell.configureCell(title: filtroList[indexPath.row].title, icon: filtroList[indexPath.row].icon)
+            
+        } else {
+            cell.configureCell(title: categoriasList[indexPath.row], icon: nil)
+        }
+       
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        let cell = collectionView.cellForItem(at: indexPath) as! AgruparFiltroCollectionViewCell
+        
+        if indexPath.section == 0 {
+            if !cell.active {
+                if let filtro = ultimoFiltro {
+                    filtro.active = false
+                }
+                ultimoFiltro = cell
+                cell.active.toggle()
+            }
+        } else {
+            cell.active.toggle()
+        }
+        
+    }
+
 }

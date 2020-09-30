@@ -24,7 +24,7 @@ class CustomSectionView: UICollectionReusableView {
     }()
     
     let filterButton: UIButton = {
-        let btn = UIButton()
+        let btn = UIButton(type: .system)
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .medium)
         btn.setTitle("Filtrar", for: .normal)
         btn.setTitleColor(.purpleSS, for: .normal)
