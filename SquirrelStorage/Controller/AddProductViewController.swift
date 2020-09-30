@@ -13,6 +13,11 @@ class AddProductViewController: UIViewController {
     var tableView = UITableView()
     var product: Product?
     
+    var categories = [Category]()
+    var categoryPicker = UIPickerView()
+    var categoryPickerText = UILabel()
+    var categoryPicked: String = "Categoria"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -56,11 +61,21 @@ class AddProductViewController: UIViewController {
             tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
+        tableView.allowsSelection = false
     }
     
     func setTableViewDelegates() {
         tableView.delegate = self
         tableView.dataSource = self
+    }
+    
+    
+    func configureCategory() {
+        categories.append(Category(name: "Eletrônicos"))
+        categories.append(Category(name: "Acessórios"))
+        categories.append(Category(name: "Roupas"))
+        categories.append(Category(name: "Papelaria"))
+        categories.append(Category(name: "Outros"))
     }
     
 }
@@ -88,40 +103,38 @@ extension AddProductViewController: UITableViewDelegate, UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: "AddProductName", for: indexPath) as! NameTableViewCell
             cell.productNameTextField.delegate = self
             cell.backgroundColor = .background
-            cell.contentView.isUserInteractionEnabled = false
             return cell
         case 2:
             let cell = tableView.dequeueReusableCell(withIdentifier: "AddProductCategory", for: indexPath) as! CategoryTableViewCell
             cell.productCategoryTextField.delegate = self
             cell.backgroundColor = .background
+            cell.categoryPicker.delegate = self
+            cell.categoryPicker.dataSource = self
+            configureCategory()
             return cell
         case 3:
             let cell = tableView.dequeueReusableCell(withIdentifier: "AddProductPrice", for: indexPath) as! PriceTableViewCell
             cell.productPriceTextField.delegate = self
             cell.backgroundColor = .background
-            cell.contentView.isUserInteractionEnabled = false
             return cell
         case 4:
             let cell = tableView.dequeueReusableCell(withIdentifier: "AddProductQuantity", for: indexPath) as! QuantityTableViewCell
-            //cell.productQuantityTextField.delegate = self
+            cell.productQuantityTextField.delegate = self
             cell.backgroundColor = .background
-            cell.contentView.isUserInteractionEnabled = false
-            cell.bringSubviewToFront(cell.increaseQuantityButton)
             return cell
         case 5:
             let cell = tableView.dequeueReusableCell(withIdentifier: "AddProductDescription", for: indexPath) as! DescriptionTableViewCell
             cell.productDescriptionTextField.delegate = self
             cell.backgroundColor = .background
-            cell.contentView.isUserInteractionEnabled = false
             return cell
         default:
-            print("error, cabo")
+            print("Deu erro ao carregar célula")
             return UITableViewCell()
         }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return indexPath.section == 0 ? 150 : 31
+        return indexPath.section == 0 ? 150 : UITableView.automaticDimension
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -132,7 +145,7 @@ extension AddProductViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 50
+        return 20
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
@@ -141,6 +154,28 @@ extension AddProductViewController: UITableViewDelegate, UITableViewDataSource {
         
         return view
     }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if(indexPath.section == 2) {
+            (cell as! CategoryTableViewCell).watchFrameChanges()
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if(indexPath.section == 2) {
+            (cell as! CategoryTableViewCell).ignoreFrameChanges()
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        for cell in tableView.visibleCells {
+            if cell.isKind(of: CategoryTableViewCell.self) {
+                (cell as! CategoryTableViewCell).ignoreFrameChanges()
+            }
+        }
+    }
 }
 
 extension AddProductViewController: UITextFieldDelegate {
@@ -148,6 +183,35 @@ extension AddProductViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
+    }
+}
+
+extension AddProductViewController: UIPickerViewDelegate, UIPickerViewDataSource {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return categories.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        //self.categoryPicked = String(row)
+        print(row.description)
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
+        let pickerLabel = UILabel()
+        var titleData = ""
+        titleData = "\(categories[row].name)"
+        pickerLabel.text = titleData
+        pickerLabel.textAlignment = .center
+        
+        return pickerLabel
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
+        24
     }
 }
 

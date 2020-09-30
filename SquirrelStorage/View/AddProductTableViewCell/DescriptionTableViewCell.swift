@@ -24,7 +24,7 @@ class DescriptionTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        addSubview(productDescriptionTextField)
+        contentView.addSubview(productDescriptionTextField)
         setProductDescriptionConstraints()
     }
     
