@@ -47,9 +47,8 @@ class ProductDetailViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        if let productIndex = self.productIndex, needsUpdate {
-            Database(filename: Database.Filename.product.rawValue).updateItem(self.product, at: productIndex)
-            needsUpdate = false
+        if let product = self.product, let index = self.productIndex {
+            EstoqueViewController.productList[index] = product
         }
     }
     

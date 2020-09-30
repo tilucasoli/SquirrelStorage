@@ -11,11 +11,8 @@ import UIKit
 class EstoqueViewController: UIViewController {
     
     var num = 0
-    var productList: [Product] = []
-//     var productList: [Product] = [
-//         Product(name: "Capa iPhone 7/8", image: nil, quantity: 10, favorited: true, costPrice: 10, sellPrice: 10, description: "LetGo", category: "LetGo"),
-//         Product(name: "Capa iPhone 11", image: nil, quantity: 5, favorited: false, costPrice: 100, sellPrice: 10, description: "LetGo", category: "LetGo")
-//     ]
+    
+    static var productList: [Product] = []
     
     var plusButton: UIBarButtonItem!
     
@@ -55,19 +52,16 @@ class EstoqueViewController: UIViewController {
         super.viewWillAppear(animated)
         navigationItem.largeTitleDisplayMode = .always
         navigationController?.navigationBar.prefersLargeTitles = true
-        self.productList = Database(filename: Database.Filename.product.rawValue).loadItems()
         collectionView.reloadData()
         handleEmptyState()
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        Database(filename: Database.Filename.product.rawValue).saveItems(productList)
-    }
-    
     func handleEmptyState() {
-        if productList.count == 0 {
+        
+        if EstoqueViewController.productList.count == 0 {
             setupEmptyState()
+        } else {
+            emptyState.removeFromSuperview()
         }
     }
     
@@ -113,7 +107,7 @@ class EstoqueViewController: UIViewController {
 extension EstoqueViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return section == 0 ? 1 : productList.count
+        return section == 0 ? 1 : EstoqueViewController.productList.count
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -142,14 +136,14 @@ extension EstoqueViewController: UICollectionViewDelegate, UICollectionViewDataS
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if indexPath.section == 0 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "EstoqueCard", for: indexPath) as! CardEstoqueCollectionViewCell
-            let investedTotal: Decimal = productList.map{$0.costPrice}.reduce(0){$0 + $1}
+            let investedTotal: Decimal = EstoqueViewController.productList.map{$0.costPrice}.reduce(0){$0 + $1}
             cell.totalValue.text = investedTotal.toMoneyRepresentation()
             return cell
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Produto", for: indexPath) as! ProdutoCollectionViewCell
             cell.delegate = self
-            cell.configureCell(product: productList[indexPath.row]) {
-                self.productList[indexPath.row].favorited = $0
+            cell.configureCell(product: EstoqueViewController.productList[indexPath.row]) {
+                EstoqueViewController.productList[indexPath.row].favorited = $0
             }
             return cell
         }
@@ -157,7 +151,7 @@ extension EstoqueViewController: UICollectionViewDelegate, UICollectionViewDataS
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.section != 0 {
-            let newVC = ProductDetailViewController(of: productList[indexPath.row], at: indexPath.row)
+            let newVC = ProductDetailViewController(of: EstoqueViewController.productList[indexPath.row], at: indexPath.row)
             navigationController?.pushViewController(newVC, animated: true)
         }
     }
@@ -179,7 +173,7 @@ extension EstoqueViewController: delegateFilter {
 
 extension EstoqueViewController: ProdutoCollectionViewCellDelegate {
     func favorite(_ state: Bool, at index: Int) {
-        productList[index].favorited = state
+        EstoqueViewController.productList[index].favorited = state
     }
 }
 
