@@ -25,7 +25,7 @@ class EmptyState: UIView {
     
     let title: UILabel = {
         let label = UILabel()
-        label.text = "Ainda não a nada aqui!"
+        label.text = "Ainda não há nada aqui!"
         label.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
         label.textColor = .largeTitle
         return label
