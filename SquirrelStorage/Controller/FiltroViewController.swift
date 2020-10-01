@@ -12,7 +12,7 @@ class FiltroViewController: UIViewController {
     
     var filtroList = [(title: "Menor Preço", icon: "Dolar"), (title: "Maior Preço", icon: "Dolar"), (title: "Quantidade", icon: "Dolar")]
     
-    var categoriasList = Array(Set(EstoqueViewController.productList.map({$0.category})))
+    var categoriasList = Array(Set(EstoqueViewController.productList.map({$0.category}))).filter({$0 != " "})
     
 //    var productList = []
     

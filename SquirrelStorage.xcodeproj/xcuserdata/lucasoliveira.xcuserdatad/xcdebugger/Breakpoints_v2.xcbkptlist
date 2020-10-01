@@ -3,4 +3,144 @@
    uuid = "84A10547-9669-41AA-A16C-B435992221C5"
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D99E967E-6F7F-4890-9A7D-CE70DE1C1AB1"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SquirrelStorage/Controller/FiltroViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "15"
+            endingLineNumber = "15"
+            landmarkName = "FiltroViewController"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  uuid = "D99E967E-6F7F-4890-9A7D-CE70DE1C1AB1 - 6d41501f98147722"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (SquirrelStorage.Product) -&gt; Swift.String in variable initialization expression of SquirrelStorage.FiltroViewController.categoriasList : Swift.Array&lt;Swift.String&gt;"
+                  moduleName = "SquirrelStorage"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/lucasoliveira/Documents/projetos/SquirrelStorage/SquirrelStorage/Controller/FiltroViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "15"
+                  endingLineNumber = "15"
+                  offsetFromSymbolStart = "20">
+               </Location>
+               <Location
+                  uuid = "D99E967E-6F7F-4890-9A7D-CE70DE1C1AB1 - 52c15bc1db9d7960"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 (Swift.String) -&gt; Swift.Bool in variable initialization expression of SquirrelStorage.FiltroViewController.categoriasList : Swift.Array&lt;Swift.String&gt;"
+                  moduleName = "SquirrelStorage"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/lucasoliveira/Documents/projetos/SquirrelStorage/SquirrelStorage/Controller/FiltroViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "15"
+                  endingLineNumber = "15"
+                  offsetFromSymbolStart = "23">
+               </Location>
+               <Location
+                  uuid = "D99E967E-6F7F-4890-9A7D-CE70DE1C1AB1 - 7234061baf80533e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SquirrelStorage.FiltroViewController.categoriasList.getter : Swift.Array&lt;Swift.String&gt;"
+                  moduleName = "SquirrelStorage"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/lucasoliveira/Documents/projetos/SquirrelStorage/SquirrelStorage/Controller/FiltroViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "15"
+                  endingLineNumber = "15"
+                  offsetFromSymbolStart = "20">
+               </Location>
+               <Location
+                  uuid = "D99E967E-6F7F-4890-9A7D-CE70DE1C1AB1 - e08b7beacb41e72a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SquirrelStorage.FiltroViewController.categoriasList.setter : Swift.Array&lt;Swift.String&gt;"
+                  moduleName = "SquirrelStorage"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/lucasoliveira/Documents/projetos/SquirrelStorage/SquirrelStorage/Controller/FiltroViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "15"
+                  endingLineNumber = "15"
+                  offsetFromSymbolStart = "148">
+               </Location>
+               <Location
+                  uuid = "D99E967E-6F7F-4890-9A7D-CE70DE1C1AB1 - a614082a7eda8428"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SquirrelStorage.FiltroViewController.categoriasList.modify : Swift.Array&lt;Swift.String&gt;"
+                  moduleName = "SquirrelStorage"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/lucasoliveira/Documents/projetos/SquirrelStorage/SquirrelStorage/Controller/FiltroViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "18">
+               </Location>
+               <Location
+                  uuid = "D99E967E-6F7F-4890-9A7D-CE70DE1C1AB1 - 8d88b1d7583ff900"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SquirrelStorage.FiltroViewController.categoriasList.modify : Swift.Array&lt;Swift.String&gt; with unmangled suffix &quot;.resume.0&quot;"
+                  moduleName = "SquirrelStorage"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/lucasoliveira/Documents/projetos/SquirrelStorage/SquirrelStorage/Controller/FiltroViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "15"
+                  endingLineNumber = "15"
+                  offsetFromSymbolStart = "4">
+               </Location>
+               <Location
+                  uuid = "D99E967E-6F7F-4890-9A7D-CE70DE1C1AB1 - c8474767d94fade9"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SquirrelStorage.FiltroViewController.init(nibName: Swift.Optional&lt;Swift.String&gt;, bundle: Swift.Optional&lt;__C.NSBundle&gt;) -&gt; SquirrelStorage.FiltroViewController"
+                  moduleName = "SquirrelStorage"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/lucasoliveira/Documents/projetos/SquirrelStorage/SquirrelStorage/Controller/FiltroViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "15"
+                  endingLineNumber = "15"
+                  offsetFromSymbolStart = "976">
+               </Location>
+               <Location
+                  uuid = "D99E967E-6F7F-4890-9A7D-CE70DE1C1AB1 - 10a6d275abf62132"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SquirrelStorage.FiltroViewController.init(coder: __C.NSCoder) -&gt; Swift.Optional&lt;SquirrelStorage.FiltroViewController&gt;"
+                  moduleName = "SquirrelStorage"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/lucasoliveira/Documents/projetos/SquirrelStorage/SquirrelStorage/Controller/FiltroViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "15"
+                  endingLineNumber = "15"
+                  offsetFromSymbolStart = "945">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>
