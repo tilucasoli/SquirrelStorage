@@ -44,7 +44,7 @@ class ProductDetailViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         if let index = productIndex {
-            product = EstoqueViewController.productList[index]
+            product = EstoqueViewController.showedProductList[index]
             setupProductDetailView()
         }
     }
