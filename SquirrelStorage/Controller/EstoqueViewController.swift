@@ -60,7 +60,7 @@ class EstoqueViewController: UIViewController {
     
     func handleEmptyState() {
         
-        if EstoqueViewController.productList.count == 0 {
+        if EstoqueViewController.showedProductList.count == 0 {
             setupEmptyState()
         } else {
             emptyState.removeFromSuperview()

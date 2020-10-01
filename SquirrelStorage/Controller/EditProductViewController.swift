@@ -42,7 +42,7 @@ class EditProductViewController: AddProductViewController {
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        7
+        8
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -117,12 +117,24 @@ class EditProductViewController: AddProductViewController {
             cell.productDescriptionTextField.delegate = self
             cell.backgroundColor = .background
             return cell
-        case 6:
+        case 7:
             let cell = tableView.dequeueReusableCell(withIdentifier: "AddProductDelete", for: indexPath) as! DeleteTableViewCell
+            cell.delegate = self
             return cell
         default:
             print("Deu erro ao carregar célula")
             return UITableViewCell()
+        }
+    }
+    
+}
+
+extension EditProductViewController: DeleteTableViewCellDelegate {
+    
+    func delete() {
+        if let index = productIndex {
+            EstoqueViewController.showedProductList.remove(at: index)
+            navigationController?.popToRootViewController(animated: true)
         }
     }
     

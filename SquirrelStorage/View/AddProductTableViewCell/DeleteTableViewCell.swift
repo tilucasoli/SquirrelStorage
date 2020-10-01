@@ -10,12 +10,13 @@ import UIKit
 
 class DeleteTableViewCell: UITableViewCell {
     
+    weak var delegate: DeleteTableViewCellDelegate?
+    
     let deleteButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Deletar Produto", for: .normal)
         button.setTitleColor(.systemRed, for: .normal)
         button.backgroundColor = .background
-        //button.addTarget(self, action: <#T##Selector#>, for: <#T##UIControl.Event#>)
         return button
     }()
  
@@ -23,6 +24,7 @@ class DeleteTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         backgroundColor = .background
         contentView.addSubview(deleteButton)
+        deleteButton.addTarget(self, action: #selector(deleteButtonPressed), for: .touchUpInside)
         setupDeleteButton()
     }
     
@@ -32,6 +34,11 @@ class DeleteTableViewCell: UITableViewCell {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    @objc func deleteButtonPressed() {
+        //print("Botão Delete pressionado")
+        delegate?.delete()
     }
     
     func setupDeleteButton() {
