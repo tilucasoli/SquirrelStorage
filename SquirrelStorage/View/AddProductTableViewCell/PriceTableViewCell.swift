@@ -9,7 +9,7 @@
 import UIKit
 
 class PriceTableViewCell: UITableViewCell {
-
+    
     let productPriceTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "Preço de custo"
@@ -43,5 +43,5 @@ class PriceTableViewCell: UITableViewCell {
         productPriceTextField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16).isActive       = true
         productPriceTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16).isActive    = true
     }
-
+    
 }

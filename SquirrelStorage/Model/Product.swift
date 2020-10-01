@@ -12,7 +12,7 @@ enum ProductStrings: String {
     case filename = "products", placeholderName = "ProductPlaceholder"
 }
 
-struct Product: Codable {
+class Product: Codable {
     var name: String
     var image: URL?
     var quantity: Int
@@ -22,22 +22,7 @@ struct Product: Codable {
     var description: String
     var category: String
     
-}
-
-class Product2: ObservableObject {
-    
-    let id: Int
-    let name: String
-    let image: URL?
-    var quantity: Int
-    @Published var favorited: Bool
-    let costPrice: Decimal
-    let sellPrice: Decimal
-    let description: String
-    let tag: String
-    
-    internal init(id: Int, name: String, image: URL?, quantity: Int, favorited: Bool, costPrice: Decimal, sellPrice: Decimal, description: String, tag: String) {
-        self.id = id
+    init( name: String, image: URL?, quantity: Int, favorited: Bool, costPrice: Decimal, sellPrice: Decimal, description: String, category: String) {
         self.name = name
         self.image = image
         self.quantity = quantity
@@ -45,9 +30,7 @@ class Product2: ObservableObject {
         self.costPrice = costPrice
         self.sellPrice = sellPrice
         self.description = description
-        self.tag = tag
+        self.category = category
     }
     
-//    func getUIImage() -> UIImage {
-//    }
 }

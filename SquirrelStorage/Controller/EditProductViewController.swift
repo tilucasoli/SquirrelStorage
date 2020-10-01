@@ -31,7 +31,7 @@ class EditProductViewController: AddProductViewController {
     override func didSaveButtonTapped() {
         let product = getProduct()
         if let index = productIndex {
-            EstoqueViewController.productList[index] = product
+            EstoqueViewController.showedProductList[index] = product
             navigationController?.popViewController(animated: true)
         }
     }
@@ -85,6 +85,14 @@ class EditProductViewController: AddProductViewController {
             cell.backgroundColor = .background
             return cell
         case 4:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "AddProductSellPrice", for: indexPath) as! SellPriceTableViewCell
+            if let product = product {
+                cell.productSellPriceTextField.text = "\(product.sellPrice)"
+            }
+            cell.productSellPriceTextField.delegate = self
+            cell.backgroundColor = .background
+            return cell
+        case 5:
             let cell = tableView.dequeueReusableCell(withIdentifier: "AddProductQuantity", for: indexPath) as! QuantityTableViewCell
             if let product = product {
                 cell.productQuantityTextField.text = "\(product.quantity)"
@@ -92,7 +100,7 @@ class EditProductViewController: AddProductViewController {
             cell.productQuantityTextField.delegate = self
             cell.backgroundColor = .background
             return cell
-        case 5:
+        case 6:
             let cell = tableView.dequeueReusableCell(withIdentifier: "AddProductDescription", for: indexPath) as! DescriptionTableViewCell
             if let product = product {
                 cell.productDescriptionTextField.text = "\(product.description)"
