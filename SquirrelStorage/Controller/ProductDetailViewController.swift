@@ -47,14 +47,7 @@ class ProductDetailViewController: UIViewController {
             product = EstoqueViewController.showedProductList[index]
             setupProductDetailView()
         }
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        if let product = self.product, let index = self.productIndex {
-            EstoqueViewController.productList[index] = product
-        }
-        EstoqueViewController.showedProductList = EstoqueViewController.productList
+        
     }
     
     @objc func editButtonPressed() {

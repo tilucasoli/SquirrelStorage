@@ -31,7 +31,7 @@ class EditProductViewController: AddProductViewController {
     override func didSaveButtonTapped() {
         let product = getProduct()
         if let index = productIndex {
-            EstoqueViewController.productList[index] = product
+            EstoqueViewController.showedProductList[index] = product
             navigationController?.popViewController(animated: true)
         }
     }
