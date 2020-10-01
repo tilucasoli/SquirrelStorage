@@ -133,8 +133,17 @@ extension EditProductViewController: DeleteTableViewCellDelegate {
     
     func delete() {
         if let index = productIndex {
-            EstoqueViewController.showedProductList.remove(at: index)
-            navigationController?.popToRootViewController(animated: true)
+            let alert = UIAlertController(title: "Deletar produto?", message: "Esse produto será excluído permanentemente.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Cancelar", style: .default, handler: { action in
+                alert.dismiss(animated: true, completion: nil)
+            }))
+            alert.addAction(UIAlertAction(title: "Deletar", style: .destructive, handler: { action in
+                EstoqueViewController.productList.remove(at: index)
+                EstoqueViewController.showedProductList = EstoqueViewController.productList
+                self.dismiss(animated: true, completion: nil)
+                self.navigationController?.popToRootViewController(animated: true)
+            }))
+            self.present(alert, animated: true)
         }
     }
     
