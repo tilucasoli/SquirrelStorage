@@ -35,7 +35,7 @@ class AddProductViewController: UIViewController {
     @objc func didSaveButtonTapped() {
         let product = getProduct()
         EstoqueViewController.productList.append(product)
-//        EstoqueViewController.showedProductList = EstoqueViewController.productList
+        EstoqueViewController.showedProductList = EstoqueViewController.productList
         navigationController?.popViewController(animated: true)
     }
     

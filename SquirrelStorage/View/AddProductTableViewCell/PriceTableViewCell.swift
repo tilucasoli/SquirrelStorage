@@ -15,7 +15,8 @@ class PriceTableViewCell: UITableViewCell {
         textField.placeholder = "Preço de custo"
         textField.returnKeyType = UIReturnKeyType.done
         textField.autocorrectionType = UITextAutocorrectionType.no
-        textField.clearButtonMode = UITextField.ViewMode.whileEditing;
+        textField.clearButtonMode = UITextField.ViewMode.whileEditing
+        textField.keyboardType = .decimalPad
         textField.underlined()
         
         return textField
