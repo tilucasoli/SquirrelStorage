@@ -51,6 +51,7 @@ class EstoqueViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        //EstoqueViewController.showedProductList = EstoqueViewController.productList
         navigationItem.largeTitleDisplayMode = .always
         navigationController?.navigationBar.prefersLargeTitles = true
         collectionView.reloadData()
@@ -137,7 +138,7 @@ extension EstoqueViewController: UICollectionViewDelegate, UICollectionViewDataS
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if indexPath.section == 0 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "EstoqueCard", for: indexPath) as! CardEstoqueCollectionViewCell
-            let investedTotal: Decimal = EstoqueViewController.showedProductList.map{$0.costPrice}.reduce(0){$0 + $1}
+            let investedTotal: Decimal = EstoqueViewController.showedProductList.map{$0.costPrice * Decimal($0.quantity)}.reduce(0){$0 + $1}
             cell.totalValue.text = investedTotal.toMoneyRepresentation()
             return cell
         } else {
@@ -152,7 +153,7 @@ extension EstoqueViewController: UICollectionViewDelegate, UICollectionViewDataS
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.section != 0 {
-            let newVC = ProductDetailViewController(of: EstoqueViewController.showedProductList[indexPath.row], at: indexPath.row)
+            let newVC = ProductDetailViewController(productIndex: indexPath.row)
             navigationController?.pushViewController(newVC, animated: true)
         }
     }

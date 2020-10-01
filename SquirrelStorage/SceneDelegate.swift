@@ -13,7 +13,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        EstoqueViewController.productList = Database(filename: Database.Filename.product.rawValue).loadItems()
+        EstoqueViewController.productList = Database(filename: ProductStrings.filename.rawValue).loadItems()
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
         window?.windowScene = windowScene
@@ -22,7 +22,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
-        Database(filename: Database.Filename.product.rawValue).saveItems(EstoqueViewController.productList)
+        Database(filename: ProductStrings.filename.rawValue).saveItems(EstoqueViewController.productList)
         // Called as the scene is being released by the system.
         // This occurs shortly after the scene enters the background, or when its session is discarded.
         // Release any resources associated with this scene that can be re-created the next time the scene connects.

@@ -73,14 +73,7 @@ class ProdutoCollectionViewCell: UICollectionViewCell, ObservableObject {
     
     func configureCell(product: Product, onDidChange: @escaping (Bool) -> Void) {
         self.onDidChange = onDidChange
-        self.image.image = UIImage(named: "ProductPlaceholder")
-        if let imageURL = product.image {
-            ImageFetcher().fetchImage(from: imageURL) { image in
-                DispatchQueue.main.async {
-                    self.image.image = image
-                }
-            }
-        }
+        self.image.setImage(url: product.image, placeholder: ProductStrings.placeholderName.rawValue)
         productQnty.text = "\(product.quantity) Unidades"
         productName.text = product.name
         productPrice.text = "R$ \(product.costPrice)"

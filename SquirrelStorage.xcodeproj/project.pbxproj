@@ -26,6 +26,8 @@
 		5740F2D525138B13001137EC /* ProductDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5740F2D425138B13001137EC /* ProductDetailViewController.swift */; };
 		5741FB962524D4BE00654958 /* ImageFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5741FB952524D4BE00654958 /* ImageFetcher.swift */; };
 		5741FBA225251B6000654958 /* UITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5741FBA125251B6000654958 /* UITextField.swift */; };
+		5741FBB625254A9500654958 /* EditProductViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5741FBB525254A9500654958 /* EditProductViewController.swift */; };
+		5741FBBA25255C6700654958 /* UIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5741FBB925255C6700654958 /* UIButton.swift */; };
 		576345D52522253600527CF6 /* ProdutoCollectionViewCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 576345D42522253600527CF6 /* ProdutoCollectionViewCellDelegate.swift */; };
 		577FAA50251A3CA4005FA501 /* ProductDetailViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577FAA4F251A3CA4005FA501 /* ProductDetailViewDelegate.swift */; };
 		577FAA6E251B77B6005FA501 /* CustomSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577FAA69251B77B6005FA501 /* CustomSectionView.swift */; };
@@ -34,8 +36,8 @@
 		577FAA76251B7836005FA501 /* FiltroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577FAA75251B7836005FA501 /* FiltroViewController.swift */; };
 		577FAA7A251B78A0005FA501 /* ProductDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577FAA79251B78A0005FA501 /* ProductDetailView.swift */; };
 		577FAA92251B9A89005FA501 /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577FAA91251B9A89005FA501 /* Database.swift */; };
-		FF3FAEB12524CE4900B47C20 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3FAEB02524CE4900B47C20 /* Category.swift */; };
 		57C8313825236D880075D32A /* Decimal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C8313725236D880075D32A /* Decimal.swift */; };
+		FF3FAEB12524CE4900B47C20 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3FAEB02524CE4900B47C20 /* Category.swift */; };
 		FF54DE3525221F6100FE439B /* CategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF54DE3425221F6100FE439B /* CategoryTableViewCell.swift */; };
 		FF54DE3925221FF300FE439B /* PriceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF54DE3825221FF300FE439B /* PriceTableViewCell.swift */; };
 		FF54DE3D2522200000FE439B /* QuantityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF54DE3C2522200000FE439B /* QuantityTableViewCell.swift */; };
@@ -80,6 +82,8 @@
 		5740F2D425138B13001137EC /* ProductDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailViewController.swift; sourceTree = "<group>"; };
 		5741FB952524D4BE00654958 /* ImageFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFetcher.swift; sourceTree = "<group>"; };
 		5741FBA125251B6000654958 /* UITextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextField.swift; sourceTree = "<group>"; };
+		5741FBB525254A9500654958 /* EditProductViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProductViewController.swift; sourceTree = "<group>"; };
+		5741FBB925255C6700654958 /* UIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButton.swift; sourceTree = "<group>"; };
 		576345D42522253600527CF6 /* ProdutoCollectionViewCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProdutoCollectionViewCellDelegate.swift; sourceTree = "<group>"; };
 		577FAA4F251A3CA4005FA501 /* ProductDetailViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailViewDelegate.swift; sourceTree = "<group>"; };
 		577FAA69251B77B6005FA501 /* CustomSectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomSectionView.swift; sourceTree = "<group>"; };
@@ -88,8 +92,8 @@
 		577FAA75251B7836005FA501 /* FiltroViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FiltroViewController.swift; sourceTree = "<group>"; };
 		577FAA79251B78A0005FA501 /* ProductDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductDetailView.swift; sourceTree = "<group>"; };
 		577FAA91251B9A89005FA501 /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
-		FF3FAEB02524CE4900B47C20 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		57C8313725236D880075D32A /* Decimal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Decimal.swift; sourceTree = "<group>"; };
+		FF3FAEB02524CE4900B47C20 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		FF54DE3425221F6100FE439B /* CategoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryTableViewCell.swift; sourceTree = "<group>"; };
 		FF54DE3825221FF300FE439B /* PriceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceTableViewCell.swift; sourceTree = "<group>"; };
 		FF54DE3C2522200000FE439B /* QuantityTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuantityTableViewCell.swift; sourceTree = "<group>"; };
@@ -189,6 +193,7 @@
 				03A9A703251253B40040DA7C /* EstoqueViewController.swift */,
 				5740F2D425138B13001137EC /* ProductDetailViewController.swift */,
 				FFCE2D0B251D2B3300D9826B /* AddProductViewController.swift */,
+				5741FBB525254A9500654958 /* EditProductViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -201,6 +206,7 @@
 				4B570ECA2524AF680064F82B /* UIImageView.swift */,
 				57C8313725236D880075D32A /* Decimal.swift */,
 				5741FBA125251B6000654958 /* UITextField.swift */,
+				5741FBB925255C6700654958 /* UIButton.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -380,6 +386,7 @@
 				FF54DE412522201D00FE439B /* DescriptionTableViewCell.swift in Sources */,
 				577FAA7A251B78A0005FA501 /* ProductDetailView.swift in Sources */,
 				57C8313825236D880075D32A /* Decimal.swift in Sources */,
+				5741FBB625254A9500654958 /* EditProductViewController.swift in Sources */,
 				FFCE2D10251D2D4B00D9826B /* ImageTableViewCell.swift in Sources */,
 				FFCE2D0C251D2B3300D9826B /* AddProductViewController.swift in Sources */,
 				577FAA6E251B77B6005FA501 /* CustomSectionView.swift in Sources */,
@@ -398,6 +405,7 @@
 				4B570ECB2524AF680064F82B /* UIImageView.swift in Sources */,
 				577FAA76251B7836005FA501 /* FiltroViewController.swift in Sources */,
 				FF54DE3925221FF300FE439B /* PriceTableViewCell.swift in Sources */,
+				5741FBBA25255C6700654958 /* UIButton.swift in Sources */,
 				5740F2D525138B13001137EC /* ProductDetailViewController.swift in Sources */,
 				FF54DE3525221F6100FE439B /* CategoryTableViewCell.swift in Sources */,
 				577FAA92251B9A89005FA501 /* Database.swift in Sources */,
