@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "QuantityIcon.png",
+      "filename" : "EstoqueIcon.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "QuantityIcon@2x.png",
+      "filename" : "EstoqueIcon@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "QuantityIcon@3x.png",
+      "filename" : "EstoqueIcon@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

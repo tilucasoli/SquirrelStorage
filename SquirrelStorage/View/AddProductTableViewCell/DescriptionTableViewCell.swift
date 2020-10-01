@@ -15,7 +15,7 @@ class DescriptionTableViewCell: UITableViewCell {
         textField.placeholder = "Descrição"
         textField.returnKeyType = UIReturnKeyType.done
         textField.autocorrectionType = UITextAutocorrectionType.no
-        textField.clearButtonMode = UITextField.ViewMode.whileEditing;
+        textField.clearButtonMode = UITextField.ViewMode.whileEditing
         textField.underlined()
         
         return textField
