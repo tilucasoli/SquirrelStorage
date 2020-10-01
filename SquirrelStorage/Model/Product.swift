@@ -21,6 +21,7 @@ struct Product: Codable {
     var sellPrice: Decimal
     var description: String
     var category: String
+    
 }
 
 class Product2: ObservableObject {

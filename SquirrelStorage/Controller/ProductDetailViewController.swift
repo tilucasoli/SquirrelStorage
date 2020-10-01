@@ -54,6 +54,7 @@ class ProductDetailViewController: UIViewController {
         if let product = self.product, let index = self.productIndex {
             EstoqueViewController.productList[index] = product
         }
+        EstoqueViewController.showedProductList = EstoqueViewController.productList
     }
     
     @objc func editButtonPressed() {
