@@ -39,7 +39,6 @@ class AddProductViewController: UIViewController {
         navigationController?.popViewController(animated: true)
     }
     
-    
     func getProduct() -> Product {
         var product = Product(name: "", image: nil, quantity: 0, favorited: false, costPrice: 0, sellPrice: 0, description: "", category: "")
         if let imageURL = (tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! ImageTableViewCell).imageURL {

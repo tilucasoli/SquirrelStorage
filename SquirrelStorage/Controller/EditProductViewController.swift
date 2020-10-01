@@ -36,6 +36,15 @@ class EditProductViewController: AddProductViewController {
         }
     }
     
+    override func configureTableView() {
+        super.configureTableView()
+        tableView.register(DeleteTableViewCell.self, forCellReuseIdentifier: "AddProductDelete")
+    }
+    
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        7
+    }
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
 //        var cell = UITableViewCell()
@@ -99,6 +108,9 @@ class EditProductViewController: AddProductViewController {
             }
             cell.productDescriptionTextField.delegate = self
             cell.backgroundColor = .background
+            return cell
+        case 6:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "AddProductDelete", for: indexPath) as! DeleteTableViewCell
             return cell
         default:
             print("Deu erro ao carregar célula")
