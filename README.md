@@ -1,3 +1,4 @@
+![Grupo 769-1](https://user-images.githubusercontent.com/36972783/94756209-36c30080-036d-11eb-99e1-f28692d062c6.png)
 
 # SquirrelStorage
 
