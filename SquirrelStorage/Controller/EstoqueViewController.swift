@@ -13,7 +13,11 @@ class EstoqueViewController: UIViewController {
     var num = 0
     
     static var productList: [Product] = []
-    static var showedProductList: [Product] = EstoqueViewController.productList
+    static var showedProductList: [Product] = EstoqueViewController.productList /*{
+        didSet {
+            print(showedProductList)
+        }
+    }*/
     
     var plusButton: UIBarButtonItem!
     
