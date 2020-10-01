@@ -12,7 +12,9 @@ class FiltroViewController: UIViewController {
     
     var filtroList = [(title: "Menor Preço", icon: "Dolar"), (title: "Maior Preço", icon: "Dolar"), (title: "Quantidade", icon: "Dolar")]
     
-    var categoriasList = ["Capinhas", "Carregadores", "Abacates"]
+    var categoriasList = Array(Set(EstoqueViewController.productList.map({$0.category})))
+    
+//    var productList = []
     
     var ultimoFiltro: AgruparFiltroCollectionViewCell?
     
@@ -291,8 +293,20 @@ class FiltroViewController: UIViewController {
     }
     
     @objc func filterAction() {
+        if ultimoFiltro?.titleLabel.text == "Menor Preço" {
+            let list = EstoqueViewController.productList.sorted(by: {$0.costPrice < $1.costPrice})
+            EstoqueViewController.showedProductList = list
+        }
         
+        else if ultimoFiltro?.titleLabel.text == "Maior Preço" {
+            let list = EstoqueViewController.productList.sorted(by: {$0.costPrice > $1.costPrice})
+            EstoqueViewController.showedProductList = list
+        }
         
+        else if ultimoFiltro?.titleLabel.text == "Quantidade" {
+            let list = EstoqueViewController.productList.sorted(by: {$0.quantity > $1.quantity})
+            EstoqueViewController.showedProductList = list
+        }
         hideCardAndGoBack()
     }
     
