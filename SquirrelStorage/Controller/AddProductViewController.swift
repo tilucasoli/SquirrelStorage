@@ -51,13 +51,11 @@ class AddProductViewController: UIViewController {
                 product.name = name
             }
         }
-        if let category = (tableView.cellForRow(at: IndexPath(row: 0, section: 2)) as! CategoryTableViewCell).productCategoryTextField.text {
-            // If it is empty, I put one space in order to not modify the interface
-            if category == "" {
-                product.category = " "
-            } else {
-                product.category = category
-            }
+        let categoryName = categories[(tableView.cellForRow(at: IndexPath(row: 0, section: 2)) as! CategoryTableViewCell).categoryPicker.selectedRow(inComponent: 0)].name
+        if categoryName == "" {
+            product.category = " "
+        } else {
+            product.category = categoryName
         }
         if let price = (tableView.cellForRow(at: IndexPath(row: 0, section: 3)) as! PriceTableViewCell).productPriceTextField.text {
             product.costPrice = Decimal(string: price) ?? 0
@@ -101,7 +99,6 @@ class AddProductViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
     }
-    
     
     func configureCategory() {
         categories.append(Category(name: "Eletrônicos"))

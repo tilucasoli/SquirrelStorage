@@ -151,7 +151,7 @@ extension EstoqueViewController: UICollectionViewDelegate, UICollectionViewDataS
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.section != 0 {
-            let newVC = ProductDetailViewController(of: EstoqueViewController.productList[indexPath.row], at: indexPath.row)
+            let newVC = ProductDetailViewController(productIndex: indexPath.row)
             navigationController?.pushViewController(newVC, animated: true)
         }
     }

@@ -9,6 +9,7 @@
 import UIKit
 
 extension UIImageView {
+    
     func tintColorTo(color: UIColor) {
         if let image = self.image {
             let templateImage = image.withRenderingMode(.alwaysTemplate)
@@ -16,4 +17,16 @@ extension UIImageView {
             self.tintColor = color
         }
     }
+    
+    func setImage(url: URL?, placeholder: String) {
+        self.image = UIImage(named: placeholder)
+        if let imageURL = url {
+            ImageFetcher().fetchImage(from: imageURL) { image in
+                DispatchQueue.main.async {
+                    self.image = image
+                }
+            }
+        }
+    }
+    
 }

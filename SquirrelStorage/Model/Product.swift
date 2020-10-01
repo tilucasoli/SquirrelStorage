@@ -8,6 +8,10 @@
 
 import UIKit
 
+enum ProductStrings: String {
+    case filename = "products", placeholderName = "ProductPlaceholder"
+}
+
 struct Product: Codable {
     var name: String
     var image: URL?

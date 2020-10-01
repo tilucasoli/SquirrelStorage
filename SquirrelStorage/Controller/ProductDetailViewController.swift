@@ -13,12 +13,10 @@ class ProductDetailViewController: UIViewController {
     var productDetailView: ProductDetailView! = nil
     var product: Product?
     var productIndex: Int?
-    var needsUpdate = false
     
-    init(of product: Product, at index: Int) {
+    init(productIndex: Int) {
         super.init(nibName: nil, bundle: nil)
-        self.product = product
-        self.productIndex = index
+        self.productIndex = productIndex
     }
     
     required init?(coder: NSCoder) {
@@ -34,7 +32,7 @@ class ProductDetailViewController: UIViewController {
         productDetailView.delegate = self
         super.viewDidLoad()
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Editar", style: .plain, target: self, action: nil)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Editar", style: .plain, target: self, action: #selector(editButtonPressed))
         
         productDetailView.backgroundColor = .purpleSS
         
@@ -42,7 +40,13 @@ class ProductDetailViewController: UIViewController {
         navigationController?.navigationBar.isTranslucent = false
 
         navigationController?.view.backgroundColor = UIColor.background
-        setupProductDetailView()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if let index = productIndex {
+            product = EstoqueViewController.productList[index]
+            setupProductDetailView()
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -52,16 +56,16 @@ class ProductDetailViewController: UIViewController {
         }
     }
     
+    @objc func editButtonPressed() {
+        if let product = self.product, let index = self.productIndex {
+            let editVC = EditProductViewController(of: product, at: index)
+            navigationController?.pushViewController(editVC, animated: true)
+        }
+    }
+    
     func setupProductDetailView() {
         if let product = self.product {
-            productDetailView.imageView.image = UIImage(named: "ProductPlaceholder")
-            if let imageURL = product.image {
-                ImageFetcher().fetchImage(from: imageURL) { image in
-                    DispatchQueue.main.async {
-                        self.productDetailView.imageView.image = image
-                    }
-                }
-            }
+            productDetailView.imageView.setImage(url: product.image, placeholder: ProductStrings.placeholderName.rawValue)
             productDetailView.cardTitle.text = product.name
             productDetailView.cardCategory.text = product.category
             productDetailView.starButton.isSelected = product.favorited
@@ -76,7 +80,6 @@ class ProductDetailViewController: UIViewController {
 
 extension ProductDetailViewController: ProductDetailViewDelegate {
     func increaseQuantity() {
-        needsUpdate = true
         product?.quantity += 1
         if product!.quantity >= 2 {
             productDetailView.currentQuantity.text = "\(product!.quantity) unidades"
@@ -86,7 +89,6 @@ extension ProductDetailViewController: ProductDetailViewDelegate {
     }
     
     func decreaseQuantity() {
-        needsUpdate = true
         if product!.quantity > 0 {
             product?.quantity -= 1
         }
@@ -98,7 +100,6 @@ extension ProductDetailViewController: ProductDetailViewDelegate {
     }
     
     func favorite(_ state: Bool) {
-        needsUpdate = true
         product?.favorited = state
     }
 }

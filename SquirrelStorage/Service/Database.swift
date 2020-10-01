@@ -10,10 +10,6 @@ import Foundation
 
 class Database {
     
-    enum Filename: String {
-        case product = "products"
-    }
-    
     let fileURL: URL
     
     init(filename: String) {
