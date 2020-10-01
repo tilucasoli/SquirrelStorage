@@ -137,7 +137,7 @@ class FiltroViewController: UIViewController {
         button.setTitleColor(.background, for: .normal)
         button.backgroundColor = .purpleSS
         button.layer.cornerRadius = 15
-        //button.addTarget(self, action: #selector(filterAction), for: .touchUpInside)
+        button.addTarget(self, action: #selector(filterAction), for: .touchUpInside)
         return button
     }()
     
@@ -292,23 +292,23 @@ class FiltroViewController: UIViewController {
         hideCardAndGoBack()
     }
     
-//    @objc func filterAction() {
-//        if ultimoFiltro?.titleLabel.text == "Menor Preço" {
-//            let list = EstoqueViewController.productList.sorted(by: {$0.costPrice < $1.costPrice})
-//            EstoqueViewController.showedProductList = list
-//        }
-//
-//        else if ultimoFiltro?.titleLabel.text == "Maior Preço" {
-//            let list = EstoqueViewController.productList.sorted(by: {$0.costPrice > $1.costPrice})
-//            EstoqueViewController.showedProductList = list
-//        }
-//
-//        else if ultimoFiltro?.titleLabel.text == "Quantidade" {
-//            let list = EstoqueViewController.productList.sorted(by: {$0.quantity > $1.quantity})
-//            EstoqueViewController.showedProductList = list
-//        }
-//        hideCardAndGoBack()
-//    }
+    @objc func filterAction() {
+        if ultimoFiltro?.titleLabel.text == "Menor Preço" {
+            let list = EstoqueViewController.productList.sorted(by: {$0.costPrice < $1.costPrice})
+            EstoqueViewController.showedProductList = list
+        }
+        
+        else if ultimoFiltro?.titleLabel.text == "Maior Preço" {
+            let list = EstoqueViewController.productList.sorted(by: {$0.costPrice > $1.costPrice})
+            EstoqueViewController.showedProductList = list
+        }
+        
+        else if ultimoFiltro?.titleLabel.text == "Quantidade" {
+            let list = EstoqueViewController.productList.sorted(by: {$0.quantity > $1.quantity})
+            EstoqueViewController.showedProductList = list
+        }
+        hideCardAndGoBack()
+    }
     
     // MARK: Setups
     func setupImageSnapshot() {

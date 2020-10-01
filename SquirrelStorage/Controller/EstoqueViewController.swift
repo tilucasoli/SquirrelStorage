@@ -13,7 +13,7 @@ class EstoqueViewController: UIViewController {
     var num = 0
     
     static var productList: [Product] = []
-    //static var showedProductList: [Product] = EstoqueViewController.productList
+    static var showedProductList: [Product] = EstoqueViewController.productList
     
     var plusButton: UIBarButtonItem!
     
@@ -109,8 +109,7 @@ class EstoqueViewController: UIViewController {
 extension EstoqueViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return section == 0 ? 1 : EstoqueViewController.productList.count
-        //return section == 0 ? 1 : EstoqueViewController.showedProductList.count
+        return section == 0 ? 1 : EstoqueViewController.showedProductList.count
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -139,19 +138,15 @@ extension EstoqueViewController: UICollectionViewDelegate, UICollectionViewDataS
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if indexPath.section == 0 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "EstoqueCard", for: indexPath) as! CardEstoqueCollectionViewCell
-            let investedTotal: Decimal = EstoqueViewController.productList.map{$0.costPrice * Decimal($0.quantity)}.reduce(0){$0 + $1}
-            //let investedTotal: Decimal = EstoqueViewController.showedProductList.map{$0.costPrice * Decimal($0.quantity)}.reduce(0){$0 + $1}
+            let investedTotal: Decimal = EstoqueViewController.showedProductList.map{$0.costPrice * Decimal($0.quantity)}.reduce(0){$0 + $1}
             cell.totalValue.text = investedTotal.toMoneyRepresentation()
             return cell
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Produto", for: indexPath) as! ProdutoCollectionViewCell
             cell.delegate = self
-            cell.configureCell(product: EstoqueViewController.productList[indexPath.row]) {
-                EstoqueViewController.productList[indexPath.row].favorited = $0
+            cell.configureCell(product: EstoqueViewController.showedProductList[indexPath.row]) {
+                EstoqueViewController.showedProductList[indexPath.row].favorited = $0
             }
-//            cell.configureCell(product: EstoqueViewController.showedProductList[indexPath.row]) {
-//                EstoqueViewController.showedProductList[indexPath.row].favorited = $0
-//            }
             return cell
         }
     }
@@ -180,8 +175,7 @@ extension EstoqueViewController: delegateFilter {
 
 extension EstoqueViewController: ProdutoCollectionViewCellDelegate {
     func favorite(_ state: Bool, at index: Int) {
-        EstoqueViewController.productList[index].favorited = state
-//        EstoqueViewController.showedProductList[index].favorited = state
+        EstoqueViewController.showedProductList[index].favorited = state
     }
 }
 
