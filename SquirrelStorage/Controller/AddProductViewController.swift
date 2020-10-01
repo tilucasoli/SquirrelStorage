@@ -62,10 +62,13 @@ class AddProductViewController: UIViewController {
         if let price = (tableView.cellForRow(at: IndexPath(row: 0, section: 3)) as! PriceTableViewCell).productPriceTextField.text {
             product.costPrice = Decimal(string: price) ?? 0
         }
-        if let quantity = (tableView.cellForRow(at: IndexPath(row: 0, section: 4)) as! QuantityTableViewCell).productQuantityTextField.text {
+        if let sellPrice = (tableView.cellForRow(at: IndexPath(row: 0, section: 4)) as! SellPriceTableViewCell).productSellPriceTextField.text {
+            product.sellPrice = Decimal(string: sellPrice) ?? 0
+        }
+        if let quantity = (tableView.cellForRow(at: IndexPath(row: 0, section: 5)) as! QuantityTableViewCell).productQuantityTextField.text {
             product.quantity = Int(quantity) ?? 0
         }
-        if let description = (tableView.cellForRow(at: IndexPath(row: 0, section: 5)) as! DescriptionTableViewCell).productDescriptionTextField.text {
+        if let description = (tableView.cellForRow(at: IndexPath(row: 0, section: 6)) as! DescriptionTableViewCell).productDescriptionTextField.text {
             product.description = description
         }
         return product
@@ -84,6 +87,7 @@ class AddProductViewController: UIViewController {
         tableView.register(NameTableViewCell.self, forCellReuseIdentifier: "AddProductName")
         tableView.register(CategoryTableViewCell.self, forCellReuseIdentifier: "AddProductCategory")
         tableView.register(PriceTableViewCell.self, forCellReuseIdentifier: "AddProductPrice")
+        tableView.register(SellPriceTableViewCell.self, forCellReuseIdentifier: "AddProductSellPrice")
         tableView.register(QuantityTableViewCell.self, forCellReuseIdentifier: "AddProductQuantity")
         tableView.register(DescriptionTableViewCell.self, forCellReuseIdentifier: "AddProductDescription")
         
@@ -118,7 +122,7 @@ extension AddProductViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        6
+        7
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -151,11 +155,16 @@ extension AddProductViewController: UITableViewDelegate, UITableViewDataSource {
             cell.backgroundColor = .background
             return cell
         case 4:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "AddProductSellPrice", for: indexPath) as! SellPriceTableViewCell
+            cell.productSellPriceTextField.delegate = self
+            cell.backgroundColor = .background
+            return cell
+        case 5:
             let cell = tableView.dequeueReusableCell(withIdentifier: "AddProductQuantity", for: indexPath) as! QuantityTableViewCell
             cell.productQuantityTextField.delegate = self
             cell.backgroundColor = .background
             return cell
-        case 5:
+        case 6:
             let cell = tableView.dequeueReusableCell(withIdentifier: "AddProductDescription", for: indexPath) as! DescriptionTableViewCell
             cell.productDescriptionTextField.delegate = self
             cell.backgroundColor = .background
