@@ -2,13 +2,16 @@
 
 # SquirrelStorage
 
-### Squirrel Storage is an app that allows you to manage and control your business storage.
+### Squirrel Storage é um aplicativo feito para você que possui um negócio e busca por um ferramenta de auxílio.
 
+### Perfeito para aqueles que estão iniciando uma loja de vendas e busca por um programa simples e fácil de usar.
+
+### Planeje seu negócio, tenha controle completo de suas finanças e produtos sem complicações.
 
 
 **Features:**
 
-- Add & edit products
-- Favorite your main products
-- Filter & list everything you want
-- Control & manage your profits
+- Adicione e edite seus produtos
+- Favorite seus principais produtos
+- Filtre e liste tudo o que você quiser
+- Controle e gerencie seus lucros

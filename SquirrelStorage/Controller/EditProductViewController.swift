@@ -36,6 +36,15 @@ class EditProductViewController: AddProductViewController {
         }
     }
     
+    override func configureTableView() {
+        super.configureTableView()
+        tableView.register(DeleteTableViewCell.self, forCellReuseIdentifier: "AddProductDelete")
+    }
+    
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        8
+    }
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
 //        var cell = UITableViewCell()
@@ -108,9 +117,33 @@ class EditProductViewController: AddProductViewController {
             cell.productDescriptionTextField.delegate = self
             cell.backgroundColor = .background
             return cell
+        case 7:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "AddProductDelete", for: indexPath) as! DeleteTableViewCell
+            cell.delegate = self
+            return cell
         default:
             print("Deu erro ao carregar célula")
             return UITableViewCell()
+        }
+    }
+    
+}
+
+extension EditProductViewController: DeleteTableViewCellDelegate {
+    
+    func delete() {
+        if let index = productIndex {
+            let alert = UIAlertController(title: "Deletar produto?", message: "Esse produto será excluído permanentemente.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Cancelar", style: .default, handler: { action in
+                alert.dismiss(animated: true, completion: nil)
+            }))
+            alert.addAction(UIAlertAction(title: "Deletar", style: .destructive, handler: { action in
+                EstoqueViewController.productList.remove(at: index)
+                EstoqueViewController.showedProductList = EstoqueViewController.productList
+                self.dismiss(animated: true, completion: nil)
+                self.navigationController?.popToRootViewController(animated: true)
+            }))
+            self.present(alert, animated: true)
         }
     }
     
