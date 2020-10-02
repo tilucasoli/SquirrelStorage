@@ -26,6 +26,9 @@ class EditProductViewController: AddProductViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Editar Produto"
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     override func didSaveButtonTapped() {
