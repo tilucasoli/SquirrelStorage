@@ -17,6 +17,7 @@ class FiltroViewController: UIViewController {
 //    var productList = []
     
     var ultimoFiltro: AgruparFiltroCollectionViewCell?
+//    var categoriasSelecionadas = [""]
     
     enum CardViewState {
         case expanded
@@ -280,12 +281,13 @@ class FiltroViewController: UIViewController {
         // else return an alpha value in between 0.0 and 0.7 based on the top constraint value
         return fullDimAlpha * 1 - ((value - fullDimPosition) / fullDimPosition)
     }
-    
+    // MARK: Filtros
     @objc func clearFilter() {
         let itens = collectionView.visibleCells as! [AgruparFiltroCollectionViewCell]
         for item in itens {
             item.active = false
         }
+        
     }
     
     @objc func closeFilter() {
@@ -297,16 +299,17 @@ class FiltroViewController: UIViewController {
             let list = EstoqueViewController.productList.sorted(by: {$0.costPrice < $1.costPrice})
             EstoqueViewController.showedProductList = list
         }
-        
         else if ultimoFiltro?.titleLabel.text == "Maior Preço" {
             let list = EstoqueViewController.productList.sorted(by: {$0.costPrice > $1.costPrice})
             EstoqueViewController.showedProductList = list
         }
-        
         else if ultimoFiltro?.titleLabel.text == "Quantidade" {
             let list = EstoqueViewController.productList.sorted(by: {$0.quantity > $1.quantity})
             EstoqueViewController.showedProductList = list
         }
+        
+//        let filtered = EstoqueViewController.showedProductList.filter({categoriasSelecionadas.contains($0.category)})
+//        EstoqueViewController.showedProductList = filtered
         hideCardAndGoBack()
     }
     
@@ -579,6 +582,7 @@ extension FiltroViewController: UICollectionViewDelegate, UICollectionViewDataSo
                 cell.active.toggle()
             }
         } else {
+//            categoriasSelecionadas.append(cell.titleLabel.text ?? " ")
             cell.active.toggle()
         }
         
