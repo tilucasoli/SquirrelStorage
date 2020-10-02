@@ -17,7 +17,7 @@ class FiltroViewController: UIViewController {
 //    var productList = []
     
     var ultimoFiltro: AgruparFiltroCollectionViewCell?
-    var categoriasFiltro = [""]
+//    var categoriasSelecionadas = [""]
     
     enum CardViewState {
         case expanded
@@ -287,6 +287,7 @@ class FiltroViewController: UIViewController {
         for item in itens {
             item.active = false
         }
+        
     }
     
     @objc func closeFilter() {
@@ -307,8 +308,8 @@ class FiltroViewController: UIViewController {
             EstoqueViewController.showedProductList = list
         }
         
-        let list = EstoqueViewController.productList.filter({$0.category == categoriasFiltro[0]})
-        print(list)
+//        let filtered = EstoqueViewController.showedProductList.filter({categoriasSelecionadas.contains($0.category)})
+//        EstoqueViewController.showedProductList = filtered
         hideCardAndGoBack()
     }
     
@@ -581,7 +582,7 @@ extension FiltroViewController: UICollectionViewDelegate, UICollectionViewDataSo
                 cell.active.toggle()
             }
         } else {
-            categoriasFiltro.append(cell.titleLabel.text ?? " ")
+//            categoriasSelecionadas.append(cell.titleLabel.text ?? " ")
             cell.active.toggle()
         }
         
