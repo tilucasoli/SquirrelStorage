@@ -4,7 +4,9 @@ disabled_rules:
   - force_cast
   - function_body_length
   - type_body_length
-  - file_lengthg
+  - file_length
+  - cyclomatic_complexity
+  - block_based_kvo
 
 line_length:
   warning: 180
