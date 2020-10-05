@@ -12,7 +12,6 @@ class CategoryTableViewCell: UITableViewCell {
     
     var content: [String] = []
     var isObserving = false
-    var obs: NSKeyValueObservation?
     
     class var expandedHeight: CGFloat {get { return 200}}
     class var defaultHeight: CGFloat {get {return 36}}
@@ -55,6 +54,7 @@ class CategoryTableViewCell: UITableViewCell {
             isObserving = true
         }
     }
+    
     func ignoreFrameChanges() {
         if isObserving {
             removeObserver(self, forKeyPath: "frame")
