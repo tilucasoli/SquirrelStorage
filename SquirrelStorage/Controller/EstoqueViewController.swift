@@ -121,7 +121,10 @@ extension EstoqueViewController: UICollectionViewDelegate, UICollectionViewDataS
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "headerView", for: indexPath) as! CustomSectionView
+        let headerView = collectionView.dequeueReusableSupplementaryView(
+            ofKind: UICollectionView.elementKindSectionHeader,
+            withReuseIdentifier: "headerView", for: indexPath
+        ) as! CustomSectionView
         headerView.delegate = self
         headerView.frame.size.height = 55
         return headerView
@@ -142,7 +145,7 @@ extension EstoqueViewController: UICollectionViewDelegate, UICollectionViewDataS
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if indexPath.section == 0 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "EstoqueCard", for: indexPath) as! CardEstoqueCollectionViewCell
-            let investedTotal: Decimal = EstoqueViewController.showedProductList.map{$0.costPrice * Decimal($0.quantity)}.reduce(0){$0 + $1}
+            let investedTotal: Decimal = EstoqueViewController.showedProductList.map {$0.costPrice * Decimal($0.quantity)}.reduce(0) {$0 + $1}
             cell.totalValue.text = investedTotal.toMoneyRepresentation()
             return cell
         } else {

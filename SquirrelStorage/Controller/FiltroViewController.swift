@@ -298,12 +298,12 @@ class FiltroViewController: UIViewController {
         if ultimoFiltro?.titleLabel.text == "Menor Preço" {
             let list = EstoqueViewController.productList.sorted(by: {$0.costPrice < $1.costPrice})
             EstoqueViewController.showedProductList = list
-        }
-        else if ultimoFiltro?.titleLabel.text == "Maior Preço" {
+            
+        } else if ultimoFiltro?.titleLabel.text == "Maior Preço" {
             let list = EstoqueViewController.productList.sorted(by: {$0.costPrice > $1.costPrice})
             EstoqueViewController.showedProductList = list
-        }
-        else if ultimoFiltro?.titleLabel.text == "Quantidade" {
+            
+        } else if ultimoFiltro?.titleLabel.text == "Quantidade" {
             let list = EstoqueViewController.productList.sorted(by: {$0.quantity > $1.quantity})
             EstoqueViewController.showedProductList = list
         }
