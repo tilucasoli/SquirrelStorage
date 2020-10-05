@@ -9,8 +9,14 @@
 import UIKit
 import PhotosUI
 
-protocol imagePickerDelegate: UIViewController {
+protocol imagePickerDelegate: AnyObject {
     func presentImagePicker(imgPickerController: UIImagePickerController)
+}
+
+extension imagePickerDelegate where Self: UIViewController {
+    func dismiss(animated flag: Bool, completion: (() -> Void)?) {
+        self.dismiss(animated: flag, completion: completion)
+    }
 }
 
 class ImageTableViewCell: UITableViewCell {
@@ -64,7 +70,7 @@ extension ImageTableViewCell: UIImagePickerControllerDelegate, UINavigationContr
         delegate?.presentImagePicker(imgPickerController: imagePickerController)
     }
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         if let edited = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
             productImageButton.setImage(edited, for: .normal)
         } else if let originalImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
@@ -74,6 +80,8 @@ extension ImageTableViewCell: UIImagePickerControllerDelegate, UINavigationContr
             imageURL = url
         }
         productImageButton.imageView?.layer.cornerRadius = 19
-        delegate?.dismiss(animated: true, completion: nil)
+        if let delegateVC = delegate as? UIViewController {
+            delegateVC.dismiss(animated: true, completion: nil)
+        }
     }
 }

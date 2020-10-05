@@ -2,6 +2,9 @@ disabled_rules:
   - trailing_whitespace
   - identifier_name
   - force_cast
+  - function_body_length
+  - type_body_length
+  - file_lengthg
 
 line_length:
   warning: 180

@@ -58,7 +58,7 @@ class AddProductViewController: UIViewController {
     }
     
     func getProduct() -> Product {
-        var product = Product(name: "", image: nil, quantity: 0, favorited: false, costPrice: 0, sellPrice: 0, description: "", category: "")
+        let product = Product(name: "", image: nil, quantity: 0, favorited: false, costPrice: 0, sellPrice: 0, description: "", category: "")
         if let imageURL = (tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! ImageTableViewCell).imageURL {
             product.image = imageURL
         }
@@ -198,7 +198,7 @@ extension AddProductViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath)
-        if (cell?.canBecomeFirstResponder != nil) {
+        if cell?.canBecomeFirstResponder != nil {
                 cell?.becomeFirstResponder()
         }
     }
@@ -215,13 +215,13 @@ extension AddProductViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if(indexPath.section == 2) {
+        if indexPath.section == 2 {
             (cell as! CategoryTableViewCell).watchFrameChanges()
         }
     }
     
     func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if(indexPath.section == 2) {
+        if indexPath.section == 2 {
             (cell as! CategoryTableViewCell).ignoreFrameChanges()
         }
     }

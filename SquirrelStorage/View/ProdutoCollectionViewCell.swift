@@ -45,7 +45,7 @@ class ProdutoCollectionViewCell: UICollectionViewCell, ObservableObject {
     
     var onDidChange: ((Bool) -> Void)?
 
-    lazy var starIcon = UIHostingView(rootView: StarAnimationView(cell: self, onDidChange: { self.onDidChange?($0) } ), viewController: nil)
+    lazy var starIcon = UIHostingView(rootView: StarAnimationView(cell: self, onDidChange: { self.onDidChange?($0) }), viewController: nil)
 
 //    func changeFavorited(_ value: Bool?) {
 //        print(value)

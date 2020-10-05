@@ -20,7 +20,7 @@ class ImageFetcher {
             completion(image)
         } else {
             let urlRequest = URLRequest(url: imgURL)
-            URLSession.shared.dataTask(with: urlRequest) { data, response, error in
+            URLSession.shared.dataTask(with: urlRequest) { data, _, _ in
                 guard let data = data else { return }
                 image = UIImage(data: data)!
                 completion(image)

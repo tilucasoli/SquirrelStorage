@@ -46,6 +46,6 @@ struct StarAnimationView: View {
 
 //struct StarAnimationView_Previews: PreviewProvider {
 //    static var previews: some View {
-////        StarAnimationView()
+//        StarAnimationView()
 //    }
 //}
