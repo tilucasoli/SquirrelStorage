@@ -17,7 +17,7 @@ class FiltroViewController: UIViewController {
 //    var productList = []
     
     var ultimoFiltro: AgruparFiltroCollectionViewCell?
-//    var categoriasSelecionadas = [""]
+    var filtrosSelecionados: [AgruparFiltroCollectionViewCell]?
     
     enum CardViewState {
         case expanded
@@ -107,7 +107,7 @@ class FiltroViewController: UIViewController {
         layout.sectionInset = UIEdgeInsets(top: 0, left: 16, bottom: 16, right: 16)
         layout.itemSize = CGSize(width: 152, height: 36)
         layout.minimumLineSpacing = 8
-        layout.minimumInteritemSpacing = 4
+        layout.minimumInteritemSpacing = 8
 
         layout.scrollDirection = .vertical
 
@@ -287,6 +287,7 @@ class FiltroViewController: UIViewController {
         for item in itens {
             item.active = false
         }
+        filtrosSelecionados = nil
         
     }
     
@@ -530,7 +531,7 @@ class FiltroViewController: UIViewController {
 }
 
 // MARK: Collection View
-extension FiltroViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+extension FiltroViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return section == 0 ? filtroList.count : categoriasList.count
@@ -565,14 +566,13 @@ extension FiltroViewController: UICollectionViewDelegate, UICollectionViewDataSo
         } else {
             cell.configureCell(title: categoriasList[indexPath.row], icon: nil)
         }
-       
+        
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         let cell = collectionView.cellForItem(at: indexPath) as! AgruparFiltroCollectionViewCell
-        
         if indexPath.section == 0 {
             if !cell.active {
                 if let filtro = ultimoFiltro {
@@ -582,10 +582,16 @@ extension FiltroViewController: UICollectionViewDelegate, UICollectionViewDataSo
                 cell.active.toggle()
             }
         } else {
-//            categoriasSelecionadas.append(cell.titleLabel.text ?? " ")
             cell.active.toggle()
         }
         
     }
 
+}
+
+extension FiltroViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let widthSize = (view.safeAreaLayoutGuide.layoutFrame.size.width / 2) - 40
+        return CGSize(width: widthSize, height: 36)
+    }
 }
