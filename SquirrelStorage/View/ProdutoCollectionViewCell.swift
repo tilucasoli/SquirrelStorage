@@ -17,8 +17,11 @@ class ProdutoCollectionViewCell: UICollectionViewCell, ObservableObject {
     
     let image: UIImageView = {
         let image = UIImageView()
-        image.backgroundColor = .white
-        image.contentMode = .scaleAspectFit
+        image.backgroundColor = .clear
+        image.contentMode = .scaleToFill
+        image.layer.cornerRadius = 8
+        image.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        image.clipsToBounds = true
         return image
     }()
     
@@ -74,7 +77,7 @@ class ProdutoCollectionViewCell: UICollectionViewCell, ObservableObject {
     func configureCell(product: Product, onDidChange: @escaping (Bool) -> Void) {
         self.onDidChange = onDidChange
         self.image.setImage(url: product.image, placeholder: ProductStrings.placeholderName.rawValue)
-        productQnty.text = "\(product.quantity) Unidades"
+        productQnty.text = "\(product.quantity) Un."
         productName.text = product.name
         productPrice.text = "R$ \(product.costPrice)"
         favorited = product.favorited
@@ -85,10 +88,13 @@ class ProdutoCollectionViewCell: UICollectionViewCell, ObservableObject {
         image.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            image.centerXAnchor.constraint(equalTo: centerXAnchor),
-            image.topAnchor.constraint(equalTo: topAnchor, constant: 12),
-            image.widthAnchor.constraint(equalToConstant: 98),
+            image.topAnchor.constraint(equalTo: topAnchor, constant: 0),
+            image.leftAnchor.constraint(equalTo: leftAnchor, constant: 0),
+            image.rightAnchor.constraint(equalTo: rightAnchor, constant: 0),
             image.heightAnchor.constraint(equalToConstant: 98)
+            
+//            image.widthAnchor.constraint(equalToConstant: 98),
+//
         ])
     }
     
@@ -98,6 +104,7 @@ class ProdutoCollectionViewCell: UICollectionViewCell, ObservableObject {
         
         NSLayoutConstraint.activate([
             productQnty.leftAnchor.constraint(equalTo: leftAnchor, constant: 8),
+            productQnty.rightAnchor.constraint(equalTo: rightAnchor, constant: -13),
             productQnty.topAnchor.constraint(equalTo: image.bottomAnchor, constant: 16)
         ])
     }
@@ -108,7 +115,8 @@ class ProdutoCollectionViewCell: UICollectionViewCell, ObservableObject {
         
         NSLayoutConstraint.activate([
             productName.leftAnchor.constraint(equalTo: leftAnchor, constant: 8),
-            productName.topAnchor.constraint(equalTo: productQnty.bottomAnchor, constant: 6)
+            productName.topAnchor.constraint(equalTo: productQnty.bottomAnchor, constant: 6),
+            productName.rightAnchor.constraint(equalTo: rightAnchor, constant: -8)
         ])
     }
     
