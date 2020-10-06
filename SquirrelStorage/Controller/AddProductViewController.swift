@@ -58,9 +58,10 @@ class AddProductViewController: UIViewController {
     }
     
     func getProduct() -> Product {
-        let product = Product(name: "", image: nil, quantity: 0, favorited: false, costPrice: 0, sellPrice: 0, description: "", category: "")
-        if let imageURL = (tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! ImageTableViewCell).imageURL {
-            product.image = imageURL
+        let product = Product(name: "", imageFilename: "", quantity: 0, favorited: false, costPrice: 0, sellPrice: 0, description: "", category: "")
+        if let image = (tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! ImageTableViewCell).productImageButton.imageView?.image {
+            let filename = ImageFetcher().saveImage(image: image)
+            product.imageFilename = filename
         }
         if let name = (tableView.cellForRow(at: IndexPath(row: 0, section: 1)) as! NameTableViewCell).productNameTextField.text {
             // If it is empty, I put one space in order to not modify the interface

@@ -27,5 +27,16 @@ class ImageFetcher {
             }.resume()
         }
     }
+    
+    func saveImage(image: UIImage) -> String {
+        let fileManager = FileManager.default
+        let url = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let filename = "\(UUID().uuidString).jpeg"
+        let fileURL = url.appendingPathComponent(filename)
+        if let data = image.jpegData(compressionQuality: 1) {
+            fileManager.createFile(atPath: fileURL.path, contents: data, attributes: nil)
+        }
+        return filename
+    }
 
 }
