@@ -191,7 +191,7 @@ func centralizeCellInUICollection(weightCell: CGFloat, numberOfCells: CGFloat) -
     let screenSize = UIScreen.main.bounds.width
     let space = (screenSize - weightCell * numberOfCells) / (numberOfCells+1)
     
-    layout.sectionInset = UIEdgeInsets(top: 0, left: space, bottom: 16, right: space)
+    layout.sectionInset = UIEdgeInsets(top: 16, left: space, bottom: 16, right: space)
     layout.itemSize = CGSize(width: 162, height: 206)
     layout.minimumLineSpacing = space
     layout.minimumInteritemSpacing = space
