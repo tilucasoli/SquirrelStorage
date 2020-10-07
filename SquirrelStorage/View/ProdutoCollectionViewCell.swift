@@ -79,7 +79,7 @@ class ProdutoCollectionViewCell: UICollectionViewCell, ObservableObject {
         self.image.setImage(filename: product.imageFilename, placeholder: ProductStrings.placeholderName.rawValue)
         productQnty.text = "\(product.quantity) Un."
         productName.text = product.name
-        productPrice.text = "R$ \(product.costPrice)"
+        productPrice.text = product.costPrice.toMoneyRepresentation()
         favorited = product.favorited
     }
     
