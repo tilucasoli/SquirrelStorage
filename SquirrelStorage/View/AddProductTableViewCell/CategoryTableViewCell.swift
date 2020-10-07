@@ -21,10 +21,10 @@ class CategoryTableViewCell: UITableViewCell {
     var pickerContect = UILabel()
 
     let productCategoryTextField: UITextField = {
-        let textField = UITextField()
-        textField.placeholder = "Categoria"
+        let label = UITextField()
+        label.placeholder = "Categoria"
         
-        return textField
+        return label
     }()
  
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -33,15 +33,10 @@ class CategoryTableViewCell: UITableViewCell {
         addSubview(productCategoryTextField)
         contentView.addSubview(categoryPicker)
         setProductCategoryConstraints()
-        setCategoryPicker()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    func setCategoryPicker() {
-        
     }
     
     func checkHeight() {
@@ -81,10 +76,10 @@ class CategoryTableViewCell: UITableViewCell {
         productCategoryTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16).isActive = true
         
         categoryPicker.translatesAutoresizingMaskIntoConstraints = false
-        categoryPicker.topAnchor.constraint(equalTo: contentView.topAnchor, constant: -8).isActive = true
-        categoryPicker.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 0).isActive    = true
+        categoryPicker.topAnchor.constraint(equalTo: contentView.topAnchor, constant: -8).isActive          = true
+        categoryPicker.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 0).isActive   = true
         categoryPicker.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 0).isActive = true
-        categoryPicker.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
+        categoryPicker.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive                  = true
     }
     
 }

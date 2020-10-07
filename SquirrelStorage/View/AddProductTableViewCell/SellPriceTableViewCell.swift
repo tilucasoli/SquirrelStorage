@@ -10,9 +10,16 @@ import UIKit
 
 class SellPriceTableViewCell: UITableViewCell {
 
+    let productSellPriceLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Preço de venda"
+        
+        return label
+    }()
+    
     let productSellPriceTextField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "Preço de venda"
+        textField.placeholder = "Exemplo"
         textField.returnKeyType = UIReturnKeyType.done
         textField.autocorrectionType = UITextAutocorrectionType.no
         textField.clearButtonMode = UITextField.ViewMode.whileEditing
@@ -25,6 +32,7 @@ class SellPriceTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
+        contentView.addSubview(productSellPriceLabel)
         contentView.addSubview(productSellPriceTextField)
         setProductSellPriceConstraints()
     }
@@ -38,8 +46,13 @@ class SellPriceTableViewCell: UITableViewCell {
     }
     
     func setProductSellPriceConstraints() {
+        productSellPriceLabel.translatesAutoresizingMaskIntoConstraints                                     = false
+        productSellPriceLabel.topAnchor.constraint(equalTo: topAnchor, constant: 0).isActive               = true
+        productSellPriceLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16).isActive       = true
+        productSellPriceLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16).isActive    = true
+        
         productSellPriceTextField.translatesAutoresizingMaskIntoConstraints                                     = false
-        productSellPriceTextField.topAnchor.constraint(equalTo: topAnchor, constant: 0).isActive                = true
+        productSellPriceTextField.topAnchor.constraint(equalTo: productSellPriceLabel.topAnchor, constant: 20).isActive  = true
         productSellPriceTextField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16).isActive       = true
         productSellPriceTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16).isActive    = true
     }

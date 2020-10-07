@@ -10,9 +10,16 @@ import UIKit
 
 class QuantityTableViewCell: UITableViewCell {
     
+    let productQuantityLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Quantidade"
+        
+        return label
+    }()
+    
     let productQuantityTextField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "Quantidade"
+        textField.placeholder = "Exemplo"
         textField.keyboardType = UIKeyboardType.numberPad
         textField.returnKeyType = UIReturnKeyType.done
         textField.autocorrectionType = UITextAutocorrectionType.no
@@ -25,6 +32,7 @@ class QuantityTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
+        contentView.addSubview(productQuantityLabel)
         contentView.addSubview(productQuantityTextField)
         setProductQuantityConstraints()
     }
@@ -38,8 +46,13 @@ class QuantityTableViewCell: UITableViewCell {
     }
     
     func setProductQuantityConstraints() {
+        productQuantityLabel.translatesAutoresizingMaskIntoConstraints                                     = false
+        productQuantityLabel.topAnchor.constraint(equalTo: topAnchor, constant: 0).isActive                = true
+        productQuantityLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16).isActive       = true
+        productQuantityLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16).isActive    = true
+        
         productQuantityTextField.translatesAutoresizingMaskIntoConstraints                                     = false
-        productQuantityTextField.topAnchor.constraint(equalTo: topAnchor, constant: 0).isActive                = true
+        productQuantityTextField.topAnchor.constraint(equalTo: productQuantityLabel.topAnchor, constant: 20).isActive  = true
         productQuantityTextField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16).isActive       = true
         productQuantityTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16).isActive    = true
     }

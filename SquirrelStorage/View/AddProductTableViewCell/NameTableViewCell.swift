@@ -10,10 +10,18 @@ import UIKit
 
 class NameTableViewCell: UITableViewCell {
     
+    
+    let productNameLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Nome"
+        
+        return label
+    }()
+    
     let productNameTextField: UITextField = {
         let textField = UITextField()
         
-        textField.placeholder = "Nome"
+        textField.placeholder = "Exemplo"
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.keyboardType = UIKeyboardType.default
         textField.returnKeyType = UIReturnKeyType.done
@@ -29,6 +37,7 @@ class NameTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         //productNameTextField.delegate = self
+        contentView.addSubview(productNameLabel)
         contentView.addSubview(productNameTextField)
         setProductNameConstraints()
     }
@@ -42,9 +51,14 @@ class NameTableViewCell: UITableViewCell {
     }
     
     func setProductNameConstraints() {
-        productNameTextField.translatesAutoresizingMaskIntoConstraints                                     = false
-        productNameTextField.topAnchor.constraint(equalTo: topAnchor, constant: 0).isActive                = true
-        productNameTextField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16).isActive       = true
-        productNameTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16).isActive    = true
+        productNameLabel.translatesAutoresizingMaskIntoConstraints                                               = false
+        productNameLabel.topAnchor.constraint(equalTo: topAnchor, constant: 0).isActive                          = true
+        productNameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16).isActive                 = true
+        productNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16).isActive              = true
+        
+        productNameTextField.translatesAutoresizingMaskIntoConstraints                                           = false
+        productNameTextField.topAnchor.constraint(equalTo: productNameLabel.topAnchor, constant: 20).isActive    = true
+        productNameTextField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16).isActive             = true
+        productNameTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16).isActive          = true
     }
 }
