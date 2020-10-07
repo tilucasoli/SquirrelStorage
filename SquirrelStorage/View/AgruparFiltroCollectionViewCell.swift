@@ -51,8 +51,13 @@ class AgruparFiltroCollectionViewCell: UICollectionViewCell {
         
     }
     
-    func configureCell(title: String, icon: String?) {
+    override func prepareForReuse() {
+        active = false
+    }
+    
+    func configureCell(title: String, icon: String?, active: Bool) {
         titleLabel.text = title
+        self.active = active
         guard let image = icon else {
             iconImage.image = nil
             remove()
