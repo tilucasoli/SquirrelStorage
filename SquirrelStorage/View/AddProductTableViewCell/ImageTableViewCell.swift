@@ -22,7 +22,6 @@ extension imagePickerDelegate where Self: UIViewController {
 class ImageTableViewCell: UITableViewCell {
 
     weak var delegate: imagePickerDelegate?
-    var imageURL: URL?
     
     let productImageButton: UIButton = {
         let imageBtn = UIButton(type: .custom)
@@ -76,9 +75,9 @@ extension ImageTableViewCell: UIImagePickerControllerDelegate, UINavigationContr
         } else if let originalImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             productImageButton.setImage(originalImage, for: .normal)
         }
-        if let url = info[UIImagePickerController.InfoKey.imageURL] as? URL {
-            imageURL = url
-        }
+//        if let url = info[UIImagePickerController.InfoKey.imageURL] as? URL {
+//            imageURL = url
+//        }
         productImageButton.imageView?.layer.cornerRadius = 19
         if let delegateVC = delegate as? UIViewController {
             delegateVC.dismiss(animated: true, completion: nil)

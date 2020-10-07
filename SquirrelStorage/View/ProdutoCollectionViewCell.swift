@@ -76,7 +76,7 @@ class ProdutoCollectionViewCell: UICollectionViewCell, ObservableObject {
     
     func configureCell(product: Product, onDidChange: @escaping (Bool) -> Void) {
         self.onDidChange = onDidChange
-        self.image.setImage(url: product.image, placeholder: ProductStrings.placeholderName.rawValue)
+        self.image.setImage(filename: product.imageFilename, placeholder: ProductStrings.placeholderName.rawValue)
         productQnty.text = "\(product.quantity) Un."
         productName.text = product.name
         productPrice.text = "R$ \(product.costPrice)"

@@ -9,12 +9,12 @@
 import UIKit
 
 enum ProductStrings: String {
-    case filename = "products", placeholderName = "ProductPlaceholder"
+    case filename = "products", placeholderName = "ProductPlaceholder", imageFolderName = "Product Images"
 }
 
 class Product: Codable {
     var name: String
-    var image: URL?
+    var imageFilename: String
     var quantity: Int
     var favorited: Bool
     var costPrice: Decimal
@@ -22,9 +22,9 @@ class Product: Codable {
     var description: String
     var category: String
     
-    init( name: String, image: URL?, quantity: Int, favorited: Bool, costPrice: Decimal, sellPrice: Decimal, description: String, category: String) {
+    init( name: String, imageFilename: String, quantity: Int, favorited: Bool, costPrice: Decimal, sellPrice: Decimal, description: String, category: String) {
         self.name = name
-        self.image = image
+        self.imageFilename = imageFilename
         self.quantity = quantity
         self.favorited = favorited
         self.costPrice = costPrice
