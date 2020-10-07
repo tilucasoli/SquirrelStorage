@@ -77,11 +77,13 @@ class AddProductViewController: UIViewController {
         } else {
             product.category = categoryName
         }
-        if let price = (tableView.cellForRow(at: IndexPath(row: 0, section: 3)) as! PriceTableViewCell).productPriceTextField.text {
-            product.costPrice = price.toDecimal()
+        if var price = (tableView.cellForRow(at: IndexPath(row: 0, section: 3)) as! PriceTableViewCell).productPriceTextField.text {
+            var decimalNumber = price.toDecimal()
+            product.costPrice = decimalNumber.roundToTwoDecimalPlaces()
         }
         if let sellPrice = (tableView.cellForRow(at: IndexPath(row: 0, section: 4)) as! SellPriceTableViewCell).productSellPriceTextField.text {
-            product.sellPrice = sellPrice.toDecimal()
+            var decimalNumber = sellPrice.toDecimal()
+            product.sellPrice = decimalNumber.roundToTwoDecimalPlaces()
         }
         if let quantity = (tableView.cellForRow(at: IndexPath(row: 0, section: 5)) as! QuantityTableViewCell).productQuantityTextField.text {
             product.quantity = Int(quantity) ?? 0

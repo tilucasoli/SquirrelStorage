@@ -10,6 +10,10 @@ import Foundation
 
 extension Decimal {
     
+    var int: Int {
+        return NSDecimalNumber(decimal: self).intValue
+    }
+    
     func toMoneyRepresentation() -> String? {
         let numberFormatter = NumberFormatter()
         numberFormatter.numberStyle = .currency
@@ -17,6 +21,16 @@ extension Decimal {
         numberFormatter.locale = Locale(identifier: "pt_BR")
         let moneyRepresentation = numberFormatter.string(from: self as NSDecimalNumber)
         return moneyRepresentation
+    }
+    
+    func reaisToCentavos() -> Int {
+        return (self * 100).int
+    }
+    
+    mutating func roundToTwoDecimalPlaces() -> Decimal {
+        var roundedDecimal = Decimal()
+        NSDecimalRound(&roundedDecimal, &self, 2, .plain)
+        return roundedDecimal
     }
 }
 
