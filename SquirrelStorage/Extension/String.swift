@@ -15,7 +15,7 @@ extension String {
         if numberString == "" {
             numberString = "0"
         }
-        let decimalNumber = NSDecimalNumber(string: numberString, locale: Locale(identifier: "pt_BR")) as Decimal
+        let decimalNumber = NSDecimalNumber(string: numberString, locale: NSLocale.current) as Decimal
         return decimalNumber
     }
 }
