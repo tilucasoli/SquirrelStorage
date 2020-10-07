@@ -59,7 +59,7 @@ class ProductDetailViewController: UIViewController {
     
     func setupProductDetailView() {
         if let product = self.product {
-            productDetailView.imageView.setImage(url: product.image, placeholder: ProductStrings.placeholderName.rawValue)
+            productDetailView.imageView.setImage(filename: product.imageFilename, placeholder: ProductStrings.placeholderName.rawValue)
             productDetailView.cardTitle.text = product.name
             productDetailView.cardCategory.text = product.category
             productDetailView.starButton.isSelected = product.favorited

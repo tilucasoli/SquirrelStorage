@@ -16,7 +16,7 @@ class Database {
         let url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
         let fileURL = url.appendingPathComponent(filename).appendingPathExtension("json")
         self.fileURL = fileURL
-        print(fileURL)
+        //print(fileURL)
         if !FileManager.default.fileExists(atPath: fileURL.path) {
             // This saves an empty array. Since the function is generic, I need to specify the empty array's type, but it will work for every type.
             saveItems([Product]())

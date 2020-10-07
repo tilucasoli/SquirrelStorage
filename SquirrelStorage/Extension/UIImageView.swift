@@ -18,13 +18,11 @@ extension UIImageView {
         }
     }
     
-    func setImage(url: URL?, placeholder: String) {
+    func setImage(filename: String, placeholder: String) {
         self.image = UIImage(named: placeholder)
-        if let imageURL = url {
-            ImageFetcher().fetchImage(from: imageURL) { image in
-                DispatchQueue.main.async {
-                    self.image = image
-                }
+        ImageFetcher().fetchImage(filename: filename) { image in
+            DispatchQueue.main.async {
+                self.image = image
             }
         }
     }

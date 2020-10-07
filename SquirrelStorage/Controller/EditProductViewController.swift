@@ -56,8 +56,7 @@ class EditProductViewController: AddProductViewController {
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: "AddProductImage", for: indexPath) as! ImageTableViewCell
             if let product = product {
-                cell.imageURL = product.image
-                cell.productImageButton.setImage(url: product.image, placeholder: ProductStrings.placeholderName.rawValue, state: .normal)
+                cell.productImageButton.setImage(filename: product.imageFilename, placeholder: ProductStrings.placeholderName.rawValue, state: .normal)
             }
             cell.backgroundColor = .background
             cell.contentView.isUserInteractionEnabled = false
