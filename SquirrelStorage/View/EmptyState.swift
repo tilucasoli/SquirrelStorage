@@ -33,7 +33,7 @@ class EmptyState: UIView {
     
     let descriptionLabel: UILabel = {
         let label = UILabel()
-        label.text = "Seu estoque está vazio, Adicione seus produtos clicando em +"
+        label.text = "Seu estoque está vazio, adicione seus produtos clicando em +"
         label.font = UIFont.systemFont(ofSize: 15, weight: .regular)
         label.numberOfLines = 0
         label.textAlignment = .center

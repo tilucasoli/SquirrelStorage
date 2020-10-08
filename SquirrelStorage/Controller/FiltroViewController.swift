@@ -14,10 +14,10 @@ class FiltroViewController: UIViewController {
     
     var categoriasList = Array(Set(EstoqueViewController.productList.map({$0.category}))).filter({$0 != " "})
     
-//    var productList = []
+    //    var productList = []
     
-    var ultimoFiltro: AgruparFiltroCollectionViewCell?
-    var filtrosSelecionados: [AgruparFiltroCollectionViewCell]?
+    static var ultimoFiltro: String?
+    static var filtrosSelecionados: [String] = []
     
     enum CardViewState {
         case expanded
@@ -96,28 +96,22 @@ class FiltroViewController: UIViewController {
         button.setTitle("Fechar", for: .normal)
         button.setTitleColor(.purpleSS, for: .normal)
         button.tintColor = UIColor.purpleSS
-        button.addTarget(self, action: #selector(closeFilter), for: .touchUpInside)
         return button
     }()
     
     let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let screenSize = UIScreen.main.bounds.width
-        
         layout.sectionInset = UIEdgeInsets(top: 0, left: 16, bottom: 16, right: 16)
         layout.itemSize = CGSize(width: 152, height: 36)
         layout.minimumLineSpacing = 8
         layout.minimumInteritemSpacing = 8
-
         layout.scrollDirection = .vertical
-
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        
         collectionView.backgroundColor = .clear
         collectionView.register(AgruparFiltroCollectionViewCell.self, forCellWithReuseIdentifier: "AgruparFiltro")
         collectionView.register(HeaderFilterCollectionReusableView.self,
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "headerView")
-        
         return collectionView
     }()
     
@@ -127,7 +121,6 @@ class FiltroViewController: UIViewController {
         view.backgroundColor = .white
         view.layer.cornerRadius = 30
         view.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
-        
         return view
     }()
     
@@ -138,7 +131,7 @@ class FiltroViewController: UIViewController {
         button.setTitleColor(.background, for: .normal)
         button.backgroundColor = .purpleSS
         button.layer.cornerRadius = 15
-        button.addTarget(self, action: #selector(filterAction), for: .touchUpInside)
+        
         return button
     }()
     
@@ -156,7 +149,7 @@ class FiltroViewController: UIViewController {
         setupviewButtom()
         setupCollectionView()
         setupFilterButton()
-
+        
         // saving back image from Estoque
         imageSnapshot.image = backingImage
         
@@ -181,17 +174,13 @@ class FiltroViewController: UIViewController {
         viewPan.delaysTouchesEnded = false
         self.view.addGestureRecognizer(viewPan)
         
+        closeButton.addTarget(self, action: #selector(closeFilter), for: .touchUpInside)
+        filterButton.addTarget(self, action: #selector(filterAction), for: .touchUpInside)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         showCard()
-        
-    }
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        self.view.layoutIfNeeded()
     }
     
     // this function will be called when user tap on the dark view
@@ -281,14 +270,15 @@ class FiltroViewController: UIViewController {
         // else return an alpha value in between 0.0 and 0.7 based on the top constraint value
         return fullDimAlpha * 1 - ((value - fullDimPosition) / fullDimPosition)
     }
+    
     // MARK: Filtros
     @objc func clearFilter() {
         let itens = collectionView.visibleCells as! [AgruparFiltroCollectionViewCell]
         for item in itens {
             item.active = false
         }
-        filtrosSelecionados = nil
-        
+        FiltroViewController.filtrosSelecionados = []
+        FiltroViewController.ultimoFiltro = nil
     }
     
     @objc func closeFilter() {
@@ -296,22 +286,56 @@ class FiltroViewController: UIViewController {
     }
     
     @objc func filterAction() {
-        if ultimoFiltro?.titleLabel.text == "Menor Preço" {
+        saveSelections()
+        
+        if FiltroViewController.ultimoFiltro == "Menor Preço" {
             let list = EstoqueViewController.productList.sorted(by: {$0.costPrice < $1.costPrice})
             EstoqueViewController.showedProductList = list
-            
-        } else if ultimoFiltro?.titleLabel.text == "Maior Preço" {
+        } else if FiltroViewController.ultimoFiltro == "Maior Preço" {
             let list = EstoqueViewController.productList.sorted(by: {$0.costPrice > $1.costPrice})
             EstoqueViewController.showedProductList = list
-            
-        } else if ultimoFiltro?.titleLabel.text == "Quantidade" {
+        } else if FiltroViewController.ultimoFiltro == "Quantidade" {
             let list = EstoqueViewController.productList.sorted(by: {$0.quantity > $1.quantity})
             EstoqueViewController.showedProductList = list
+        } else {
+            EstoqueViewController.showedProductList = EstoqueViewController.productList
         }
         
-//        let filtered = EstoqueViewController.showedProductList.filter({categoriasSelecionadas.contains($0.category)})
-//        EstoqueViewController.showedProductList = filtered
+        if FiltroViewController.filtrosSelecionados != [] {
+            let filtered = EstoqueViewController.showedProductList.filter({FiltroViewController.filtrosSelecionados.contains($0.category)})
+            EstoqueViewController.showedProductList = filtered
+        }
+        
         hideCardAndGoBack()
+    }
+    
+    func saveSelections() {
+        
+        for cell in getAllCells(section: 0) as! [AgruparFiltroCollectionViewCell] where cell.active {
+            FiltroViewController.ultimoFiltro = cell.titleLabel.text
+        }
+        
+        for cell in getAllCells(section: 1) as! [AgruparFiltroCollectionViewCell] {
+            if cell.active {
+                if let category = cell.titleLabel.text {
+                    FiltroViewController.filtrosSelecionados.append(category)
+                }
+            } else {
+                FiltroViewController.filtrosSelecionados = FiltroViewController.filtrosSelecionados.filter({$0 != cell.titleLabel.text})
+            }
+        }
+    }
+    
+    func getAllCells(section: Int) -> [UICollectionViewCell] {
+        var cells: [UICollectionViewCell] = []
+        
+        for j in 0..<collectionView.numberOfItems(inSection: section) {
+            let indexPath = IndexPath(row: j, section: section)
+            let cell = collectionView.cellForItem(at: indexPath) ?? UICollectionViewCell()
+            cells.append(cell)
+        }
+        
+        return cells
     }
     
     // MARK: Setups
@@ -469,7 +493,7 @@ class FiltroViewController: UIViewController {
         
         // move card up from bottom by telling the app to refresh the frame/position of view
         // create a new property animator
-        let showCard = UIViewPropertyAnimator(duration: 0.25, curve: .easeIn, animations: {
+        let showCard = UIViewPropertyAnimator(duration: 0.45, curve: .easeInOut, animations: {
             self.view.layoutIfNeeded()
         })
         
@@ -561,10 +585,13 @@ extension FiltroViewController: UICollectionViewDelegate, UICollectionViewDataSo
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AgruparFiltro", for: indexPath) as! AgruparFiltroCollectionViewCell
         if indexPath.section == 0 {
-            cell.configureCell(title: filtroList[indexPath.row].title, icon: filtroList[indexPath.row].icon)
+            let active = FiltroViewController.ultimoFiltro == filtroList[indexPath.row].title
+            cell.configureCell(title: filtroList[indexPath.row].title, icon: filtroList[indexPath.row].icon, active: active)
             
         } else {
-            cell.configureCell(title: categoriasList[indexPath.row], icon: nil)
+            let active = FiltroViewController.filtrosSelecionados.contains(categoriasList[indexPath.row])
+            
+            cell.configureCell(title: categoriasList[indexPath.row], icon: nil, active: active)
         }
         
         return cell
@@ -572,21 +599,20 @@ extension FiltroViewController: UICollectionViewDelegate, UICollectionViewDataSo
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        let cell = collectionView.cellForItem(at: indexPath) as! AgruparFiltroCollectionViewCell
+        let selectedCell = collectionView.cellForItem(at: indexPath) as! AgruparFiltroCollectionViewCell
         if indexPath.section == 0 {
-            if !cell.active {
-                if let filtro = ultimoFiltro {
-                    filtro.active = false
+            if !selectedCell.active {
+                for cell in getAllCells(section: 0) as! [AgruparFiltroCollectionViewCell] {
+                    cell.active = false
                 }
-                ultimoFiltro = cell
-                cell.active.toggle()
+                selectedCell.active.toggle()
             }
         } else {
-            cell.active.toggle()
+            selectedCell.active.toggle()
         }
         
     }
-
+    
 }
 
 extension FiltroViewController: UICollectionViewDelegateFlowLayout {

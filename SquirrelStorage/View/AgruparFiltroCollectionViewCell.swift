@@ -37,8 +37,7 @@ class AgruparFiltroCollectionViewCell: UICollectionViewCell {
         let image = UIImageView()
         image.backgroundColor = .clear
         image.contentMode = .scaleAspectFit
-        image.image = UIImage(named: "Dolar-white")
-        
+        image.image = UIImage(named: "Dolar")
         return image
     }()
     
@@ -48,11 +47,11 @@ class AgruparFiltroCollectionViewCell: UICollectionViewCell {
         layer.cornerRadius = 8
         setupIconImage()
         setupTitleLabel()
-        
     }
     
-    func configureCell(title: String, icon: String?) {
+    func configureCell(title: String, icon: String?, active: Bool) {
         titleLabel.text = title
+        self.active = active
         guard let image = icon else {
             iconImage.image = nil
             remove()

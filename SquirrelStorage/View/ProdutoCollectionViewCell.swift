@@ -18,7 +18,7 @@ class ProdutoCollectionViewCell: UICollectionViewCell, ObservableObject {
     let image: UIImageView = {
         let image = UIImageView()
         image.backgroundColor = .clear
-        image.contentMode = .scaleToFill
+        image.contentMode = .scaleAspectFill
         image.layer.cornerRadius = 8
         image.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         image.clipsToBounds = true
