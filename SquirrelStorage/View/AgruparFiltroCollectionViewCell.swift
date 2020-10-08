@@ -51,13 +51,13 @@ class AgruparFiltroCollectionViewCell: UICollectionViewCell {
     
     func configureCell(title: String, icon: String?, active: Bool) {
         titleLabel.text = title
-        self.active = active
         guard let image = icon else {
             iconImage.image = nil
             remove()
             return
         }
         iconImage.image = UIImage(named: image)
+        self.active = active
     }
     
     func setupTitleLabel() {
