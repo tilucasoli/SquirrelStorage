@@ -8,7 +8,7 @@
 
 import UIKit
 
-extension UIView  {
+extension UIView {
     // render the view within the view's bounds, then capture it as image
   func asImage() -> UIImage {
     let renderer = UIGraphicsImageRenderer(bounds: bounds)
