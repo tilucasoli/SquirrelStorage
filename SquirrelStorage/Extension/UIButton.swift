@@ -10,13 +10,11 @@ import UIKit
 
 extension UIButton {
     
-    func setImage(url: URL?, placeholder: String, state: UIControl.State) {
+    func setImage(filename: String, placeholder: String, state: UIControl.State) {
         self.setImage(UIImage(named: placeholder), for: state)
-        if let imageURL = url {
-            ImageFetcher().fetchImage(from: imageURL) { image in
-                DispatchQueue.main.async {
-                    self.setImage(image, for: state)
-                }
+        ImageFetcher().fetchImage(filename: filename) { image in
+            DispatchQueue.main.async {
+                self.setImage(image, for: state)
             }
         }
     }

@@ -10,7 +10,7 @@ import UIKit
 
 class CategoryTableViewCell: UITableViewCell {
     
-    var content : [String] = []
+    var content: [String] = []
     var isObserving = false
     
     class var expandedHeight: CGFloat {get { return 200}}
@@ -44,24 +44,25 @@ class CategoryTableViewCell: UITableViewCell {
         
     }
     
-    func checkHeight(){
+    func checkHeight() {
         categoryPicker.isHidden = (frame.height < CategoryTableViewCell.expandedHeight)
     }
     
     func watchFrameChanges() {
         if !isObserving {
             addObserver(self, forKeyPath: "frame", options: [NSKeyValueObservingOptions.new, NSKeyValueObservingOptions.initial], context: nil)
-            isObserving = true;
+            isObserving = true
         }
     }
+    
     func ignoreFrameChanges() {
         if isObserving {
             removeObserver(self, forKeyPath: "frame")
-            isObserving = false;
+            isObserving = false
         }
     }
-
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+    
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
         if keyPath == "frame" {
             checkHeight()
         }
@@ -72,7 +73,6 @@ class CategoryTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    
     
     func setProductCategoryConstraints() {
         productCategoryTextField.translatesAutoresizingMaskIntoConstraints                                  = false
@@ -88,4 +88,3 @@ class CategoryTableViewCell: UITableViewCell {
     }
     
 }
-

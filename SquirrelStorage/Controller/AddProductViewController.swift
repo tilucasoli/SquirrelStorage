@@ -58,9 +58,10 @@ class AddProductViewController: UIViewController {
     }
     
     func getProduct() -> Product {
-        var product = Product(name: "", image: nil, quantity: 0, favorited: false, costPrice: 0, sellPrice: 0, description: "", category: "")
-        if let imageURL = (tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! ImageTableViewCell).imageURL {
-            product.image = imageURL
+        let product = Product(name: "", imageFilename: "", quantity: 0, favorited: false, costPrice: 0, sellPrice: 0, description: "", category: "")
+        if let image = (tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! ImageTableViewCell).productImageButton.imageView?.image {
+            let filename = ImageFetcher().saveImage(image: image)
+            product.imageFilename = filename
         }
         if let name = (tableView.cellForRow(at: IndexPath(row: 0, section: 1)) as! NameTableViewCell).productNameTextField.text {
             // If it is empty, I put one space in order to not modify the interface
@@ -76,11 +77,13 @@ class AddProductViewController: UIViewController {
         } else {
             product.category = categoryName
         }
-        if let price = (tableView.cellForRow(at: IndexPath(row: 0, section: 3)) as! PriceTableViewCell).productPriceTextField.text {
-            product.costPrice = Decimal(string: price) ?? 0
+        if var price = (tableView.cellForRow(at: IndexPath(row: 0, section: 3)) as! PriceTableViewCell).productPriceTextField.text {
+            var decimalNumber = price.toDecimal()
+            product.costPrice = decimalNumber.roundToTwoDecimalPlaces()
         }
         if let sellPrice = (tableView.cellForRow(at: IndexPath(row: 0, section: 4)) as! SellPriceTableViewCell).productSellPriceTextField.text {
-            product.sellPrice = Decimal(string: sellPrice) ?? 0
+            var decimalNumber = sellPrice.toDecimal()
+            product.sellPrice = decimalNumber.roundToTwoDecimalPlaces()
         }
         if let quantity = (tableView.cellForRow(at: IndexPath(row: 0, section: 5)) as! QuantityTableViewCell).productQuantityTextField.text {
             product.quantity = Int(quantity) ?? 0
@@ -198,7 +201,7 @@ extension AddProductViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath)
-        if (cell?.canBecomeFirstResponder != nil) {
+        if cell?.canBecomeFirstResponder != nil {
                 cell?.becomeFirstResponder()
         }
     }
@@ -215,13 +218,13 @@ extension AddProductViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if(indexPath.section == 2) {
+        if indexPath.section == 2 {
             (cell as! CategoryTableViewCell).watchFrameChanges()
         }
     }
     
     func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if(indexPath.section == 2) {
+        if indexPath.section == 2 {
             (cell as! CategoryTableViewCell).ignoreFrameChanges()
         }
     }

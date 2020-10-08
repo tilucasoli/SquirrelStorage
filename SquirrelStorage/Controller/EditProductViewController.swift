@@ -56,7 +56,7 @@ class EditProductViewController: AddProductViewController {
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: "AddProductImage", for: indexPath) as! ImageTableViewCell
             if let product = product {
-                cell.productImageButton.setImage(url: product.image, placeholder: ProductStrings.placeholderName.rawValue, state: .normal)
+                cell.productImageButton.setImage(filename: product.imageFilename, placeholder: ProductStrings.placeholderName.rawValue, state: .normal)
             }
             cell.backgroundColor = .background
             cell.contentView.isUserInteractionEnabled = false
@@ -74,11 +74,9 @@ class EditProductViewController: AddProductViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: "AddProductCategory", for: indexPath) as! CategoryTableViewCell
             if let product = product {
                 var pickerIndex = 0
-                for i in 0..<categories.count {
-                    if categories[i].name == product.category {
-                        pickerIndex = i
-                        break
-                    }
+                for i in 0..<categories.count where categories[i].name == product.category {
+                    pickerIndex = i
+                    break
                 }
                 categoryPicker.selectRow(pickerIndex, inComponent: 0, animated: false)
             }
@@ -137,10 +135,10 @@ extension EditProductViewController: DeleteTableViewCellDelegate {
     func delete() {
         if let index = productIndex {
             let alert = UIAlertController(title: "Deletar produto?", message: "Esse produto será excluído permanentemente.", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Cancelar", style: .default, handler: { action in
+            alert.addAction(UIAlertAction(title: "Cancelar", style: .default, handler: { _ in
                 alert.dismiss(animated: true, completion: nil)
             }))
-            alert.addAction(UIAlertAction(title: "Deletar", style: .destructive, handler: { action in
+            alert.addAction(UIAlertAction(title: "Deletar", style: .destructive, handler: { _ in
                 EstoqueViewController.productList.remove(at: index)
                 EstoqueViewController.showedProductList = EstoqueViewController.productList
                 self.dismiss(animated: true, completion: nil)

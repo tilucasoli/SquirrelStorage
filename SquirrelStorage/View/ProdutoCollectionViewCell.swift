@@ -48,7 +48,7 @@ class ProdutoCollectionViewCell: UICollectionViewCell, ObservableObject {
     
     var onDidChange: ((Bool) -> Void)?
 
-    lazy var starIcon = UIHostingView(rootView: StarAnimationView(cell: self, onDidChange: { self.onDidChange?($0) } ), viewController: nil)
+    lazy var starIcon = UIHostingView(rootView: StarAnimationView(cell: self, onDidChange: { self.onDidChange?($0) }), viewController: nil)
 
 //    func changeFavorited(_ value: Bool?) {
 //        print(value)
@@ -76,10 +76,10 @@ class ProdutoCollectionViewCell: UICollectionViewCell, ObservableObject {
     
     func configureCell(product: Product, onDidChange: @escaping (Bool) -> Void) {
         self.onDidChange = onDidChange
-        self.image.setImage(url: product.image, placeholder: ProductStrings.placeholderName.rawValue)
+        self.image.setImage(filename: product.imageFilename, placeholder: ProductStrings.placeholderName.rawValue)
         productQnty.text = "\(product.quantity) Un."
         productName.text = product.name
-        productPrice.text = "R$ \(product.costPrice)"
+        productPrice.text = product.costPrice.toMoneyRepresentation()
         favorited = product.favorited
     }
     
