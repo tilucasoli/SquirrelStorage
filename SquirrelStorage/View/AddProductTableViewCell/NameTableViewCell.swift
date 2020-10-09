@@ -21,7 +21,7 @@ class NameTableViewCell: UITableViewCell {
     let productNameTextField: UITextField = {
         let textField = UITextField()
         
-        textField.placeholder = "Exemplo"
+        textField.placeholder = "Ex: Caderno pauta dupla"
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.keyboardType = UIKeyboardType.default
         textField.returnKeyType = UIReturnKeyType.done
@@ -57,7 +57,7 @@ class NameTableViewCell: UITableViewCell {
         productNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16).isActive              = true
         
         productNameTextField.translatesAutoresizingMaskIntoConstraints                                           = false
-        productNameTextField.topAnchor.constraint(equalTo: productNameLabel.topAnchor, constant: 20).isActive    = true
+        productNameTextField.topAnchor.constraint(equalTo: productNameLabel.topAnchor, constant: 27.5).isActive    = true
         productNameTextField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16).isActive             = true
         productNameTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16).isActive          = true
     }

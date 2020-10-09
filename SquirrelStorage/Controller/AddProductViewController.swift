@@ -32,15 +32,16 @@ class AddProductViewController: UIViewController {
         self.navigationController?.navigationBar.layoutIfNeeded()
         configureTableView()
         
+        self.hideKeyboardWhenTappedAround()
+        
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
-        self.hideKeyboardWhenTappedAround()
     }
     
     @objc func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
             if self.view.frame.origin.y == 0 {
-                self.view.frame.origin.y -= keyboardSize.height - 60
+                self.view.frame.origin.y -= keyboardSize.height - 20
             }
         }
     }
@@ -95,7 +96,7 @@ class AddProductViewController: UIViewController {
     
     func configureTableView() {
         
-        tableView.backgroundColor = .background
+        tableView.backgroundColor = .clear
         tableView.sectionFooterHeight = 35
         view.addSubview(tableView)
         setTableViewDelegates()
@@ -154,6 +155,7 @@ extension AddProductViewController: UITableViewDelegate, UITableViewDataSource {
             cell.backgroundColor = .background
             cell.contentView.isUserInteractionEnabled = false
             cell.delegate = self
+            
             return cell
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: "AddProductName", for: indexPath) as! NameTableViewCell
@@ -195,7 +197,14 @@ extension AddProductViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return indexPath.section == 0 ? 150 : UITableView.automaticDimension
+        switch indexPath.section {
+        case 0:
+            return 150
+        case 2:
+            return 250
+        default:
+            return 60
+        }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

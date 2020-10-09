@@ -19,7 +19,7 @@ class QuantityTableViewCell: UITableViewCell {
     
     let productQuantityTextField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "Exemplo"
+        textField.placeholder = "Ex: 11"
         textField.keyboardType = UIKeyboardType.numberPad
         textField.returnKeyType = UIReturnKeyType.done
         textField.autocorrectionType = UITextAutocorrectionType.no
@@ -52,7 +52,7 @@ class QuantityTableViewCell: UITableViewCell {
         productQuantityLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16).isActive    = true
         
         productQuantityTextField.translatesAutoresizingMaskIntoConstraints                                     = false
-        productQuantityTextField.topAnchor.constraint(equalTo: productQuantityLabel.topAnchor, constant: 20).isActive  = true
+        productQuantityTextField.topAnchor.constraint(equalTo: productQuantityLabel.topAnchor, constant: 27.5).isActive  = true
         productQuantityTextField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16).isActive       = true
         productQuantityTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16).isActive    = true
     }

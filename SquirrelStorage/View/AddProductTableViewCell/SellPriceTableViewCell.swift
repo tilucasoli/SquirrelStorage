@@ -19,7 +19,7 @@ class SellPriceTableViewCell: UITableViewCell {
     
     let productSellPriceTextField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "Exemplo"
+        textField.placeholder = "Ex: 49,99"
         textField.returnKeyType = UIReturnKeyType.done
         textField.autocorrectionType = UITextAutocorrectionType.no
         textField.clearButtonMode = UITextField.ViewMode.whileEditing
@@ -52,7 +52,7 @@ class SellPriceTableViewCell: UITableViewCell {
         productSellPriceLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16).isActive    = true
         
         productSellPriceTextField.translatesAutoresizingMaskIntoConstraints                                     = false
-        productSellPriceTextField.topAnchor.constraint(equalTo: productSellPriceLabel.topAnchor, constant: 20).isActive  = true
+        productSellPriceTextField.topAnchor.constraint(equalTo: productSellPriceLabel.topAnchor, constant: 27.5).isActive  = true
         productSellPriceTextField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16).isActive       = true
         productSellPriceTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16).isActive    = true
     }

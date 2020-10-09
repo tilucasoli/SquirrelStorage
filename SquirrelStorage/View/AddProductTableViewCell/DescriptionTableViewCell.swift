@@ -19,7 +19,7 @@ class DescriptionTableViewCell: UITableViewCell {
     
     let productDescriptionTextField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "Exemplo"
+        textField.placeholder = "Ex: Caderno personalizado com..."
         textField.returnKeyType = UIReturnKeyType.done
         textField.autocorrectionType = UITextAutocorrectionType.no
         textField.clearButtonMode = UITextField.ViewMode.whileEditing
@@ -51,7 +51,7 @@ class DescriptionTableViewCell: UITableViewCell {
         productDescriptionLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16).isActive    = true
         
         productDescriptionTextField.translatesAutoresizingMaskIntoConstraints                                                = false
-        productDescriptionTextField.topAnchor.constraint(equalTo: productDescriptionLabel.topAnchor, constant: 20).isActive  = true
+        productDescriptionTextField.topAnchor.constraint(equalTo: productDescriptionLabel.topAnchor, constant: 27.5).isActive  = true
         productDescriptionTextField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16).isActive                  = true
         productDescriptionTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16).isActive               = true
     }
