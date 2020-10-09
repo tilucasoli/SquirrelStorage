@@ -17,6 +17,7 @@ class AddProductViewController: UIViewController {
     var categoryPicker = UIPickerView()
     var categoryPickerText = UILabel()
     var categoryPicked: String = "Categoria"
+    var responder: UIView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,15 +41,17 @@ class AddProductViewController: UIViewController {
     
     @objc func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-            if self.view.frame.origin.y == 0 {
-                self.view.frame.origin.y -= keyboardSize.height - 20
+            guard let frame = responder?.frame else {return}
+            let point = tableView.convert(frame, to: responder?.superview).origin.y * -1
+            if self.view.frame.origin.y == 0 && point > keyboardSize.height {
+                self.tableView.contentOffset = CGPoint(x: self.tableView.frame.origin.x, y: keyboardSize.height + 80)
             }
         }
     }
     
     @objc func keyboardWillHide(notification: NSNotification) {
         if self.view.frame.origin.y != 0 {
-            self.view.frame.origin.y = 0
+            self.tableView.contentOffset = .zero
         }
     }
     
@@ -65,7 +68,7 @@ class AddProductViewController: UIViewController {
             let filename = ImageFetcher().saveImage(image: image)
             product.imageFilename = filename
         }
-        if let name = (tableView.cellForRow(at: IndexPath(row: 0, section: 1)) as! NameTableViewCell).productNameTextField.text {
+        if let name = (tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as! NameTableViewCell).productNameTextField.text {
             // If it is empty, I put one space in order to not modify the interface
             if name == "" {
                 product.name = "Desconhecido"
@@ -73,22 +76,22 @@ class AddProductViewController: UIViewController {
                 product.name = name
             }
         }
-        let categoryName = categories[(tableView.cellForRow(at: IndexPath(row: 0, section: 2)) as! CategoryTableViewCell).categoryPicker.selectedRow(inComponent: 0)].name
+        let categoryName = categories[(tableView.cellForRow(at: IndexPath(row: 2, section: 0)) as! CategoryTableViewCell).categoryPicker.selectedRow(inComponent: 0)].name
         if categoryName == "" {
             product.category = " "
         } else {
             product.category = categoryName
         }
-        if let price = (tableView.cellForRow(at: IndexPath(row: 0, section: 3)) as! PriceTableViewCell).productPriceTextField.text {
+        if let price = (tableView.cellForRow(at: IndexPath(row: 3, section: 0)) as! PriceTableViewCell).productPriceTextField.text {
             product.costPrice = Decimal(string: price) ?? 0
         }
-        if let sellPrice = (tableView.cellForRow(at: IndexPath(row: 0, section: 4)) as! SellPriceTableViewCell).productSellPriceTextField.text {
+        if let sellPrice = (tableView.cellForRow(at: IndexPath(row: 4, section: 0)) as! SellPriceTableViewCell).productSellPriceTextField.text {
             product.sellPrice = Decimal(string: sellPrice) ?? 0
         }
-        if let quantity = (tableView.cellForRow(at: IndexPath(row: 0, section: 5)) as! QuantityTableViewCell).productQuantityTextField.text {
+        if let quantity = (tableView.cellForRow(at: IndexPath(row: 5, section: 0)) as! QuantityTableViewCell).productQuantityTextField.text {
             product.quantity = Int(quantity) ?? 0
         }
-        if let description = (tableView.cellForRow(at: IndexPath(row: 0, section: 6)) as! DescriptionTableViewCell).productDescriptionTextField.text {
+        if let description = (tableView.cellForRow(at: IndexPath(row: 6, section: 0)) as! DescriptionTableViewCell).productDescriptionTextField.text {
             product.description = description
         }
         return product
@@ -97,7 +100,6 @@ class AddProductViewController: UIViewController {
     func configureTableView() {
         
         tableView.backgroundColor = .clear
-        tableView.sectionFooterHeight = 35
         view.addSubview(tableView)
         setTableViewDelegates()
         
@@ -133,23 +135,22 @@ class AddProductViewController: UIViewController {
         categories.append(Category(name: "Papelaria"))
         categories.append(Category(name: "Outros"))
     }
-    
 }
 
 extension AddProductViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        1
+        7
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        7
+        1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
 //        var cell = UITableViewCell()
         
-        switch indexPath.section {
+        switch indexPath.row {
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: "AddProductImage", for: indexPath) as! ImageTableViewCell
             cell.backgroundColor = .background
@@ -197,13 +198,13 @@ extension AddProductViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        switch indexPath.section {
+        switch indexPath.row {
         case 0:
             return 150
         case 2:
             return 250
         default:
-            return 60
+            return 90
         }
     }
     
@@ -211,39 +212,6 @@ extension AddProductViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.cellForRow(at: indexPath)
         if cell?.canBecomeFirstResponder != nil {
                 cell?.becomeFirstResponder()
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 20
-    }
-    
-    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        let view = UIView()
-        view.backgroundColor = .background
-        
-        return view
-    }
-    
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if indexPath.section == 2 {
-            (cell as! CategoryTableViewCell).watchFrameChanges()
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if indexPath.section == 2 {
-            (cell as! CategoryTableViewCell).ignoreFrameChanges()
-        }
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        for cell in tableView.visibleCells {
-            if cell.isKind(of: CategoryTableViewCell.self) {
-                (cell as! CategoryTableViewCell).ignoreFrameChanges()
-            }
         }
     }
 }
@@ -254,6 +222,10 @@ extension AddProductViewController: UITextFieldDelegate {
         textField.resignFirstResponder()
         return true
     }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        responder = textField
+    }
 }
 
 extension AddProductViewController: UIPickerViewDelegate, UIPickerViewDataSource {
@@ -263,11 +235,6 @@ extension AddProductViewController: UIPickerViewDelegate, UIPickerViewDataSource
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return categories.count
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        //self.categoryPicked = String(row)
-        //print(row.description)
     }
     
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {

@@ -45,7 +45,7 @@ class EditProductViewController: AddProductViewController {
         tableView.register(DeleteTableViewCell.self, forCellReuseIdentifier: "AddProductDelete")
     }
     
-    override func numberOfSections(in tableView: UITableView) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         8
     }
     
@@ -53,7 +53,7 @@ class EditProductViewController: AddProductViewController {
         
 //        var cell = UITableViewCell()
         
-        switch indexPath.section {
+        switch indexPath.row {
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: "AddProductImage", for: indexPath) as! ImageTableViewCell
             if let product = product {
@@ -148,5 +148,4 @@ extension EditProductViewController: DeleteTableViewCellDelegate {
             self.present(alert, animated: true)
         }
     }
-    
 }
