@@ -31,7 +31,7 @@ class AddProductViewController: UIViewController {
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.layoutIfNeeded()
         configureTableView()
-        
+        configureCategory()
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
@@ -167,7 +167,6 @@ extension AddProductViewController: UITableViewDelegate, UITableViewDataSource {
             cell.backgroundColor = .background
             cell.categoryPicker.delegate = self
             cell.categoryPicker.dataSource = self
-            configureCategory()
             return cell
         case 3:
             let cell = tableView.dequeueReusableCell(withIdentifier: "AddProductPrice", for: indexPath) as! PriceTableViewCell

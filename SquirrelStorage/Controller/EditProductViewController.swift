@@ -72,7 +72,6 @@ class EditProductViewController: AddProductViewController {
             return cell
         case 2:
             let cell = tableView.dequeueReusableCell(withIdentifier: "AddProductCategory", for: indexPath) as! CategoryTableViewCell
-            configureCategory()
             if let product = product {
                 let pickerIndex = categories.firstIndex(where: { (category) -> Bool in
                     category.name == product.category
