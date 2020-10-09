@@ -173,9 +173,10 @@ class ProductDetailView: UIView {
         setupDescriptionLabel()
         setupDescriptionTextView()
         setupQuantityImageView()
-        setupCurrentQuantity()
         setupIncreaseQuantityButton()
         setupDecreaseQuantityButton()
+        setupCurrentQuantity()
+        
     }
     
     required init?(coder: NSCoder) {
@@ -348,6 +349,7 @@ class ProductDetailView: UIView {
         currentQuantity.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             currentQuantity.leadingAnchor.constraint(equalTo: quantityImageView.trailingAnchor, constant: 16),
+            currentQuantity.trailingAnchor.constraint(equalTo: decreaseQuantityButton.leadingAnchor, constant: -16),
             currentQuantity.centerYAnchor.constraint(equalTo: quantityBar.centerYAnchor)
         ])
     }

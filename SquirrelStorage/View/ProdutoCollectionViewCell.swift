@@ -104,7 +104,7 @@ class ProdutoCollectionViewCell: UICollectionViewCell, ObservableObject {
         
         NSLayoutConstraint.activate([
             productQnty.leftAnchor.constraint(equalTo: leftAnchor, constant: 8),
-            productQnty.rightAnchor.constraint(equalTo: rightAnchor, constant: -13),
+            productQnty.rightAnchor.constraint(equalTo: rightAnchor, constant: -23),
             productQnty.topAnchor.constraint(equalTo: image.bottomAnchor, constant: 16)
         ])
     }
@@ -126,6 +126,7 @@ class ProdutoCollectionViewCell: UICollectionViewCell, ObservableObject {
         
         NSLayoutConstraint.activate([
             productPrice.leftAnchor.constraint(equalTo: leftAnchor, constant: 8),
+            productPrice.rightAnchor.constraint(equalTo: rightAnchor, constant: -8),
             productPrice.topAnchor.constraint(equalTo: productName.bottomAnchor)
         ])
     }
