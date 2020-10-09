@@ -19,6 +19,7 @@ class CategoryTableViewCell: UITableViewCell {
     let categoryPicker = UIPickerView()
     var pickerTitle = UILabel()
     var pickerContect = UILabel()
+    var selectedPickerIndex: Int = 0
 
     let productCategoryTextField: UITextField = {
         let textField = UITextField()
@@ -38,6 +39,11 @@ class CategoryTableViewCell: UITableViewCell {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        categoryPicker.selectRow(selectedPickerIndex, inComponent: 0, animated: false)
     }
     
     func setCategoryPicker() {
