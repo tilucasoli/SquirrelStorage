@@ -73,18 +73,17 @@ class EditProductViewController: AddProductViewController {
         case 2:
             let cell = tableView.dequeueReusableCell(withIdentifier: "AddProductCategory", for: indexPath) as! CategoryTableViewCell
             if let product = product {
-                var pickerIndex = 0
-                for i in 0..<categories.count where categories[i].name == product.category {
-                    pickerIndex = i
-                    break
+                let pickerIndex = categories.firstIndex(where: { (category) -> Bool in
+                    category.name == product.category
+                })
+                if let index = pickerIndex {
+                    cell.selectedPickerIndex = index
                 }
-                categoryPicker.selectRow(pickerIndex, inComponent: 0, animated: false)
             }
             cell.productCategoryTextField.delegate = self
             cell.backgroundColor = .background
             cell.categoryPicker.delegate = self
             cell.categoryPicker.dataSource = self
-            configureCategory()
             return cell
         case 3:
             let cell = tableView.dequeueReusableCell(withIdentifier: "AddProductPrice", for: indexPath) as! PriceTableViewCell
