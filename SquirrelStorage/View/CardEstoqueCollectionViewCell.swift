@@ -21,6 +21,8 @@ class CardEstoqueCollectionViewCell: UICollectionViewCell {
         lbl.text = "R$ 300,00"
         lbl.font = UIFont.systemFont(ofSize: 30, weight: .bold)
         lbl.textColor = UIColor.background
+        lbl.textAlignment = .center
+        
         return lbl
     }()
     
@@ -52,7 +54,9 @@ class CardEstoqueCollectionViewCell: UICollectionViewCell {
         
         NSLayoutConstraint.activate([
             totalValue.topAnchor.constraint(equalTo: total.topAnchor, constant: 20),
-            totalValue.centerXAnchor.constraint(equalTo: centerXAnchor)
+            totalValue.leftAnchor.constraint(equalTo: leftAnchor, constant: 20),
+            totalValue.rightAnchor.constraint(equalTo: rightAnchor, constant: -20)
+            //totalValue.centerXAnchor.constraint(equalTo: centerXAnchor)
         ])
     }
 }
